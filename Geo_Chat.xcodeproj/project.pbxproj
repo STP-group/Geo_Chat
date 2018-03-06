@@ -13,9 +13,14 @@
 		C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */; };
 		C88E6960204EFB54001B3AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88E695F204EFB54001B3AE2 /* Assets.xcassets */; };
 		C88E6963204EFB54001B3AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */; };
+		C88E696B204F03A8001B3AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */; };
+		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143F68D04D499A27B9F2768C /* Pods-Geo_Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.debug.xcconfig"; sourceTree = "<group>"; };
+		2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Geo_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.release.xcconfig"; sourceTree = "<group>"; };
 		C88E6952204EFB54001B3AE2 /* Geo_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88E6955204EFB54001B3AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C88E6957204EFB54001B3AE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +29,7 @@
 		C88E695F204EFB54001B3AE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C88E6962204EFB54001B3AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C88E6964204EFB54001B3AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		342399752B5F272522EA8744 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				143F68D04D499A27B9F2768C /* Pods-Geo_Chat.debug.xcconfig */,
+				390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C88E6949204EFB54001B3AE2 = {
 			isa = PBXGroup;
 			children = (
 				C88E6954204EFB54001B3AE2 /* Geo_Chat */,
 				C88E6953204EFB54001B3AE2 /* Products */,
+				342399752B5F272522EA8744 /* Pods */,
+				CFDA4530B0AA5639F8594B25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,9 +80,18 @@
 				C88E695F204EFB54001B3AE2 /* Assets.xcassets */,
 				C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */,
 				C88E6964204EFB54001B3AE2 /* Info.plist */,
+				C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */,
 				C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */,
 			);
 			path = Geo_Chat;
+			sourceTree = "<group>";
+		};
+		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C88E6967204EFB54001B3AE2 /* Build configuration list for PBXNativeTarget "Geo_Chat" */;
 			buildPhases = (
+				75C6A73004B5DEADB46EA2A8 /* [CP] Check Pods Manifest.lock */,
 				C88E694E204EFB54001B3AE2 /* Sources */,
 				C88E694F204EFB54001B3AE2 /* Frameworks */,
 				C88E6950204EFB54001B3AE2 /* Resources */,
+				4EF98803E81BCCAAC963C53E /* [CP] Embed Pods Frameworks */,
+				1F25CB93C596A9E7DA6E1FFE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,12 +157,76 @@
 			buildActionMask = 2147483647;
 			files = (
 				C88E6963204EFB54001B3AE2 /* LaunchScreen.storyboard in Resources */,
+				C88E696B204F03A8001B3AE2 /* GoogleService-Info.plist in Resources */,
 				C88E6960204EFB54001B3AE2 /* Assets.xcassets in Resources */,
 				C88E695B204EFB54001B3AE2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F25CB93C596A9E7DA6E1FFE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-resources.sh",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4EF98803E81BCCAAC963C53E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75C6A73004B5DEADB46EA2A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Geo_Chat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C88E694E204EFB54001B3AE2 /* Sources */ = {
@@ -276,6 +370,7 @@
 		};
 		C88E6968204EFB54001B3AE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 143F68D04D499A27B9F2768C /* Pods-Geo_Chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -291,6 +386,7 @@
 		};
 		C88E6969204EFB54001B3AE2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

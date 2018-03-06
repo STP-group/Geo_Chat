@@ -1,0 +1,6 @@
+framework module Pods_Geo_Chat {
+  umbrella header "Pods-Geo_Chat-umbrella.h"
+
+  export *
+  module * { export * }
+}
