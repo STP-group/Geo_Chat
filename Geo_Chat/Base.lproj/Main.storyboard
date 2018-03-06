@@ -86,13 +86,40 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="loginTextField" destination="PB7-jd-jpx" id="e24-Dc-yo1"/>
+                        <outlet property="emailTextField" destination="PB7-jd-jpx" id="fS2-JI-kzf"/>
                         <outlet property="passwordTextField" destination="v8A-fu-8Ph" id="Wir-eX-72Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FjW-Qz-Nmf">
+            <objects>
+                <viewController id="G4N-zr-h3e" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O57-gX-fjq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="тут будет список комнат" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vo7-dD-Fyg">
+                                <rect key="frame" x="20" y="174" width="269" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="7qF-iO-4DE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aE0-nV-R80">
+                        <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RXG-aE-SwX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1458.4000000000001" y="127.28635682158921"/>
         </scene>
         <!--Registery View Controller-->
         <scene sceneID="kxz-d0-95y">
@@ -260,6 +287,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x3l-IZ-aa1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="118" y="1048"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3kK-Fh-rEf">
+            <objects>
+                <navigationController storyboardIdentifier="chatListViewController" automaticallyAdjustsScrollViewInsets="NO" id="b24-UU-g8J" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a9I-td-f09">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="G4N-zr-h3e" kind="relationship" relationship="rootViewController" id="pWs-Ub-qGl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="opf-3K-2bb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="127"/>
         </scene>
     </scenes>
 </document>

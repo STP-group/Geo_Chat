@@ -11,7 +11,11 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var loginTextField: UITextField!
+    
+    
+    
+    
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     
@@ -24,7 +28,40 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func loginAuthentication(_ sender: UIButton) {
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text,emailTextField.text != "", passwordTextField.text != ""  else {
+// alertController
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
+            if error != nil {
+// AlertController
+                return
+            }
+            if user != nil {
+// переход в окно чата
+                let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
+                self?.present(listViewController!, animated: false, completion: nil)
+                return
+            }
+        }
+        
     }
     
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
