@@ -94,27 +94,62 @@
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
-        <!--View Controller-->
+        <!--List Chat View Controller-->
         <scene sceneID="FjW-Qz-Nmf">
             <objects>
-                <viewController id="G4N-zr-h3e" sceneMemberID="viewController">
+                <viewController id="G4N-zr-h3e" customClass="ListChatViewController" customModule="Geo_Chat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O57-gX-fjq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="тут будет список комнат" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vo7-dD-Fyg">
-                                <rect key="frame" x="20" y="174" width="269" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SU5-lf-8f8">
+                                <rect key="frame" x="16" y="64" width="343" height="29"/>
+                                <segments>
+                                    <segment title="1 км"/>
+                                    <segment title="5 км"/>
+                                    <segment title="10 км"/>
+                                    <segment title="50 км"/>
+                                    <segment title="&lt; 50 км"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eo6-A5-giE">
+                                <rect key="frame" x="0.0" y="92" width="375" height="575"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="listChatCell" id="2K9-jx-e1w" customClass="ListChatTableViewCell" customModule="Geo_Chat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2K9-jx-e1w" id="yfZ-Yy-fZb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="G4N-zr-h3e" id="GZg-sA-eDf"/>
+                                    <outlet property="delegate" destination="G4N-zr-h3e" id="yB1-M2-w1J"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eo6-A5-giE" firstAttribute="top" secondItem="SU5-lf-8f8" secondAttribute="bottom" id="4Eh-c5-svQ"/>
+                            <constraint firstItem="7qF-iO-4DE" firstAttribute="trailing" secondItem="eo6-A5-giE" secondAttribute="trailing" id="GQf-mU-AcS"/>
+                            <constraint firstItem="eo6-A5-giE" firstAttribute="leading" secondItem="7qF-iO-4DE" secondAttribute="leading" id="Tc3-lA-dBc"/>
+                            <constraint firstItem="SU5-lf-8f8" firstAttribute="top" secondItem="7qF-iO-4DE" secondAttribute="top" id="XeM-wc-9VB"/>
+                            <constraint firstItem="7qF-iO-4DE" firstAttribute="trailing" secondItem="SU5-lf-8f8" secondAttribute="trailing" constant="16" id="aSM-b2-btA"/>
+                            <constraint firstItem="SU5-lf-8f8" firstAttribute="leading" secondItem="7qF-iO-4DE" secondAttribute="leading" constant="16" id="dEi-IX-BH3"/>
+                            <constraint firstItem="7qF-iO-4DE" firstAttribute="bottom" secondItem="eo6-A5-giE" secondAttribute="bottom" id="eZY-QZ-hxt"/>
+                            <constraint firstItem="eo6-A5-giE" firstAttribute="top" secondItem="SU5-lf-8f8" secondAttribute="bottom" id="l8m-cA-2rr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7qF-iO-4DE"/>
                     </view>
                     <navigationItem key="navigationItem" id="aE0-nV-R80">
-                        <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid"/>
+                        <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid">
+                            <connections>
+                                <action selector="exitPersonal:" destination="G4N-zr-h3e" id="rbg-G8-zUN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXG-aE-SwX" userLabel="First Responder" sceneMemberID="firstResponder"/>

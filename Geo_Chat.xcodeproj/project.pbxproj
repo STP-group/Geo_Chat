@@ -15,6 +15,8 @@
 		C88E696B204F03A8001B3AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */; };
 		C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */; };
 		C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */; };
+		C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */; };
+		C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteryViewController.swift; sourceTree = "<group>"; };
 		C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
+		C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
+				C88E6975204F1D1C001B3AE2 /* ListChat */,
 				C88E6970204F0B06001B3AE2 /* StartMain */,
 				C88E695F204EFB54001B3AE2 /* Assets.xcassets */,
 				C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */,
@@ -95,6 +100,15 @@
 				C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */,
 			);
 			path = StartMain;
+			sourceTree = "<group>";
+		};
+		C88E6975204F1D1C001B3AE2 /* ListChat */ = {
+			isa = PBXGroup;
+			children = (
+				C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */,
+				C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */,
+			);
+			path = ListChat;
 			sourceTree = "<group>";
 		};
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
@@ -247,6 +261,8 @@
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
 				C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */,
+				C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */,
+				C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

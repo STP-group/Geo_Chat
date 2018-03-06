@@ -24,6 +24,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        passwordTextField.text = ""
+    }
 
     
     
