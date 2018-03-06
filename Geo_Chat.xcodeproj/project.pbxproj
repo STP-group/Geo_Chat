@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6955204EFB54001B3AE2 /* AppDelegate.swift */; };
-		C88E6958204EFB54001B3AE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6957204EFB54001B3AE2 /* ViewController.swift */; };
 		C88E695B204EFB54001B3AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6959204EFB54001B3AE2 /* Main.storyboard */; };
 		C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */; };
 		C88E6960204EFB54001B3AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88E695F204EFB54001B3AE2 /* Assets.xcassets */; };
 		C88E6963204EFB54001B3AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */; };
 		C88E696B204F03A8001B3AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */; };
+		C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */; };
+		C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,13 +24,14 @@
 		390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.release.xcconfig"; sourceTree = "<group>"; };
 		C88E6952204EFB54001B3AE2 /* Geo_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88E6955204EFB54001B3AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C88E6957204EFB54001B3AE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C88E695A204EFB54001B3AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C88E695D204EFB54001B3AE2 /* Geo_Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Geo_Chat.xcdatamodel; sourceTree = "<group>"; };
 		C88E695F204EFB54001B3AE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C88E6962204EFB54001B3AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C88E6964204EFB54001B3AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteryViewController.swift; sourceTree = "<group>"; };
+		C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
-				C88E6957204EFB54001B3AE2 /* ViewController.swift */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
+				C88E6970204F0B06001B3AE2 /* StartMain */,
 				C88E695F204EFB54001B3AE2 /* Assets.xcassets */,
 				C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */,
 				C88E6964204EFB54001B3AE2 /* Info.plist */,
@@ -84,6 +86,15 @@
 				C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */,
 			);
 			path = Geo_Chat;
+			sourceTree = "<group>";
+		};
+		C88E6970204F0B06001B3AE2 /* StartMain */ = {
+			isa = PBXGroup;
+			children = (
+				C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */,
+				C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */,
+			);
+			path = StartMain;
 			sourceTree = "<group>";
 		};
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
@@ -173,7 +184,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -233,8 +244,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C88E6958204EFB54001B3AE2 /* ViewController.swift in Sources */,
+				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
+				C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +388,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U8N63RNE8K;
 				INFOPLIST_FILE = Geo_Chat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.anna.Geo-Chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -392,6 +405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U8N63RNE8K;
 				INFOPLIST_FILE = Geo_Chat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.anna.Geo-Chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
