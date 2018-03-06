@@ -74,13 +74,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wny-rf-XBs">
+                                <rect key="frame" x="92" y="221" width="192" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="192" id="7Y8-4k-bCx"/>
+                                    <constraint firstAttribute="height" constant="21" id="Nc3-gJ-9Uo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9d5-Qv-iwi" firstAttribute="top" secondItem="skd-e7-alt" secondAttribute="bottom" constant="67" id="8tI-j0-vU2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="skd-e7-alt" secondAttribute="trailing" constant="30" id="CDU-Lk-WdZ"/>
+                            <constraint firstItem="wny-rf-XBs" firstAttribute="top" secondItem="skd-e7-alt" secondAttribute="bottom" constant="21" id="CpL-60-URs"/>
+                            <constraint firstItem="wny-rf-XBs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NhF-Zg-iO1"/>
                             <constraint firstItem="skd-e7-alt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="QLk-G4-HlR"/>
                             <constraint firstItem="9d5-Qv-iwi" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="gPB-1q-kz2"/>
+                            <constraint firstItem="Xx9-zP-Gak" firstAttribute="top" secondItem="wny-rf-XBs" secondAttribute="bottom" constant="25" id="iXT-FL-TP1"/>
                             <constraint firstItem="9d5-Qv-iwi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tf8-fL-alE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -88,6 +100,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="PB7-jd-jpx" id="fS2-JI-kzf"/>
                         <outlet property="passwordTextField" destination="v8A-fu-8Ph" id="Wir-eX-72Z"/>
+                        <outlet property="worningLabel" destination="wny-rf-XBs" id="MiV-FM-yjl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

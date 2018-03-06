@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var worningLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -41,14 +42,17 @@ class LoginViewController: UIViewController {
               let password = passwordTextField.text,
                   emailTextField.text != "",
                   passwordTextField.text != ""  else {
+// Задание
 // alertController
+// Добавить окно с предупреждением - "не все поля заполнены"
             return
         }
         
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-// AlertController
+// Задание
+// Изменить worningLabel на "error server"
                 return
             }
             
@@ -56,6 +60,11 @@ class LoginViewController: UIViewController {
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
                 self?.present(listViewController!, animated: false, completion: nil)
+                
+            } else {
+// Задание
+// Изменить worningLabel на "неверные данные"
+                
                 return
             }
         }
