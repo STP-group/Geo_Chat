@@ -11,20 +11,19 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
-    
+    // MARK: - Outlets
     // Два текстовых поля на экране "Входа"
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var warningLabel: UILabel!
     
-    
+    // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-    
-    
+
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
     // viewWillAppear - срабатывает перед тем как отобразить экран
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +31,6 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
 
-    
     // Кнопка входа
     @IBAction func loginAuthentication(_ sender: UIButton) {
         // Две константы для авторизации
@@ -52,7 +50,7 @@ class LoginViewController: UIViewController {
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-                self?.warningLabel.text = "Server error"
+                self?.displayWarningLabel(withText: "Server error")
                 return
             }
             
@@ -62,11 +60,21 @@ class LoginViewController: UIViewController {
                 self?.present(listViewController!, animated: false, completion: nil)
                 
             } else {
-                self?.warningLabel.text = "Неверные данные"
+                self?.displayWarningLabel(withText: "Неверные данные")
                 return
             }
         }
-        
+    }
+    
+    func displayWarningLabel (withText text: String) {
+        warningLabel.text = text
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+            self.warningLabel.alpha = 1
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, delay: 5.0, options: [], animations: {
+                self.warningLabel.alpha = 0
+            }, completion: nil)
+        }
     }
     
     
