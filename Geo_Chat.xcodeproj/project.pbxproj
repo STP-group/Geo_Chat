@@ -17,6 +17,8 @@
 		C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */; };
 		C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */; };
 		C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */; };
+		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
+		C8EF0831204FEBD10038E7BE /* ContactsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF0830204FEBD10038E7BE /* ContactsList.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
 		C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatTableViewCell.swift; sourceTree = "<group>"; };
+		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
+		C8EF0830204FEBD10038E7BE /* ContactsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
+				C8EF082E204FE91D0038E7BE /* userInfo.swift */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
 				C88E6975204F1D1C001B3AE2 /* ListChat */,
 				C88E6970204F0B06001B3AE2 /* StartMain */,
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */,
+				C8EF0830204FEBD10038E7BE /* ContactsList.swift */,
 				C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */,
 			);
 			path = ListChat;
@@ -258,12 +264,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8EF0831204FEBD10038E7BE /* ContactsList.swift in Sources */,
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
 				C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */,
 				C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */,
 				C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
+				C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

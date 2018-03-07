@@ -11,10 +11,23 @@ import Firebase
 
 class ListChatViewController: UIViewController {
 
+    var login: String?
+    
+    
+    var user: UserInfo!
+    var ref: DatabaseReference!
+    var listUsers = Array<Contacts>()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+        guard let currentUser = Auth.auth().currentUser else { return }
+        user = UserInfo(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("listUsers")
+        let list = Contacts(name: login!, userId: user.uid)
+        let listRef = self.ref.child(list.name.lowercased())
+        listRef.setValue(["title": list.name])
     }
     
     @IBAction func exitPersonal(_ sender: UIBarButtonItem) {

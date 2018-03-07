@@ -19,7 +19,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Geo_Chat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Geo_Chat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -308,6 +308,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-Hn-PS2">
                                 <rect key="frame" x="159" y="493" width="56" height="30"/>
                                 <state key="normal" title="Отмена"/>
+                                <connections>
+                                    <action selector="cancelButton:" destination="LaY-oc-C1D" eventType="touchUpInside" id="D5y-0P-CP4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpN-Bj-BOj">
                                 <rect key="frame" x="141" y="422" width="92" height="30"/>
@@ -315,6 +318,9 @@
                                 <state key="normal" title="Регистрация">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="registeryButton:" destination="LaY-oc-C1D" eventType="touchUpInside" id="nN4-e2-VTh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -331,6 +337,12 @@
                         <viewLayoutGuide key="safeArea" id="Oud-Ls-RgD"/>
                     </view>
                     <navigationItem key="navigationItem" id="ThF-ow-j5S"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="NXB-uo-bsK" id="R3r-KD-fXT"/>
+                        <outlet property="nickNameTextField" destination="EmP-Uo-xMd" id="IbL-Z3-hcr"/>
+                        <outlet property="passwordTextField" destination="zvV-jv-VAT" id="2uF-Nf-x08"/>
+                        <outlet property="twoPasswordTextField" destination="Fvx-YR-IDf" id="mpX-xm-gru"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x3l-IZ-aa1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
