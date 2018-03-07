@@ -100,7 +100,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="PB7-jd-jpx" id="fS2-JI-kzf"/>
                         <outlet property="passwordTextField" destination="v8A-fu-8Ph" id="Wir-eX-72Z"/>
-                        <outlet property="worningLabel" destination="wny-rf-XBs" id="MiV-FM-yjl"/>
+                        <outlet property="warningLabel" destination="wny-rf-XBs" id="ZeC-Z5-vvH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

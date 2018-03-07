@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var worningLabel: UILabel!
+    @IBOutlet weak var warningLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -42,17 +42,17 @@ class LoginViewController: UIViewController {
               let password = passwordTextField.text,
                   emailTextField.text != "",
                   passwordTextField.text != ""  else {
-// Задание
-// alertController
-// Добавить окно с предупреждением - "не все поля заполнены"
-            return
-        }
+                    let alertController = UIAlertController(title: "Ошибка", message: "Не все поля заполнены", preferredStyle: .alert)
+                    let cancelButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(cancelButton)
+                    present(alertController, animated: true, completion: nil)
+                    return
+                    }
         
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-// Задание
-// Изменить worningLabel на "error server"
+                self?.warningLabel.text = "Server error"
                 return
             }
             
@@ -62,9 +62,7 @@ class LoginViewController: UIViewController {
                 self?.present(listViewController!, animated: false, completion: nil)
                 
             } else {
-// Задание
-// Изменить worningLabel на "неверные данные"
-                
+                self?.warningLabel.text = "Неверные данные"
                 return
             }
         }
