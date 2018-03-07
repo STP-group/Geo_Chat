@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C856DC732050451D007BF48D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856DC722050451D007BF48D /* LoginViewController.swift */; };
 		C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6955204EFB54001B3AE2 /* AppDelegate.swift */; };
 		C88E695B204EFB54001B3AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6959204EFB54001B3AE2 /* Main.storyboard */; };
 		C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */; };
@@ -14,7 +15,6 @@
 		C88E6963204EFB54001B3AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */; };
 		C88E696B204F03A8001B3AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */; };
 		C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */; };
-		C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */; };
 		C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */; };
 		C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */; };
 		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
@@ -26,6 +26,7 @@
 		143F68D04D499A27B9F2768C /* Pods-Geo_Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.debug.xcconfig"; sourceTree = "<group>"; };
 		2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Geo_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.release.xcconfig"; sourceTree = "<group>"; };
+		C856DC722050451D007BF48D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C88E6952204EFB54001B3AE2 /* Geo_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88E6955204EFB54001B3AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C88E695A204EFB54001B3AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		C88E6964204EFB54001B3AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteryViewController.swift; sourceTree = "<group>"; };
-		C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
 		C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatTableViewCell.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		C88E6970204F0B06001B3AE2 /* StartMain */ = {
 			isa = PBXGroup;
 			children = (
-				C88E696E204F0AFB001B3AE2 /* LoginViewController.swift */,
+				C856DC722050451D007BF48D /* LoginViewController.swift */,
 				C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */,
 			);
 			path = StartMain;
@@ -267,8 +267,8 @@
 				C8EF0831204FEBD10038E7BE /* ContactsList.swift in Sources */,
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
-				C88E696F204F0AFB001B3AE2 /* LoginViewController.swift in Sources */,
 				C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */,
+				C856DC732050451D007BF48D /* LoginViewController.swift in Sources */,
 				C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
 				C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */,

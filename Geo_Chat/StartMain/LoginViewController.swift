@@ -8,24 +8,22 @@
 
 import UIKit
 import FirebaseAuth
-import CoreData
 
 class LoginViewController: UIViewController {
     
-    
+    // MARK: - Outlets
     // Два текстовых поля на экране "Входа"
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var warningLabel: UILabel!
     
-    
+    // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-    
-    
+
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
     // viewWillAppear - срабатывает перед тем как отобразить экран
     override func viewWillAppear(_ animated: Bool) {
@@ -33,19 +31,6 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
 
-    func saveDataCoreData() {
-        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-        let dataUsers = UserData(context: context!)
-        dataUsers.email = emailTextField.text
-        
-        do {
-            try context?.save()
-            print("save complete")
-        } catch let error as NSError {
-            print("Не удалось сохранить данные \(error), \(error.userInfo)")
-        }
-    }
-    
     // Кнопка входа
     @IBAction func loginAuthentication(_ sender: UIButton) {
         // Две константы для авторизации
@@ -65,22 +50,31 @@ class LoginViewController: UIViewController {
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-                self?.warningLabel.text = "Server error"
+                self?.displayWarningLabel(withText: "Server error")
                 return
             }
             
             if user != nil {
-                self?.saveDataCoreData()
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
                 self?.present(listViewController!, animated: false, completion: nil)
                 
             } else {
-                self?.warningLabel.text = "Неверные данные"
+                self?.displayWarningLabel(withText: "Неверные данные")
                 return
             }
         }
-        
+    }
+    
+    func displayWarningLabel (withText text: String) {
+        warningLabel.text = text
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+            self.warningLabel.alpha = 1
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, delay: 5.0, options: [], animations: {
+                self.warningLabel.alpha = 0
+            }, completion: nil)
+        }
     }
     
     
