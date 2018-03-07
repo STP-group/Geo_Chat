@@ -167,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXG-aE-SwX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1458.4000000000001" y="127.28635682158921"/>
+            <point key="canvasLocation" x="2136.8000000000002" y="127.28635682158921"/>
         </scene>
         <!--Registery View Controller-->
         <scene sceneID="kxz-d0-95y">
@@ -349,22 +349,22 @@
             <point key="canvasLocation" x="118" y="1048"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="3kK-Fh-rEf">
+        <scene sceneID="R7s-of-7Wd">
             <objects>
-                <navigationController storyboardIdentifier="chatListViewController" automaticallyAdjustsScrollViewInsets="NO" id="b24-UU-g8J" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="chatListViewController" automaticallyAdjustsScrollViewInsets="NO" id="Qv1-to-Fx8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a9I-td-f09">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h2U-WX-K2H">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="G4N-zr-h3e" kind="relationship" relationship="rootViewController" id="pWs-Ub-qGl"/>
+                        <segue destination="G4N-zr-h3e" kind="relationship" relationship="rootViewController" id="dRK-nA-oky"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="opf-3K-2bb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CXq-1b-UFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="785" y="127"/>
+            <point key="canvasLocation" x="1150" y="152"/>
         </scene>
     </scenes>
 </document>

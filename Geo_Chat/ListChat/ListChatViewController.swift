@@ -8,10 +8,15 @@
 
 import UIKit
 import Firebase
+import CoreData
 
-class ListChatViewController: UIViewController {
+class ListChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
-    var login: String?
+    var fetchResultsController = NSFetchedResultsController<UserData>()
+    
+    var userData: [UserData] = []
+    
+    var login = "hi"
     
     
     var user: UserInfo!
@@ -22,10 +27,21 @@ class ListChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+        let fethRequest: NSFetchRequest<UserData> = UserData.fetchRequest()
+        do {
+            userData = (try context?.fetch(fethRequest))!
+
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+       // print(login!)
         guard let currentUser = Auth.auth().currentUser else { return }
         user = UserInfo(user: currentUser)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("listUsers")
-        let list = Contacts(name: login!, userId: user.uid)
+        let list = Contacts(name: login, userId: user.uid)
         let listRef = self.ref.child(list.name.lowercased())
         listRef.setValue(["title": list.name])
     }
@@ -54,14 +70,15 @@ extension ListChatViewController: UITabBarDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 4
+        return userData.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listChatCell", for: indexPath) as! ListChatTableViewCell
         
-        cell.textLabel?.text = "\(indexPath.row)"
+        cell.textLabel?.text = userData[indexPath.row].email
+
         
         
         return cell

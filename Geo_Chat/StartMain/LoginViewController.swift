@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import CoreData
 
 class LoginViewController: UIViewController {
     
@@ -32,6 +33,18 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
 
+    func saveDataCoreData() {
+        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+        let dataUsers = UserData(context: context!)
+        dataUsers.email = emailTextField.text
+        
+        do {
+            try context?.save()
+            print("save complete")
+        } catch let error as NSError {
+            print("Не удалось сохранить данные \(error), \(error.userInfo)")
+        }
+    }
     
     // Кнопка входа
     @IBAction func loginAuthentication(_ sender: UIButton) {
@@ -57,6 +70,7 @@ class LoginViewController: UIViewController {
             }
             
             if user != nil {
+                self?.saveDataCoreData()
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
                 self?.present(listViewController!, animated: false, completion: nil)
