@@ -3,109 +3,109 @@
 	{
       "size" : "20x20",
       "idiom": "iphone",
-	  "filename" : "demoIcon-20@2x.png",
+	  "filename" : "demo_chat-20@2x.png",
       "scale": "2x"
     },
 	{
       "size" : "20x20",
       "idiom": "iphone",
-	  "filename" : "demoIcon-20@3x.png",
+	  "filename" : "demo_chat-20@3x.png",
       "scale": "3x"
     },
 	{
       "size" : "20x20",
       "idiom": "ipad",
-	  "filename" : "demoIcon-20.png",
+	  "filename" : "demo_chat-20.png",
       "scale": "1x"
     },
     {
       "size" : "20x20",
       "idiom": "ipad",
-	  "filename" : "demoIcon-20@2x.png",
+	  "filename" : "demo_chat-20@2x.png",
       "scale": "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "demoIcon-29@2x.png",
+      "filename" : "demo_chat-29@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "demoIcon-29@3x.png",
+      "filename" : "demo_chat-29@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "demoIcon-40@2x.png",
+      "filename" : "demo_chat-40@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "demoIcon-40@3x.png",
+      "filename" : "demo_chat-40@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "demoIcon-60@2x.png",
+      "filename" : "demo_chat-60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "demoIcon-60@3x.png",
+      "filename" : "demo_chat-60@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "demoIcon-29.png",
+      "filename" : "demo_chat-29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "demoIcon-29@2x.png",
+      "filename" : "demo_chat-29@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "demoIcon-40.png",
+      "filename" : "demo_chat-40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "demoIcon-40@2x.png",
+      "filename" : "demo_chat-40@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "demoIcon-76.png",
+      "filename" : "demo_chat-76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "demoIcon-76@2x.png",
+      "filename" : "demo_chat-76@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "demoIcon-83.5@2x.png",
+      "filename" : "demo_chat-83.5@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "demoIcon-1024.png",
+      "filename" : "demo_chat-1024.png",
       "scale" : "1x"
     }
   ],
