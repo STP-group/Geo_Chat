@@ -12,11 +12,13 @@ import Firebase
 struct Contacts {
     let name: String
     let userId: String
+    let status: Bool
     let ref: DatabaseReference?
     
     init(name: String, userId: String) {
         self.name = name
         self.userId = userId
+        self.status = false
         self.ref = nil
     }
     
@@ -24,6 +26,7 @@ struct Contacts {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         name = snapshotValue["name"] as! String
         userId = snapshotValue["userId"] as! String
+        status = snapshotValue["status"] as! Bool
         ref = snapshot.ref
     }
 

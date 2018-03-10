@@ -19,9 +19,16 @@ class RegisteryViewController: UIViewController {
     
     @IBOutlet weak var twoPasswordTextField: UITextField!
     
+    var user: UserInfo!
+    var ref: DatabaseReference!
+    var listUsers = Array<Contacts>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let currentUser = Auth.auth().currentUser else { return }
+        user = UserInfo(user: currentUser)
+        ref = Database.database().reference(withPath: "lisUsers")
+       
 
        
     }
@@ -38,7 +45,9 @@ class RegisteryViewController: UIViewController {
                     })
                     alertController.addAction(cancelButton)
                     self.present(alertController, animated: true, completion: nil)
-                    
+                    let list = Contacts(name: self.nickNameTextField.text!, userId: (user?.uid)!)
+                    let listRef = self.ref.child(list.name.lowercased())
+                    listRef.setValue(["name": list.name])
                     print("ok")
                 } else {
                     print("not create")
