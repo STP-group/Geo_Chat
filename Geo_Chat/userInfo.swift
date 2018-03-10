@@ -10,12 +10,12 @@ import Foundation
 import Firebase
 
 struct UserInfo {
-    let uid: String
+    //let uid: String
     let email: String
     //let cell
     
     init(user: User) {
-        self.uid = user.uid
+       // self.uid = user.uid
         self.email = user.email!
         // Coments
     }
