@@ -12,5 +12,4 @@ target 'Geo_Chat' do
        pod 'Firebase/Core'
        pod 'Firebase/Storage'
 
-
 end
