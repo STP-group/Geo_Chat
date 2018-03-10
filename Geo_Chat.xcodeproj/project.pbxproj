@@ -19,6 +19,10 @@
 		C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */; };
 		C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */; };
 		C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEC12053D70200E6BC57 /* Contacts.swift */; };
+		C8BBFEC62053DFBF00E6BC57 /* ListContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEC52053DFBF00E6BC57 /* ListContactTableViewController.swift */; };
+		C8BBFEC82053DFDC00E6BC57 /* ListContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEC72053DFDC00E6BC57 /* ListContactTableViewCell.swift */; };
+		C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */; };
+		C8BBFECD2053E7E800E6BC57 /* ShowContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */; };
 		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
@@ -41,6 +45,10 @@
 		C88E6973204F1D15001B3AE2 /* ListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatTableViewCell.swift; sourceTree = "<group>"; };
 		C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C8BBFEC12053D70200E6BC57 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		C8BBFEC52053DFBF00E6BC57 /* ListContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactTableViewController.swift; sourceTree = "<group>"; };
+		C8BBFEC72053DFDC00E6BC57 /* ListContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactTableViewCell.swift; sourceTree = "<group>"; };
+		C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableViewCell.swift; sourceTree = "<group>"; };
+		C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableViewController.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +97,7 @@
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
 				C8EF082E204FE91D0038E7BE /* userInfo.swift */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
+				C8BBFEC92053DFE300E6BC57 /* ListContact */,
 				C88E6975204F1D1C001B3AE2 /* ListChat */,
 				C88E6970204F0B06001B3AE2 /* StartMain */,
 				C88E695F204EFB54001B3AE2 /* Assets.xcassets */,
@@ -118,6 +127,25 @@
 				C88E6971204F1CFB001B3AE2 /* ListChatViewController.swift */,
 			);
 			path = ListChat;
+			sourceTree = "<group>";
+		};
+		C8BBFEC92053DFE300E6BC57 /* ListContact */ = {
+			isa = PBXGroup;
+			children = (
+				C8BBFEC52053DFBF00E6BC57 /* ListContactTableViewController.swift */,
+				C8BBFECE2053E7F300E6BC57 /* ShowContacts */,
+				C8BBFEC72053DFDC00E6BC57 /* ListContactTableViewCell.swift */,
+			);
+			path = ListContact;
+			sourceTree = "<group>";
+		};
+		C8BBFECE2053E7F300E6BC57 /* ShowContacts */ = {
+			isa = PBXGroup;
+			children = (
+				C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */,
+				C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */,
+			);
+			path = ShowContacts;
 			sourceTree = "<group>";
 		};
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
@@ -270,10 +298,14 @@
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
 				C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */,
+				C8BBFECD2053E7E800E6BC57 /* ShowContactsTableViewController.swift in Sources */,
+				C8BBFEC82053DFDC00E6BC57 /* ListContactTableViewCell.swift in Sources */,
 				C88E6974204F1D15001B3AE2 /* ListChatTableViewCell.swift in Sources */,
 				C856DC732050451D007BF48D /* LoginViewController.swift in Sources */,
 				C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */,
 				C88E6972204F1CFB001B3AE2 /* ListChatViewController.swift in Sources */,
+				C8BBFEC62053DFBF00E6BC57 /* ListContactTableViewController.swift in Sources */,
+				C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
 				C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */,
 			);
