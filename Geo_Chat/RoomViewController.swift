@@ -10,30 +10,42 @@ import UIKit
 
 class RoomViewController: UIViewController {
     
-    
+    let room = ["ROMM 1", "ROOM 2", "ROOM 3"]
+    let roomSend = ["numberOne", "numberTwo", "numberThree"]
 
+    
+    var nameUser = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print(nameUser)
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+}
+extension RoomViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return room.count
     }
     
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listRoomCell", for: indexPath) as! RoomTableViewCell
+        cell.textLabel?.text = room[indexPath.row]
+        
+        return cell
+    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+        if segue.identifier == "sendDataSegue" {
+                let dvc =  segue.destination as! ChatViewController
+                dvc.nameVC = roomSend[0]
+            dvc.idUser = nameUser
+                // Передача данных через сигвей
+            }
+        }
+    
+    
 }

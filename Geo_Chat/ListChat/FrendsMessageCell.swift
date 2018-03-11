@@ -1,5 +1,5 @@
 //
-//  ChatInTableViewCell.swift
+//  FrendsMessageCell.swift
 //  Geo_Chat
 //
 //  Created by Артем Валерьевич on 11.03.2018.
@@ -8,8 +8,12 @@
 
 import UIKit
 
-class ChatInTableViewCell: UITableViewCell {
+class FrendsMessageCell: UITableViewCell {
 
+    
+    @IBOutlet weak var messageText: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +24,5 @@ class ChatInTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

@@ -1,5 +1,5 @@
 //
-//  ChatOutTableViewCell.swift
+//  ChatTestInTableViewCell.swift
 //  Geo_Chat
 //
 //  Created by Артем Валерьевич on 11.03.2018.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ChatOutTableViewCell: UITableViewCell {
+class ChatTestInTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var messageNyText: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +21,5 @@ class ChatOutTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }
