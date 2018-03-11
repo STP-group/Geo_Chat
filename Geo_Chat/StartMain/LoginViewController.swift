@@ -12,6 +12,8 @@ import CoreData
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var steckViewLogin: UIStackView!
     // MARK: - Outlets
     // Два текстовых поля на экране "Входа"
     @IBOutlet weak var emailTextField: UITextField!
@@ -22,7 +24,51 @@ class LoginViewController: UIViewController {
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        displayHelloLabel()
+        
+    }
+    func displayHelloLabel() {
+        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
+            self.helloLabel.alpha = 0
+        }, completion: nil)
+    }
+    
+   
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            print("HELLO")
+            if self.view.frame.origin.y == 0{
+                self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
+                self.view.frame.origin.y -= 50
+//            }
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.helloLabel.frame.size = CGSize(width: 30, height: 300)
+                self.view.frame.origin.y += 50
+            //}
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldEdit(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
@@ -32,18 +78,7 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
 
-    func saveDataCoreData() {
-        let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-        let dataUsers = UserData(context: context!)
-        dataUsers.email = emailTextField.text
-        
-        do {
-            try context?.save()
-            print("save complete")
-        } catch let error as NSError {
-            print("Не удалось сохранить данные \(error), \(error.userInfo)")
-        }
-    }
+    
     
     // Кнопка входа
     @IBAction func loginAuthentication(_ sender: UIButton) {
@@ -64,12 +99,12 @@ class LoginViewController: UIViewController {
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Server error")
+                self?.displayWarningLabel(withText: "Неверные данные2")
                 return
             }
             
             if user != nil {
-                 self?.saveDataCoreData()
+                 
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
                 self?.present(listViewController!, animated: false, completion: nil)

@@ -1,14 +1,14 @@
 //
-//  ListContactTableViewCell.swift
+//  ChatInTableViewCell.swift
 //  Geo_Chat
 //
-//  Created by Артем Валерьевич on 10.03.2018.
+//  Created by Артем Валерьевич on 11.03.2018.
 //  Copyright © 2018 Артем Валерьевич. All rights reserved.
 //
 
 import UIKit
 
-class ListContactTableViewCell: UITableViewCell {
+class ChatInTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,5 +20,5 @@ class ListContactTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }
