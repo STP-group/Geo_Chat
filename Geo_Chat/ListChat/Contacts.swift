@@ -26,8 +26,4 @@ struct Contact {
         email = snapshotValue["email"] as! String
         ref = snapshot.ref
     }
-    
-    
-    
-    
 }
