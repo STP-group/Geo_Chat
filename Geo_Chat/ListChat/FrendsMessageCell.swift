@@ -13,6 +13,12 @@ class FrendsMessageCell: UITableViewCell {
     
     @IBOutlet weak var messageText: UILabel!
     
+    @IBOutlet weak var viewMessageInCell: UIView! {
+        didSet {
+            viewMessageInCell.layer.cornerRadius = 5
+            viewMessageInCell.layer.masksToBounds = true
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

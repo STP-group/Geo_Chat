@@ -303,6 +303,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageText" destination="dL9-ta-1Qr" id="SeE-P1-Efv"/>
+                                            <outlet property="viewMessageInCell" destination="zgO-ap-TDP" id="z48-67-07g"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="outCell" rowHeight="44" id="zre-06-7SA" customClass="ChatTestInTableViewCell" customModule="Geo_Chat" customModuleProvider="target">
@@ -312,27 +313,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMZ-cq-Udf">
-                                                    <rect key="frame" x="8" y="5" width="42" height="33"/>
-                                                    <color key="backgroundColor" red="0.49166053854864322" green="1" blue="0.53556339411519627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vM-Bt-ltt">
+                                                    <rect key="frame" x="15" y="2" width="52" height="40"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMZ-cq-Udf">
+                                                            <rect key="frame" x="5" y="5" width="42" height="34"/>
+                                                            <color key="backgroundColor" red="0.49166053854864322" green="1" blue="0.53556339411519627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.44705882352941179" green="1" blue="0.49411764705882355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="zS0-Za-T8r"/>
+                                                        <constraint firstItem="pMZ-cq-Udf" firstAttribute="top" secondItem="9vM-Bt-ltt" secondAttribute="top" constant="5" id="7uM-yd-b9x"/>
+                                                        <constraint firstItem="pMZ-cq-Udf" firstAttribute="leading" secondItem="9vM-Bt-ltt" secondAttribute="leading" constant="5" id="Q3a-Uz-p0M"/>
+                                                        <constraint firstAttribute="trailing" secondItem="pMZ-cq-Udf" secondAttribute="trailing" constant="5" id="YIh-s2-hVc"/>
+                                                        <constraint firstAttribute="bottom" secondItem="pMZ-cq-Udf" secondAttribute="bottom" constant="1" id="fpW-Da-r6m"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pMZ-cq-Udf" firstAttribute="top" secondItem="Pe9-3v-BwZ" secondAttribute="top" constant="5" id="4pn-Kz-sZt"/>
-                                                <constraint firstItem="pMZ-cq-Udf" firstAttribute="leading" secondItem="Pe9-3v-BwZ" secondAttribute="leading" constant="8" id="ErG-pb-Mvm"/>
-                                                <constraint firstAttribute="bottom" secondItem="pMZ-cq-Udf" secondAttribute="bottom" constant="6" id="LnY-Hh-Oa0"/>
-                                                <constraint firstItem="pMZ-cq-Udf" firstAttribute="centerY" secondItem="Pe9-3v-BwZ" secondAttribute="centerY" id="egn-va-pdD"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pMZ-cq-Udf" secondAttribute="trailing" constant="142" id="ySo-wS-Djo"/>
+                                                <constraint firstAttribute="bottom" secondItem="9vM-Bt-ltt" secondAttribute="bottom" constant="2" id="Fcm-uh-WX6"/>
+                                                <constraint firstItem="9vM-Bt-ltt" firstAttribute="top" secondItem="Pe9-3v-BwZ" secondAttribute="top" constant="2" id="UQ9-Gl-ZXw"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9vM-Bt-ltt" secondAttribute="trailing" constant="142" id="USu-xL-dfx"/>
+                                                <constraint firstItem="9vM-Bt-ltt" firstAttribute="leading" secondItem="Pe9-3v-BwZ" secondAttribute="leading" constant="15" id="bcQ-ry-xRj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageNyText" destination="pMZ-cq-Udf" id="0IY-mC-TIp"/>
+                                            <outlet property="viewMessageOutCell" destination="9vM-Bt-ltt" id="Hfk-3a-f7I"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

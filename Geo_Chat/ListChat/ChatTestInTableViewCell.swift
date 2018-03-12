@@ -10,6 +10,12 @@ import UIKit
 
 class ChatTestInTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var viewMessageOutCell: UIView!{
+        didSet {
+            viewMessageOutCell.layer.cornerRadius = 5
+            viewMessageOutCell.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var messageNyText: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
