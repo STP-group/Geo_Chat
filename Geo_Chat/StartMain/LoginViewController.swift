@@ -107,7 +107,7 @@ class LoginViewController: UIViewController {
                  
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
-                let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVC") as! RoomViewController
+                let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVC") as! ReallyGoodViewController
                 sendData.nameUser = email
                 listViewController?.addChildViewController(sendData)
                 sendData.nameUser = email
