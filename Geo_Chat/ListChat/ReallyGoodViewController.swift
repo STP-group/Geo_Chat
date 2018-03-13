@@ -40,7 +40,8 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "W2Cell", for: indexPath) as! ChatRoomTableViewCell
-        let bgColors = cell.mainViewBackgroundColors
+        
+        let bgColors = cell.mainViewBackgroundColors // блок кода, отвечающий за фон чата. IndexPath не выйдет за пределы массива с цветом
         cell.mainView.backgroundColor = { () -> UIColor in
             let cur = indexPath.row / bgColors.count
             return bgColors[indexPath.row - bgColors.count * cur]
