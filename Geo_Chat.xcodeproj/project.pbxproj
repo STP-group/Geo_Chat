@@ -23,6 +23,7 @@
 		C8BBFECD2053E7E800E6BC57 /* ShowContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */; };
 		C8C594A22055A1AE009A3C2C /* ChatTestInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */; };
 		C8C594A42055AF35009A3C2C /* FrendsMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */; };
+		C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D20B522059AE1B00B32DD6 /* Messages.swift */; };
 		C8E0CE68205561FC000E019C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E0CE67205561FC000E019C /* ChatViewController.swift */; };
 		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
@@ -50,6 +51,8 @@
 		C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableViewController.swift; sourceTree = "<group>"; };
 		C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTestInTableViewCell.swift; sourceTree = "<group>"; };
 		C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrendsMessageCell.swift; sourceTree = "<group>"; };
+		C8D20B522059AE1B00B32DD6 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		C8D20B542059B01D00B32DD6 /* ChatVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ChatVC.storyboard; path = /Users/psilc/Documents/GitHub/Geo_Chat/Geo_Chat/ListChat/chatVC/ChatVC.storyboard; sourceTree = "<absolute>"; };
 		C8E0CE67205561FC000E019C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,10 +127,10 @@
 		C88E6975204F1D1C001B3AE2 /* ListChat */ = {
 			isa = PBXGroup;
 			children = (
+				C8D20B512059ADCD00B32DD6 /* chatVC */,
 				C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */,
 				C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */,
 				C8BBFEC12053D70200E6BC57 /* Contacts.swift */,
-				C8E0CE67205561FC000E019C /* ChatViewController.swift */,
 				C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */,
 				C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */,
 			);
@@ -149,6 +152,16 @@
 				C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */,
 			);
 			path = ShowContacts;
+			sourceTree = "<group>";
+		};
+		C8D20B512059ADCD00B32DD6 /* chatVC */ = {
+			isa = PBXGroup;
+			children = (
+				C8E0CE67205561FC000E019C /* ChatViewController.swift */,
+				C8D20B542059B01D00B32DD6 /* ChatVC.storyboard */,
+				C8D20B522059AE1B00B32DD6 /* Messages.swift */,
+			);
+			path = chatVC;
 			sourceTree = "<group>";
 		};
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
@@ -305,6 +318,7 @@
 				C856DC732050451D007BF48D /* LoginViewController.swift in Sources */,
 				C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */,
 				C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */,
+				C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */,
 				C41083612056B4DF00C47473 /* ReallyGoodViewController.swift in Sources */,
 				C8E0CE68205561FC000E019C /* ChatViewController.swift in Sources */,
 				C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */,

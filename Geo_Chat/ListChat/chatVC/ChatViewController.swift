@@ -11,45 +11,19 @@ import Firebase
 
 class ChatViewController: UIViewController, UITextViewDelegate {
     
-    struct Messages {
-        let message: String
-        let email: String
-        let date: String
-        let indexMessage: String
-        let ref: DatabaseReference?
-        
-        
-        init(message: String, email: String, date: String, indexMessage: String) {
-            self.message = message
-            self.email = email
-            self.date = date
-            self.indexMessage = indexMessage
-            self.ref = nil
-        }
-        init(snapshot: DataSnapshot) {
-            let snapshotValue = snapshot.value as! [String: AnyObject]
-            email = snapshotValue["email"] as! String
-            message = snapshotValue["message"] as! String
-            indexMessage = snapshotValue["indexMessage"] as! String
-            date = snapshotValue["date"] as! String
-            ref = snapshot.ref
-        }
-    }
-    
-    
-    var indexes = [String]()
-    var isScrollChatNeeded = false
-    var isScrollChatForced = false
+
     var idUser = ""
     var nameVC = ""
     var user: UsersInfo!
     var ref: DatabaseReference!
     var userId = Array<Contact>()
     var message = Array<Messages>()
-    //var indexMessage = "0"
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextField: UITextView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.scrollChatToLastRowIfNeeded()
@@ -83,7 +57,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
-         let miliSeconds = calendar.component(.nanosecond, from: date)
+        let miliSeconds = calendar.component(.nanosecond, from: date)
         let timeMessages = "\(hour):\(minutes):\(seconds):\(miliSeconds)"
         return timeMessages
     }
@@ -95,14 +69,9 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         print(date())
         let refMessage = self.ref.child(String(message.count))
         refMessage.setValue(["message": text.message, "email": idUser, "date": text.date, "indexMessage": String(message.count)])
-        //refMessage.setValue(["message": text.message, "email": idUser, "date": text.date, "indexMessage": message.count])
         messageTextField.text = ""
         
-        
     }
-    
-    
-    
     
     
 }
@@ -120,10 +89,10 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
             self?.message = _list
             
             self?.tableView.reloadData()
-
+            
             self?.scrollChatToLastRowIfNeeded()
             
-
+            
         }
     }
     
