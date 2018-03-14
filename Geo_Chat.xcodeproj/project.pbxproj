@@ -52,7 +52,6 @@
 		C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTestInTableViewCell.swift; sourceTree = "<group>"; };
 		C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrendsMessageCell.swift; sourceTree = "<group>"; };
 		C8D20B522059AE1B00B32DD6 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
-		C8D20B542059B01D00B32DD6 /* ChatVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ChatVC.storyboard; path = /Users/psilc/Documents/GitHub/Geo_Chat/Geo_Chat/ListChat/chatVC/ChatVC.storyboard; sourceTree = "<absolute>"; };
 		C8E0CE67205561FC000E019C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				C8E0CE67205561FC000E019C /* ChatViewController.swift */,
-				C8D20B542059B01D00B32DD6 /* ChatVC.storyboard */,
 				C8D20B522059AE1B00B32DD6 /* Messages.swift */,
 			);
 			path = chatVC;

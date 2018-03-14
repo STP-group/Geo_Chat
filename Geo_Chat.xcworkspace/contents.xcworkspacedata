@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/psilc/Documents/GitHub/Geo_Chat/Geo_Chat/ListChat/chatVC/ChatVC.storyboard">
-   </FileRef>
-   <FileRef
       location = "group:Geo_Chat.xcodeproj">
    </FileRef>
    <FileRef

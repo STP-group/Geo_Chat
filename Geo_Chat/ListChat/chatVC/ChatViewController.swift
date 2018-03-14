@@ -26,7 +26,6 @@ class ChatViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.scrollChatToLastRowIfNeeded()
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = .clear
@@ -37,7 +36,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         // user
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
-        ref = Database.database().reference(withPath: "lisUsers").child("messages")
+        ref = Database.database().reference(withPath: "lisUsers").child(nameVC)
         
     }
     func date() -> String {

@@ -13,7 +13,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
-    let roomSend = ["numberOne", "numberTwo", "numberThree"]
+    let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
     
     
     var nameUser = ""
@@ -61,9 +61,12 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sendDataSegue" {
-            let dvc =  segue.destination as! ChatViewController
-            dvc.nameVC = roomSend[0]
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let dvc =  segue.destination as! ChatViewController
+            dvc.nameVC = roomSend[indexPath.row]
+                print(roomSend[indexPath.row])
             dvc.idUser = nameUser
+        }
             // Передача данных через сигвей
         }
     }
