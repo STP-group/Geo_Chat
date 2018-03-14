@@ -8,14 +8,22 @@
 
 import UIKit
 class ChatRoomTableViewCell: UITableViewCell {
-    @IBOutlet weak var mainView: UIView! // Фон чата
-    @IBOutlet weak var imageForChatRoom: UIImageView! // Изображение для чата
-    @IBOutlet weak var chatRoomName: UILabel! // Название чата
-    @IBOutlet weak var numberOfPeopleInRoom: UILabel! // Количество человек в комнате
-    @IBOutlet weak var lastSender: UILabel! // Имя последнего отправителя сообщения
-    @IBOutlet weak var lastText: UILabel! // Текст последнего сообщения
-    @IBOutlet weak var lastTime: UILabel! // Время последнего сообщения
-    @IBOutlet weak var distanceToRoom: UILabel! // Дистанция до чата в километрах
+    @IBOutlet weak var mainView: UIView!
+    // Фон чата
+    @IBOutlet weak var imageForChatRoom: UIImageView!
+    // Изображение для чата
+    @IBOutlet weak var chatRoomName: UILabel!
+    // Название чата
+    @IBOutlet weak var numberOfPeopleInRoom: UILabel!
+    // Количество человек в комнате
+    @IBOutlet weak var lastSender: UILabel!
+    // Имя последнего отправителя сообщения
+    @IBOutlet weak var lastText: UILabel!
+    // Текст последнего сообщения
+    @IBOutlet weak var lastTime: UILabel!
+    // Время последнего сообщения
+    @IBOutlet weak var distanceToRoom: UILabel!
+    // Дистанция до чата в километрах
     
     
     
