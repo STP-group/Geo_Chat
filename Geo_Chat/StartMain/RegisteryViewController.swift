@@ -30,7 +30,7 @@ class RegisteryViewController: UIViewController {
         // user
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
-        ref = Database.database().reference(withPath: "lisUsers")
+        ref = Database.database().reference(withPath: "Geo_chat").child("Users")
        
 
        

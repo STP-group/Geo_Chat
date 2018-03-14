@@ -19,7 +19,7 @@ class ShowContactsTableViewController: UITableViewController {
 
         guard let currentUser = Auth.auth().currentUser else { return }
         user = UserInfo(user: currentUser)
-        ref = Database.database().reference(withPath: "lisUsers")
+        ref = Database.database().reference(withPath: "Geo_chat")
     }
     
     override func viewWillAppear(_ animated: Bool) {

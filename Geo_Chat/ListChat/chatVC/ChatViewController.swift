@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+var onlineRoom = ""
+
 class ChatViewController: UIViewController, UITextViewDelegate {
     
 
@@ -18,6 +20,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
     var ref: DatabaseReference!
     var userId = Array<Contact>()
     var message = Array<Messages>()
+    var usersOnlineArray = Array<String>()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextField: UITextView!
@@ -26,18 +29,35 @@ class ChatViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        countUserRoom()
+        print(onlineRoom)
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = .clear
         print(nameVC)
         print(idUser)
+        fireBaseDataChat()
         
+        
+    }
+    
+    func fireBaseDataChat() {
         guard let currentUser = Auth.auth().currentUser else { return }
         // user
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
-        ref = Database.database().reference(withPath: "lisUsers").child(nameVC)
+        ref = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(nameVC)
+    }
+    func countUserRoom() {
+        ref = Database.database().reference(withPath: "Geo_chat").child("onlineStatus").child(nameVC).child("userOnline")
+        let userStatus = ref.child("Online")
+        userStatus.setValue(["online": idUser])
+        onlineRoom = String(usersOnlineArray.count)
         
+        
+        
+        
+
     }
     func date() -> String {
         let date = Date()
