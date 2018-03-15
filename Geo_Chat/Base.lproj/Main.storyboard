@@ -218,9 +218,9 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="lmQ-Zn-cpv" firstAttribute="leading" secondItem="bxD-ar-PBH" secondAttribute="trailing" constant="8" symbolic="YES" id="0L6-gT-cLS"/>
+                                                        <constraint firstItem="lmQ-Zn-cpv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bxD-ar-PBH" secondAttribute="trailing" constant="8" symbolic="YES" id="0L6-gT-cLS"/>
                                                         <constraint firstItem="zTC-gv-Zv3" firstAttribute="leading" secondItem="bxD-ar-PBH" secondAttribute="trailing" constant="8" symbolic="YES" id="29x-Ic-ecv"/>
-                                                        <constraint firstItem="yTD-2h-e05" firstAttribute="leading" secondItem="M4y-Mg-PD7" secondAttribute="trailing" constant="8.5" id="479-dx-SUX"/>
+                                                        <constraint firstItem="yTD-2h-e05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="M4y-Mg-PD7" secondAttribute="trailing" symbolic="YES" id="479-dx-SUX"/>
                                                         <constraint firstItem="bh0-Xd-uir" firstAttribute="leading" secondItem="gmS-Lc-w2v" secondAttribute="trailing" constant="4" id="C3T-bb-LWy"/>
                                                         <constraint firstItem="jNI-jA-oiz" firstAttribute="top" secondItem="Krg-1j-MyF" secondAttribute="top" constant="19" id="Cc8-cn-FYc"/>
                                                         <constraint firstItem="bh0-Xd-uir" firstAttribute="leading" secondItem="zTC-gv-Zv3" secondAttribute="trailing" constant="63" id="ETa-D9-83D"/>
@@ -229,11 +229,14 @@
                                                         <constraint firstItem="bxD-ar-PBH" firstAttribute="centerY" secondItem="jNI-jA-oiz" secondAttribute="centerY" id="L19-SO-gVc"/>
                                                         <constraint firstItem="bh0-Xd-uir" firstAttribute="top" secondItem="Krg-1j-MyF" secondAttribute="top" id="LRb-VP-BeL"/>
                                                         <constraint firstItem="bh0-Xd-uir" firstAttribute="leading" secondItem="Krg-1j-MyF" secondAttribute="leading" constant="295" id="MNn-ka-GN3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="lmQ-Zn-cpv" secondAttribute="trailing" constant="175.5" id="Ntd-dw-exe"/>
                                                         <constraint firstItem="jNI-jA-oiz" firstAttribute="leading" secondItem="bh0-Xd-uir" secondAttribute="trailing" constant="8" id="Oe9-q1-UHa"/>
                                                         <constraint firstItem="bxD-ar-PBH" firstAttribute="top" secondItem="M4y-Mg-PD7" secondAttribute="top" id="PQM-Q2-5TJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="bh0-Xd-uir" secondAttribute="bottom" id="SVX-eG-wmg"/>
                                                         <constraint firstItem="zTC-gv-Zv3" firstAttribute="bottom" secondItem="Krg-1j-MyF" secondAttribute="bottomMargin" id="a4L-Tx-An8"/>
+                                                        <constraint firstAttribute="trailing" secondItem="yTD-2h-e05" secondAttribute="trailing" constant="141" id="eWf-Hf-y2a"/>
                                                         <constraint firstItem="M4y-Mg-PD7" firstAttribute="leading" secondItem="bxD-ar-PBH" secondAttribute="trailing" constant="8" symbolic="YES" id="jb6-rc-6cT"/>
+                                                        <constraint firstItem="gmS-Lc-w2v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Krg-1j-MyF" secondAttribute="leading" constant="20" symbolic="YES" id="kek-Kj-Ofq"/>
                                                         <constraint firstItem="bxD-ar-PBH" firstAttribute="centerY" secondItem="lmQ-Zn-cpv" secondAttribute="centerY" id="lm0-zg-nl7"/>
                                                         <constraint firstItem="bxD-ar-PBH" firstAttribute="centerY" secondItem="bh0-Xd-uir" secondAttribute="centerY" id="obj-eT-uLX"/>
                                                         <constraint firstAttribute="height" constant="78" id="t9V-CY-b3c"/>
@@ -603,7 +606,7 @@
                                 <rect key="frame" x="0.0" y="594" width="375" height="73"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSa-BP-4oZ">
-                                        <rect key="frame" x="321" y="10" width="46" height="52"/>
+                                        <rect key="frame" x="333" y="10" width="34" height="52"/>
                                         <state key="normal" title="send"/>
                                         <connections>
                                             <action selector="sendMessage:" destination="LtD-md-QdQ" eventType="touchUpInside" id="vTZ-tO-O8T"/>
@@ -625,7 +628,7 @@
                                     <constraint firstItem="aVa-vv-l0B" firstAttribute="top" secondItem="yvd-D4-IN2" secondAttribute="top" constant="10" id="Ws1-cv-KKJ"/>
                                     <constraint firstAttribute="bottom" secondItem="dSa-BP-4oZ" secondAttribute="bottom" constant="11" id="dSo-RQ-gt8"/>
                                     <constraint firstAttribute="bottom" secondItem="aVa-vv-l0B" secondAttribute="bottom" constant="11" id="gkd-fb-pA7"/>
-                                    <constraint firstItem="dSa-BP-4oZ" firstAttribute="leading" secondItem="aVa-vv-l0B" secondAttribute="trailing" constant="27" id="go3-y3-3I8"/>
+                                    <constraint firstItem="dSa-BP-4oZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aVa-vv-l0B" secondAttribute="trailing" symbolic="YES" id="go3-y3-3I8"/>
                                 </constraints>
                             </view>
                         </subviews>
