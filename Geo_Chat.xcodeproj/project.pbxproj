@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C41083612056B4DF00C47473 /* ReallyGoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */; };
 		C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */; };
+		C81940F1205B8F4000D4B2E9 /* ChatVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */; };
 		C856DC732050451D007BF48D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856DC722050451D007BF48D /* LoginViewController.swift */; };
 		C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6955204EFB54001B3AE2 /* AppDelegate.swift */; };
 		C88E695B204EFB54001B3AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6959204EFB54001B3AE2 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		390BAAC82E55A0D069E1AE28 /* Pods-Geo_Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Geo_Chat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat.release.xcconfig"; sourceTree = "<group>"; };
 		C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReallyGoodViewController.swift; sourceTree = "<group>"; };
 		C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomTableViewCell.swift; sourceTree = "<group>"; };
+		C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCViewController.swift; sourceTree = "<group>"; };
 		C856DC722050451D007BF48D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C88E6952204EFB54001B3AE2 /* Geo_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88E6955204EFB54001B3AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C81940F2205B8F4600D4B2E9 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		C88E6949204EFB54001B3AE2 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
 				C8EF082E204FE91D0038E7BE /* userInfo.swift */,
+				C81940F2205B8F4600D4B2E9 /* Test */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
 				C8BBFEC92053DFE300E6BC57 /* ListContact */,
 				C88E6975204F1D1C001B3AE2 /* ListChat */,
@@ -269,6 +280,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Geo_Chat/Pods-Geo_Chat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -276,6 +289,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -322,6 +337,7 @@
 				C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */,
 				C8C594A42055AF35009A3C2C /* FrendsMessageCell.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
+				C81940F1205B8F4000D4B2E9 /* ChatVCViewController.swift in Sources */,
 				C8C594A22055A1AE009A3C2C /* ChatTestInTableViewCell.swift in Sources */,
 				C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */,
 			);

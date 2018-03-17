@@ -8,5 +8,6 @@ target 'Geo_Chat' do
 
        pod 'Firebase/Auth'
        pod 'Firebase/Database'
+       pod 'JSQMessagesViewController'
 
 end

@@ -256,7 +256,7 @@
                                             <outlet property="chatRoomName" destination="M4y-Mg-PD7" id="dpr-wP-U9Q"/>
                                             <outlet property="imageForChatRoom" destination="bxD-ar-PBH" id="Xdy-5X-dFE"/>
                                             <outlet property="mainView" destination="Krg-1j-MyF" id="8UV-15-bCW"/>
-                                            <segue destination="LtD-md-QdQ" kind="show" identifier="sendDataSegue" id="VZE-jE-vLd"/>
+                                            <segue destination="qop-Gu-jzH" kind="show" identifier="sendDataSegue" id="ct3-5E-RI5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -280,6 +280,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aE0-nV-R80">
                         <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="kIl-Ce-Wrm"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="tCD-eI-M28" id="ZDj-xR-emT"/>
@@ -495,7 +496,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jlQ-t2-HLb">
-                                <rect key="frame" x="0.0" y="64" width="375" height="522"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inCell" rowHeight="70" id="U4H-vg-YLW" customClass="FrendsMessageCell" customModule="Geo_Chat" customModuleProvider="target">
@@ -656,6 +657,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8R-y6-w3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3137" y="152"/>
+        </scene>
+        <!--ChatVC View Controller-->
+        <scene sceneID="zee-oN-KVS">
+            <objects>
+                <viewController id="qop-Gu-jzH" customClass="ChatVCViewController" customModule="Geo_Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NGw-Xc-Chp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="yMy-RK-V3U"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o6Z-tg-DmB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2006" y="975"/>
         </scene>
     </scenes>
     <resources>

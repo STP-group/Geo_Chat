@@ -62,10 +62,10 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sendDataSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let dvc =  segue.destination as! ChatViewController
+                let dvc =  segue.destination as! ChatVCViewController
             dvc.nameVC = roomSend[indexPath.row]
                 print(roomSend[indexPath.row])
-            dvc.idUser = nameUser
+            dvc.userIdName = nameUser
         }
             // Передача данных через сигвей
         }
