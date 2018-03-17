@@ -32,6 +32,7 @@ class ChatVCViewController: JSQMessagesViewController {
         
 
         
+        
        
         self.senderId = userIdName
         self.senderDisplayName = userIdName
@@ -105,7 +106,39 @@ class ChatVCViewController: JSQMessagesViewController {
         }
     }
     
-   
+    
+//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+//
+//        senderDisplayName = messages[indexPath.row].senderDisplayName
+//
+//        return NSAttributedString(string: "senderDisplayName")
+//    }
+    
+    
+    // Заголовок по середине экрана
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.item]
+        switch message.senderId {
+        case senderDisplayName:
+            return nil
+        default:
+            guard let senderDisplayName = message.senderDisplayName else {
+                assertionFailure()
+                return nil
+            }
+            return NSAttributedString(string: senderDisplayName)
+            
+        }
+    }
+    // размер шрифта для топ лабел
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        return 13
+    }
+
+    
+//    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+//        return 13 //or what ever height you want to give
+//    }
 
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -124,6 +157,9 @@ class ChatVCViewController: JSQMessagesViewController {
     }
     
     
+
+    
+    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
 
         
@@ -140,11 +176,26 @@ class ChatVCViewController: JSQMessagesViewController {
         
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         
+
         
-        
+        //cell.cellBottomLabel.text = messages[indexPath.row].senderDisplayName
         
         return cell
     }
+    
+//    override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
+//        let message = messages[indexPath.item]
+//        switch message.senderId {
+//        case senderId:
+//            return nil
+//        default:
+//            guard let senderDisplayName = message.senderDisplayName else {
+//                assertionFailure()
+//                return nil
+//            }
+//            return NSAttributedString(string: senderDisplayName)
+//        }
+//    }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 //
