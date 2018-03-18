@@ -39,13 +39,13 @@ class ChatVCViewController: JSQMessagesViewController {
 
     }
     
-    func date1() -> String {
+    func date() -> String {
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
-      //  let seconds = calendar.component(.second, from: date)
-      //  let miliSeconds = calendar.component(.nanosecond, from: date)
+        let seconds = calendar.component(.second, from: date)
+        let miliSeconds = calendar.component(.nanosecond, from: date)
         let time = "\(hour):\(minutes)" //":\(seconds):\(miliSeconds)
         return time
     }
@@ -115,16 +115,43 @@ class ChatVCViewController: JSQMessagesViewController {
 //    }
     
     
-    var topLabelText = [[String:String]]()
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ssZZZZZ"
+        formatter.timeZone = .current
+        return formatter
+    }()
+    let dateF: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "HH:mm"
+        return f
+    }()
+    var lastSender: String?
+    var lastTime: Date?
     // Заголовок по середине экрана
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-        let dateMessage = messages[indexPath.row].date
-        let date = Date()
-        if dateMessage == date {
-            return nil
-        } else {
-            return NSAttributedString(string: dateMessage!.description)
+        print("\(indexPath.row) ff")
+        if lastSender == nil || lastTime == nil {
+            lastSender = messageTest[0].email
+            lastTime = dateFormatter.date(from: messageTest[0].date)
+            if let itHasADate = dateFormatter.date(from: messageTest[0].date) {
+                lastTime = itHasADate
+                return NSAttributedString(string: dateF.string(from: lastTime!))
+            }
+            
         }
+        let dateMessage = messageTest[indexPath.row].date
+        guard let dd = dateFormatter.date(from: dateMessage) else { return nil }
+        
+        if dd.timeIntervalSince(lastTime!) > 300 {
+            lastSender = messageTest[indexPath.row].email
+            lastTime = dateFormatter.date(from: messageTest[0].date)
+            return NSAttributedString(string: dateF.string(from: dd))
+        } else {
+            return nil
+        }
+        
+      //  }
       /*  switch message.senderId {
         case senderDisplayName:
             return nil
@@ -209,9 +236,9 @@ class ChatVCViewController: JSQMessagesViewController {
         let text = Messages(message: text, email: userIdName, date: dateMessage(), indexMessage: senderId)
 
         let refMessage = self.ref.child(String(messageTest.count))
-        refMessage.setValue(["message": text.message, "email": userIdName, "date": date1(), "indexMessage": userIdName])
+        refMessage.setValue(["message": text.message, "email": userIdName, "date": date.description, "indexMessage": userIdName])
 
-        messages.append(JSQMessage(senderId: text.email, displayName: text.email, text: text.message))
+        messages.append(JSQMessage(senderId: text.email, senderDisplayName: text.email, date: date, text: text.message))
         
         
         collectionView.reloadData()
