@@ -39,14 +39,14 @@ class ChatVCViewController: JSQMessagesViewController {
 
     }
     
-    func date() -> String {
+    func date1() -> String {
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
-        let seconds = calendar.component(.second, from: date)
-        let miliSeconds = calendar.component(.nanosecond, from: date)
-        let time = "\(hour):\(minutes):\(seconds):\(miliSeconds)"
+      //  let seconds = calendar.component(.second, from: date)
+      //  let miliSeconds = calendar.component(.nanosecond, from: date)
+        let time = "\(hour):\(minutes)" //":\(seconds):\(miliSeconds)
         return time
     }
     
@@ -115,10 +115,17 @@ class ChatVCViewController: JSQMessagesViewController {
 //    }
     
     
+    var topLabelText = [[String:String]]()
     // Заголовок по середине экрана
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-        let message = messages[indexPath.item]
-        switch message.senderId {
+        let dateMessage = messages[indexPath.row].date
+        let date = Date()
+        if dateMessage == date {
+            return nil
+        } else {
+            return NSAttributedString(string: dateMessage!.description)
+        }
+      /*  switch message.senderId {
         case senderDisplayName:
             return nil
         default:
@@ -128,7 +135,7 @@ class ChatVCViewController: JSQMessagesViewController {
             }
             return NSAttributedString(string: senderDisplayName)
             
-        }
+        } */
     }
     // размер шрифта для топ лабел
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
@@ -202,7 +209,7 @@ class ChatVCViewController: JSQMessagesViewController {
         let text = Messages(message: text, email: userIdName, date: dateMessage(), indexMessage: senderId)
 
         let refMessage = self.ref.child(String(messageTest.count))
-        refMessage.setValue(["message": text.message, "email": userIdName, "date": userIdName, "indexMessage": userIdName])
+        refMessage.setValue(["message": text.message, "email": userIdName, "date": date1(), "indexMessage": userIdName])
 
         messages.append(JSQMessage(senderId: text.email, displayName: text.email, text: text.message))
         
