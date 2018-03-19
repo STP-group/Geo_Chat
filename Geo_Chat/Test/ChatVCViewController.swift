@@ -46,7 +46,7 @@ class ChatVCViewController: JSQMessagesViewController {
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
         let miliSeconds = calendar.component(.nanosecond, from: date)
-        let time = "\(hour):\(minutes)" //":\(seconds):\(miliSeconds)
+        let time = "\(hour):\(minutes):\(seconds):\(miliSeconds)"
         return time
     }
     
@@ -96,7 +96,10 @@ class ChatVCViewController: JSQMessagesViewController {
                 print(i)
                 let task = self?.messageTest[i].email
                 let taskMessage = self?.messageTest[i].message
-                _ListItem.append(JSQMessage(senderId: task, displayName: task, text: taskMessage))
+                let time = self?.messageTest[i].date
+                let dateTime = self?.getDateFrom(string: time!)
+                
+                _ListItem.append(JSQMessage(senderId: task, senderDisplayName: task, date: dateTime, text: taskMessage))//(JSQMessage(senderId: task, displayName: task, text: taskMessage))
             }
             self?.messages = _ListItem
             
@@ -114,65 +117,55 @@ class ChatVCViewController: JSQMessagesViewController {
 //        return NSAttributedString(string: "senderDisplayName")
 //    }
     
-    
-    let dateFormatter: DateFormatter = {
+    func getDateFrom (string: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ssZZZZZ"
         formatter.timeZone = .current
-        return formatter
-    }()
+        guard let itIsADate = formatter.date(from: string) else { return Date() }
+        return itIsADate
+    }
     let dateF: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "HH:mm"
         return f
     }()
-    var lastSender: String?
-    var lastTime: Date?
     // Заголовок по середине экрана
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-        print("\(indexPath.row) ff")
-        if lastSender == nil || lastTime == nil {
-            lastSender = messageTest[0].email
-            lastTime = dateFormatter.date(from: messageTest[0].date)
-            if let itHasADate = dateFormatter.date(from: messageTest[0].date) {
-                lastTime = itHasADate
-                return NSAttributedString(string: dateF.string(from: lastTime!))
-            }
-            
-        }
-        let dateMessage = messageTest[indexPath.row].date
-        guard let dd = dateFormatter.date(from: dateMessage) else { return nil }
-        
-        if dd.timeIntervalSince(lastTime!) > 300 {
-            lastSender = messageTest[indexPath.row].email
-            lastTime = dateFormatter.date(from: messageTest[0].date)
-            return NSAttributedString(string: dateF.string(from: dd))
-        } else {
-            return nil
+        let message = messages[indexPath.row]
+        if indexPath.row == 0 {
+            return NSAttributedString(string: dateF.string(from: message.date))
         }
         
-      //  }
-      /*  switch message.senderId {
-        case senderDisplayName:
-            return nil
-        default:
-            guard let senderDisplayName = message.senderDisplayName else {
-                assertionFailure()
-                return nil
-            }
-            return NSAttributedString(string: senderDisplayName)
-            
-        } */
+        if message.date.timeIntervalSince(messages[indexPath.row - 1].date) > 300 {
+            return NSAttributedString(string: dateF.string(from: message.date))
+        }
+        return nil
+        
     }
     // размер шрифта для топ лабел
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
         return 13
     }
 
+    // Текст над полем сообщения
+    override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
+        let message = messages[indexPath.item]
+        //        switch message.senderId {
+        //        case senderId:
+        //            return nil
+        //        default:
+        //            guard let senderDisplayName = message.senderDisplayName else {
+        //                assertionFailure()
+        //                return nil
+        //            }
+        return NSAttributedString(string: message.senderDisplayName)
+        //        }
+    }
     
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-//        return 13 //or what ever height you want to give
-//    }
+    //Размер текста над полем сообщения
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        return 10.0
+    }
 
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -217,19 +210,6 @@ class ChatVCViewController: JSQMessagesViewController {
         return cell
     }
     
-//    override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
-//        let message = messages[indexPath.item]
-//        switch message.senderId {
-//        case senderId:
-//            return nil
-//        default:
-//            guard let senderDisplayName = message.senderDisplayName else {
-//                assertionFailure()
-//                return nil
-//            }
-//            return NSAttributedString(string: senderDisplayName)
-//        }
-//    }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 //
