@@ -279,7 +279,11 @@
                         <viewLayoutGuide key="safeArea" id="7qF-iO-4DE"/>
                     </view>
                     <navigationItem key="navigationItem" id="aE0-nV-R80">
-                        <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid"/>
+                        <barButtonItem key="leftBarButtonItem" title="ВЫХОД" id="yNH-eM-Aid">
+                            <connections>
+                                <action selector="exitPersonal:" destination="G4N-zr-h3e" id="6yn-eH-BDi"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="kIl-Ce-Wrm"/>
                     </navigationItem>
                     <connections>

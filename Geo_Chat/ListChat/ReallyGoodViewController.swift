@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -69,6 +70,15 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         }
             // Передача данных через сигвей
         }
+    }
+    @IBAction func exitPersonal(_ sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
+        dismiss(animated: false, completion: nil
+        )
     }
 
 }
