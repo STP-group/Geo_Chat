@@ -13,7 +13,7 @@ import Firebase
 class RegisteryViewController: UIViewController {
     
     
-    // Текстовые поля для регистрации
+    // Теvarстовые поля для регистрации
     @IBOutlet weak var nickNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -30,7 +30,7 @@ class RegisteryViewController: UIViewController {
         // user
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
-        ref = Database.database().reference(withPath: "Geo_chat").child("Users")
+        ref = Database.database().reference(withPath: "Geo_chat")
        
 
        
@@ -38,7 +38,7 @@ class RegisteryViewController: UIViewController {
     // Функция для создания на сервере листа списка контактов
     func newContactList(name: String, email: String) {
         let list = Contact(name: name, email: email)
-        let listRef = self.ref.child(list.name.lowercased())
+        let listRef = self.ref.child("Users").child(list.name.lowercased())
         listRef.setValue(["name": list.name, "email": list.email])
     }
     
@@ -57,8 +57,10 @@ class RegisteryViewController: UIViewController {
                     // AlertController c успешной регистрацией
                     let alertController = UIAlertController(title: "Поздравляем", message: "Регистрация прошла успешно", preferredStyle: .alert)
                     let cancelButton = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-                        self.present(loginViewController!, animated: true, completion: nil)
+                        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                        loginViewController.loginText = email
+                        print(email)
+                        self.present(loginViewController, animated: true, completion: nil)
                     })
                     alertController.addAction(cancelButton)
                     self.present(alertController, animated: true, completion: nil)

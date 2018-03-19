@@ -12,6 +12,10 @@ import CoreData
 
 class LoginViewController: UIViewController {
     
+    var loginText = ""
+    
+    
+    
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var steckViewLogin: UIStackView!
     // MARK: - Outlets
@@ -19,16 +23,22 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // Отображение сообщения об ошибки
     @IBOutlet weak var warningLabel: UILabel!
     
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(loginText)
+        emailTextField.text = loginText
+        // Появление и скрытие клавы
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         displayHelloLabel()
         
     }
+    
+    // Скрывает label с приветсвием
     func displayHelloLabel() {
         UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
             self.helloLabel.alpha = 0
@@ -36,31 +46,29 @@ class LoginViewController: UIViewController {
     }
     
    
+    // Появление клавы - делает смещение элементов на 50 поитов
     @objc func keyboardWillShow(notification: NSNotification) {
-        
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             print("HELLO")
             if self.view.frame.origin.y == 0{
                 self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
                 self.view.frame.origin.y -= 50
-//            }
+
         }
         
     }
-    
+    // Скрытие элементов возвращает все в исходное положение
     @objc func keyboardWillHide(notification: NSNotification) {
-        
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
                 self.helloLabel.frame.size = CGSize(width: 30, height: 300)
                 self.view.frame.origin.y += 50
-            //}
+
         }
     }
-    
+    // Когда клава активна: нажатие на любом участке экрана - скрывает клаву
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
     
     func textFieldEdit(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
@@ -120,6 +128,8 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Ярослав
+    // Label: выводит информацию с ошибкой
     func displayWarningLabel (withText text: String) {
         warningLabel.text = text
         UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {

@@ -10,36 +10,44 @@ import UIKit
 import Firebase
 
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var tableView: UITableView!
+    //
+    // Название для комнат
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
+    //
+    // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
     
-    
+    // Имя пользователя под которым мы зашли
     var nameUser = ""
+    
+    //
+    // Ярослав
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.backgroundView?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 0.3 )
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
+    
+    
     // MARK: - Table view data source
-
-     func numberOfSections(in tableView: UITableView) -> Int {
+    
+    //
+    // Ярослав
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    //
+    // Ярослав
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return room.count
     }
-
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    //
+    // Ярослав
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "W2Cell", for: indexPath) as! ChatRoomTableViewCell
         
         let bgColors = cell.mainViewBackgroundColors // блок кода, отвечающий за фон чата. IndexPath не выйдет за пределы массива с цветом
@@ -52,25 +60,33 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //
+    // Ярослав
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90.0
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    // Ярослав
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
+    //
+    // Передача данных через сигвей
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sendDataSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let dvc =  segue.destination as! ChatVCViewController
-            dvc.nameVC = roomSend[indexPath.row]
-                print(roomSend[indexPath.row])
-            dvc.userIdName = nameUser
-        }
-            // Передача данных через сигвей
+                dvc.nameVC = roomSend[indexPath.row]
+                dvc.titleNameRoom = room[indexPath.row]
+                dvc.userIdName = nameUser
+            }
         }
     }
+    
+    //
+    // Выход из учетной записи
     @IBAction func exitPersonal(_ sender: UIBarButtonItem) {
         do {
             try Auth.auth().signOut()
@@ -80,5 +96,5 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         dismiss(animated: false, completion: nil
         )
     }
-
+    
 }

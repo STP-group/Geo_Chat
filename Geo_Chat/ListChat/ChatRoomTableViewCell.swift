@@ -5,7 +5,8 @@
 //  Created by Yaroslav on 10.03.2018.
 //  Copyright © 2018 Yaroslav. All rights reserved.
 //
-
+//
+// Ярослав
 import UIKit
 class ChatRoomTableViewCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
@@ -50,7 +51,6 @@ class ChatRoomTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

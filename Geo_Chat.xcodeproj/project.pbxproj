@@ -20,12 +20,7 @@
 		C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */; };
 		C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */; };
 		C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEC12053D70200E6BC57 /* Contacts.swift */; };
-		C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */; };
-		C8BBFECD2053E7E800E6BC57 /* ShowContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */; };
-		C8C594A22055A1AE009A3C2C /* ChatTestInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */; };
-		C8C594A42055AF35009A3C2C /* FrendsMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */; };
 		C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D20B522059AE1B00B32DD6 /* Messages.swift */; };
-		C8E0CE68205561FC000E019C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E0CE67205561FC000E019C /* ChatViewController.swift */; };
 		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
 /* End PBXBuildFile section */
@@ -49,12 +44,7 @@
 		C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteryViewController.swift; sourceTree = "<group>"; };
 		C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C8BBFEC12053D70200E6BC57 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
-		C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableViewCell.swift; sourceTree = "<group>"; };
-		C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableViewController.swift; sourceTree = "<group>"; };
-		C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTestInTableViewCell.swift; sourceTree = "<group>"; };
-		C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrendsMessageCell.swift; sourceTree = "<group>"; };
 		C8D20B522059AE1B00B32DD6 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
-		C8E0CE67205561FC000E019C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,12 +69,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C81940F2205B8F4600D4B2E9 /* Test */ = {
+		C81940F2205B8F4600D4B2E9 /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
 				C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */,
+				C8D20B522059AE1B00B32DD6 /* Messages.swift */,
 			);
-			path = Test;
+			path = ChatVC;
 			sourceTree = "<group>";
 		};
 		C88E6949204EFB54001B3AE2 = {
@@ -110,9 +101,8 @@
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
 				C8EF082E204FE91D0038E7BE /* userInfo.swift */,
-				C81940F2205B8F4600D4B2E9 /* Test */,
+				C81940F2205B8F4600D4B2E9 /* ChatVC */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
-				C8BBFEC92053DFE300E6BC57 /* ListContact */,
 				C88E6975204F1D1C001B3AE2 /* ListChat */,
 				C88E6970204F0B06001B3AE2 /* StartMain */,
 				C88E695F204EFB54001B3AE2 /* Assets.xcassets */,
@@ -137,40 +127,11 @@
 		C88E6975204F1D1C001B3AE2 /* ListChat */ = {
 			isa = PBXGroup;
 			children = (
-				C8D20B512059ADCD00B32DD6 /* chatVC */,
 				C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */,
 				C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */,
 				C8BBFEC12053D70200E6BC57 /* Contacts.swift */,
-				C8C594A32055AF35009A3C2C /* FrendsMessageCell.swift */,
-				C8C594A12055A1AE009A3C2C /* ChatTestInTableViewCell.swift */,
 			);
 			path = ListChat;
-			sourceTree = "<group>";
-		};
-		C8BBFEC92053DFE300E6BC57 /* ListContact */ = {
-			isa = PBXGroup;
-			children = (
-				C8BBFECE2053E7F300E6BC57 /* ShowContacts */,
-			);
-			path = ListContact;
-			sourceTree = "<group>";
-		};
-		C8BBFECE2053E7F300E6BC57 /* ShowContacts */ = {
-			isa = PBXGroup;
-			children = (
-				C8BBFECA2053E7D500E6BC57 /* ShowContactsTableViewCell.swift */,
-				C8BBFECC2053E7E800E6BC57 /* ShowContactsTableViewController.swift */,
-			);
-			path = ShowContacts;
-			sourceTree = "<group>";
-		};
-		C8D20B512059ADCD00B32DD6 /* chatVC */ = {
-			isa = PBXGroup;
-			children = (
-				C8E0CE67205561FC000E019C /* ChatViewController.swift */,
-				C8D20B522059AE1B00B32DD6 /* Messages.swift */,
-			);
-			path = chatVC;
 			sourceTree = "<group>";
 		};
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
@@ -327,18 +288,13 @@
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
 				C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */,
-				C8BBFECD2053E7E800E6BC57 /* ShowContactsTableViewController.swift in Sources */,
 				C856DC732050451D007BF48D /* LoginViewController.swift in Sources */,
 				C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */,
 				C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */,
 				C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */,
 				C41083612056B4DF00C47473 /* ReallyGoodViewController.swift in Sources */,
-				C8E0CE68205561FC000E019C /* ChatViewController.swift in Sources */,
-				C8BBFECB2053E7D500E6BC57 /* ShowContactsTableViewCell.swift in Sources */,
-				C8C594A42055AF35009A3C2C /* FrendsMessageCell.swift in Sources */,
 				C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */,
 				C81940F1205B8F4000D4B2E9 /* ChatVCViewController.swift in Sources */,
-				C8C594A22055A1AE009A3C2C /* ChatTestInTableViewCell.swift in Sources */,
 				C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

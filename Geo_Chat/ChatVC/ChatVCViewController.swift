@@ -18,6 +18,9 @@ class ChatVCViewController: JSQMessagesViewController {
     var nameVC = ""
     // название комнаты для базы данных
     //
+    var titleNameRoom = ""
+    
+    
     var user: UsersInfo!
     // структура пользователей для списка пользователе в данном чате ( в разработке )
     //
@@ -37,6 +40,7 @@ class ChatVCViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = titleNameRoom
 
         fireBaseDataChat()
         // Функция для адресса комнаты
@@ -145,13 +149,6 @@ class ChatVCViewController: JSQMessagesViewController {
         }
     }
     
-    
-//    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-//
-//        senderDisplayName = messages[indexPath.row].senderDisplayName
-//
-//        return NSAttributedString(string: "senderDisplayName")
-//    }
     // Ярослав
     func getDateFrom (string: String) -> Date {
         let formatter = DateFormatter()
@@ -196,6 +193,8 @@ class ChatVCViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         return 10.0
     }
+    
+    
 
     //
     // Цвет входящих и исходящих сообщений
@@ -236,6 +235,8 @@ class ChatVCViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        
+        cell.messageBubbleTopLabel.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         
         return cell
     }
