@@ -8,12 +8,14 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseAuthUI
+import FirebaseFacebookAuthUI
 import CoreData
 
 class LoginViewController: UIViewController {
     
     var loginText = ""
-    
+    //let authViewController = authUI(LoginViewController).authViewController()
     
     
     @IBOutlet weak var helloLabel: UILabel!
@@ -36,6 +38,19 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         displayHelloLabel()
         
+        
+    }
+    
+
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+        }
+        // other URL handling goes here.
+        return false
     }
     
     // Скрывает label с приветсвием
