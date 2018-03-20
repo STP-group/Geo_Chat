@@ -149,7 +149,7 @@ class ChatVCViewController: JSQMessagesViewController {
         }
     }
     
-    // Ярослав
+    // Функция нужна, чтобы переводить свойство date в Message из String в Date, которая используется в JSQMessage
     func getDateFrom (string: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ssZZZZZ"
@@ -157,21 +157,42 @@ class ChatVCViewController: JSQMessagesViewController {
         guard let itIsADate = formatter.date(from: string) else { return Date() }
         return itIsADate
     }
+    
     let dateF: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "HH:mm"
         return f
     }()
+    
+    // Смотрит на день отправки сообщения и сравнивает к сегодняшним днём (в разработке)
+    func differenceBetweenTwoDates (date: Date) -> String {
+        let calendar = Calendar.current
+        let oldDay = calendar.component(.day, from: date)
+        let todayDay = calendar.component(.day, from: Date())
+        var result = ""
+        let dif = todayDay - oldDay
+        
+        switch dif {
+        case 0: result = ""
+        case 1: result = "Вчера"
+        case 2: result = "Позавчера"
+        default:
+            let month = calendar.component(.month, from: date)
+            result = "\(oldDay).0\(month)"
+        }
+        return result
+        
+    }
     // Заголовок по середине экрана
     // Ярослав
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
         if indexPath.row == 0 {
-            return NSAttributedString(string: dateF.string(from: message.date))
+            return NSAttributedString(string: "\(differenceBetweenTwoDates(date: message.date)) \(dateF.string(from: message.date))")
         }
         
         if message.date.timeIntervalSince(messages[indexPath.row - 1].date) > 300 {
-            return NSAttributedString(string: dateF.string(from: message.date))
+            return NSAttributedString(string: "\(differenceBetweenTwoDates(date: message.date)) \(dateF.string(from: message.date))")
         }
         return nil
         
