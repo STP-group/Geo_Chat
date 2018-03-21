@@ -160,28 +160,25 @@ class ChatVCViewController: JSQMessagesViewController {
     
     let dateF: DateFormatter = {
         let f = DateFormatter()
+        f.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
         f.dateFormat = "HH:mm"
         return f
     }()
     
-    // Смотрит на день отправки сообщения и сравнивает к сегодняшним днём (в разработке)
+    // Смотрит на день отправки сообщения и сравнивает к сегодняшним днём
     func differenceBetweenTwoDates (date: Date) -> String {
         let calendar = Calendar.current
-        let oldDay = calendar.component(.day, from: date)
-        let todayDay = calendar.component(.day, from: Date())
-        var result = ""
-        let dif = todayDay - oldDay
+        guard !calendar.isDateInToday(date) else { return "" }
+        guard !calendar.isDateInYesterday(date) else { return "Вчера" }
+        let comp = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
         
-        switch dif {
-        case 0: result = ""
-        case 1: result = "Вчера"
-        case 2: result = "Позавчера"
+        switch (comp.day!,comp.weekOfYear!) {
+        case (...(-1),0): return dateF.shortWeekdaySymbols[calendar.component(.weekday, from: date) - 1]
         default:
+            let day = calendar.component(.day, from: date)
             let month = calendar.component(.month, from: date)
-            result = "\(oldDay).0\(month)"
+            return "\(day).0\(month))"
         }
-        return result
-        
     }
     // Заголовок по середине экрана
     // Ярослав
