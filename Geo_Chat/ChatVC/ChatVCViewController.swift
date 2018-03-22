@@ -158,31 +158,31 @@ class ChatVCViewController: JSQMessagesViewController {
         return itIsADate
     }
     
-    let dateF: DateFormatter = {
-        let f = DateFormatter()
-        f.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
-        return f
+    let dateFormatterWeekDay: DateFormatter = {
+        let weekDay = DateFormatter()
+        weekDay.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
+        return weekDay
     }()
     
     // Возвращает нужный формат времени для лэйбла посередине окна чата
     func getTextInMidLabel (date: Date) -> String {
         let calendar = Calendar.current
         guard !calendar.isDateInToday(date) else {
-            dateF.dateFormat = "HH:mm"
-            return dateF.string(from: date) }
+            dateFormatterWeekDay.dateFormat = "HH:mm"
+            return dateFormatterWeekDay.string(from: date) }
         guard !calendar.isDateInYesterday(date) else {
-            dateF.dateFormat = "Вчера, HH:mm"
-            return dateF.string(from: date) }
+            dateFormatterWeekDay.dateFormat = "Вчера, HH:mm"
+            return dateFormatterWeekDay.string(from: date) }
         
-        let comp = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
+        let components = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
         
-        switch (comp.day!,comp.weekOfYear!) {
+        switch (components.day!,components.weekOfYear!) {
         case (...(-1),0):
-            dateF.dateFormat = "E, HH:mm"
+            dateFormatterWeekDay.dateFormat = "E, HH:mm"
         default:
-            dateF.dateFormat = "dd.MM, HH:mm"
+            dateFormatterWeekDay.dateFormat = "dd.MM, HH:mm"
         }
-        return dateF.string(from: date)
+        return dateFormatterWeekDay.string(from: date)
     }
     // Заголовок по середине экрана
     // Ярослав
