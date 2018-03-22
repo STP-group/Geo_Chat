@@ -161,35 +161,39 @@ class ChatVCViewController: JSQMessagesViewController {
     let dateF: DateFormatter = {
         let f = DateFormatter()
         f.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
-        f.dateFormat = "HH:mm"
         return f
     }()
     
-    // Смотрит на день отправки сообщения и сравнивает к сегодняшним днём
-    func differenceBetweenTwoDates (date: Date) -> String {
+    // Возвращает нужный формат времени для лэйбла посередине окна чата
+    func getTextInMidLabel (date: Date) -> String {
         let calendar = Calendar.current
-        guard !calendar.isDateInToday(date) else { return "" }
-        guard !calendar.isDateInYesterday(date) else { return "Вчера" }
+        guard !calendar.isDateInToday(date) else {
+            dateF.dateFormat = "HH:mm"
+            return dateF.string(from: date) }
+        guard !calendar.isDateInYesterday(date) else {
+            dateF.dateFormat = "Вчера, HH:mm"
+            return dateF.string(from: date) }
+        
         let comp = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
         
         switch (comp.day!,comp.weekOfYear!) {
-        case (...(-1),0): return dateF.shortWeekdaySymbols[calendar.component(.weekday, from: date) - 1]
+        case (...(-1),0):
+            dateF.dateFormat = "E, HH:mm"
         default:
-            let day = calendar.component(.day, from: date)
-            let month = calendar.component(.month, from: date)
-            return "\(day).0\(month))"
+            dateF.dateFormat = "dd.MM, HH:mm"
         }
+        return dateF.string(from: date)
     }
     // Заголовок по середине экрана
     // Ярослав
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
         if indexPath.row == 0 {
-            return NSAttributedString(string: "\(differenceBetweenTwoDates(date: message.date)) \(dateF.string(from: message.date))")
+            return NSAttributedString(string: getTextInMidLabel(date: message.date))
         }
         
         if message.date.timeIntervalSince(messages[indexPath.row - 1].date) > 300 {
-            return NSAttributedString(string: "\(differenceBetweenTwoDates(date: message.date)) \(dateF.string(from: message.date))")
+            return NSAttributedString(string: getTextInMidLabel(date: message.date))
         }
         return nil
         
@@ -204,7 +208,6 @@ class ChatVCViewController: JSQMessagesViewController {
         let message = messages[indexPath.item]
         
         return NSAttributedString(string: message.senderDisplayName)
-        //        }
     }
     
     //Размер текста над полем сообщения
