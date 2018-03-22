@@ -130,7 +130,7 @@ static const CFTimeInterval kBFViewAnimationDuration = 0.25f;
         if (CGRectGetHeight(newFrame) == 40) {
             UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
             [UIView animateWithDuration:kBFViewAnimationDuration delay:0.0 options:options animations:^{
-                _view.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(_view.bounds), 0.0);
+                self->_view.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(_view.bounds), 0.0);
             } completion:nil];
         }
     }
