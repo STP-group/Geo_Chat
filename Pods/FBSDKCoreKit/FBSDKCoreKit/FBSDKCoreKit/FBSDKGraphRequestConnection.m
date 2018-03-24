@@ -766,7 +766,7 @@ NSURLSessionDataDelegate
           adapter.forceBlockingRenew = YES;
         } else {
           [adapter renewSystemAuthorization:^(ACAccountCredentialRenewResult result, NSError *renewError) {
-            NSOperationQueue *queue = _delegateQueue ?: [NSOperationQueue mainQueue];
+              NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
             [queue addOperationWithBlock:^{
               clearToken();
               finishAndInvokeCompletionHandler();

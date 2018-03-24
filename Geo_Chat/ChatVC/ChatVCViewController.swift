@@ -10,12 +10,12 @@ import UIKit
 import JSQMessagesViewController
 import Firebase
 
+var userIdNameJSQ = ""
 class ChatVCViewController: JSQMessagesViewController {
     
     var contactName: [Contact] = []
-    var senderName = ""
     
-    var userIdName = ""
+    
     // Id пользователя ( сейчас используется email)
     //
     var nameVC = ""
@@ -36,24 +36,24 @@ class ChatVCViewController: JSQMessagesViewController {
     var userId = Array<Contact>()
     // массив для списка пользователе в данном чате ( в разработке )
     //
-    var messageTest = Array<Messages>()
+    var messageFirebaseStruct = Array<Messages>()
     // структура сообщений для сохранения/чтения Firebase
     //
     var nameUserSender = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(nameUserSender)
+        print(contactName)
+        print(userIdNameJSQ)
         for i in contactName {
-            if i.email == userIdName {
-                print("sender email \(i.email)")
+            if i.email == userIdNameJSQ {
+                print("sender email - \(i.email), sender name - \(i.name)")
                 
                 nameUserSender = i.name
                 
-                print(i.name)
+               
             } else {
-                print("public user \(i.email)")
+               
             }
         }
         
@@ -65,10 +65,10 @@ class ChatVCViewController: JSQMessagesViewController {
         print(nameVC)
         // Получаем в консоли информацию о имени комнаты
         //
-        print(userIdName)
+        print(userIdNameJSQ)
         // Получаем в консоли информацию о имени пользователя
         //
-        self.senderId = userIdName
+        self.senderId = "\(userIdNameJSQ)"
         // Id отправителя сообщений ( обязательно для JSQMessage )
         //
         self.senderDisplayName = nameUserSender
@@ -147,16 +147,17 @@ class ChatVCViewController: JSQMessagesViewController {
             }
             
              // Переносим вне цикла все содержимое из _list в массив сообщений
-            self?.messageTest = _list
+            self?.messageFirebaseStruct = _list
             
             // Схожая процедура ( смотреть выше ) только помещаем все в массив ( JSQMessage )
             var _ListItem = Array<JSQMessage>()
             for i in 0..<Int(snapshot.childrenCount) {
                
-                let task = self?.messageTest[i].email
-                let taskMessage = self?.messageTest[i].message
-                let time = self?.messageTest[i].date
-                let dateTime = self?.getDateFrom(string: time!)
+                let task = self?.messageFirebaseStruct[i].email
+                let taskMessage = self?.messageFirebaseStruct[i].message
+                let time = self?.messageFirebaseStruct[i].date
+               //let dateTime = DateAndTimes().getDateFrom(string: time)
+                 let dateTime = self?.getDateFrom(string: time!)
                 
                 _ListItem.append(JSQMessage(senderId: task, senderDisplayName: task, date: dateTime, text: taskMessage))
             }
@@ -177,13 +178,13 @@ class ChatVCViewController: JSQMessagesViewController {
         guard let itIsADate = formatter.date(from: string) else { return Date() }
         return itIsADate
     }
-    
+
     let dateFormatterWeekDay: DateFormatter = {
         let weekDay = DateFormatter()
         weekDay.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
         return weekDay
     }()
-    
+
     // Возвращает нужный формат времени для лэйбла посередине окна чата
     func getTextInMidLabel (date: Date) -> String {
         let calendar = Calendar.current
@@ -193,9 +194,9 @@ class ChatVCViewController: JSQMessagesViewController {
         guard !calendar.isDateInYesterday(date) else {
             dateFormatterWeekDay.dateFormat = "Вчера, HH:mm"
             return dateFormatterWeekDay.string(from: date) }
-        
+
         let components = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
-        
+
         switch (components.day!,components.weekOfYear!) {
         case (...(-1),0):
             dateFormatterWeekDay.dateFormat = "E, HH:mm"
@@ -226,7 +227,7 @@ class ChatVCViewController: JSQMessagesViewController {
     // Текст над полем сообщения
     override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
         
-        return NSAttributedString(string: messageTest[indexPath.row].nameUser)
+        return NSAttributedString(string: messageFirebaseStruct[indexPath.row].nameUser)
     }
     
     //Размер текста над полем сообщения
@@ -241,7 +242,7 @@ class ChatVCViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        if messages[indexPath.row].senderId == userIdName {
+        if messages[indexPath.row].senderId == userIdNameJSQ {
             // Цвет исходящих сообщений
             return bubbleFactory?.outgoingMessagesBubbleImage(with: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))
         } else {
@@ -286,10 +287,10 @@ class ChatVCViewController: JSQMessagesViewController {
 
         
         // Помещаем все в массив
-        let text = Messages(message: text, email: userIdName, date: dateMessage(), nameUser: senderDisplayName)
+        let text = Messages(message: text, email: userIdNameJSQ, date: dateMessage(), nameUser: senderDisplayName)
         
         // сохраняем в Firebase
-        let refMessage = self.ref.child(String(messageTest.count))
+        let refMessage = self.ref.child(String(messageFirebaseStruct.count))
         refMessage.setValue(["message": text.message, "email": text.email, "date": date.description, "nameUser": text.nameUser])
 
         // Добавляем в массив

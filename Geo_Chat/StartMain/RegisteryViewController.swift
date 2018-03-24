@@ -38,7 +38,7 @@ class RegisteryViewController: UIViewController {
     // Функция для создания на сервере листа списка контактов
     func newContactList(name: String, email: String) {
         let list = Contact(name: name, email: email)
-        let listRef = self.ref.child("Users").child(list.name.lowercased())
+        let listRef = self.ref.child("Users").child(list.name)
         listRef.setValue(["name": list.name, "email": list.email])
     }
     

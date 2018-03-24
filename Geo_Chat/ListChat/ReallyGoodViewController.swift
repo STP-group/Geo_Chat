@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+var nameUser = ""
 
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,7 +21,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
     
     // Имя пользователя под которым мы зашли
-    var nameUser = ""
+    
     var ref: DatabaseReference!
     var task: [Contact] = []
     
@@ -58,14 +59,6 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
             // Переносим вне цикла все содержимое из _list в массив сообщений
             self?.task = _list
 
-            let indexElement = self?.task[0]
-            Mirror(reflecting: indexElement).children.forEach {
-                print("key: \($0.label) value: \($0.value)")
-            }
-            
-
-            
-
         }
     }
     
@@ -96,6 +89,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         }()
         
         cell.chatRoomName.text = room[indexPath.row]
+        cell.lastSender.text = "\(nameUser)"
         return cell
     }
     
@@ -114,12 +108,14 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     //
     // Передача данных через сигвей
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         userIdNameJSQ = nameUser
+        print("-roomVC ---\(userIdNameJSQ)")
         if segue.identifier == "sendDataSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let dvc =  segue.destination as! ChatVCViewController
                 dvc.nameVC = roomSend[indexPath.row]
                 dvc.titleNameRoom = room[indexPath.row]
-                dvc.userIdName = nameUser
+                
                 dvc.contactName = task
             }
         }

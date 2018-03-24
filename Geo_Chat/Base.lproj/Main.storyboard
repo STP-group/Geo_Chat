@@ -254,8 +254,13 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="chatRoomName" destination="M4y-Mg-PD7" id="dpr-wP-U9Q"/>
+                                            <outlet property="distanceToRoom" destination="sK2-iY-0Au" id="xY9-LQ-lrz"/>
                                             <outlet property="imageForChatRoom" destination="bxD-ar-PBH" id="Xdy-5X-dFE"/>
+                                            <outlet property="lastSender" destination="lmQ-Zn-cpv" id="bhd-Ju-YIv"/>
+                                            <outlet property="lastText" destination="zTC-gv-Zv3" id="iQv-ki-X0F"/>
+                                            <outlet property="lastTime" destination="gmS-Lc-w2v" id="tRB-mA-3eK"/>
                                             <outlet property="mainView" destination="Krg-1j-MyF" id="8UV-15-bCW"/>
+                                            <outlet property="numberOfPeopleInRoom" destination="yTD-2h-e05" id="RBi-cY-DFF"/>
                                             <segue destination="qop-Gu-jzH" kind="show" identifier="sendDataSegue" id="ct3-5E-RI5"/>
                                         </connections>
                                     </tableViewCell>

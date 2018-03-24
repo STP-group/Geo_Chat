@@ -10,6 +10,7 @@
 		C41083612056B4DF00C47473 /* ReallyGoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */; };
 		C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */; };
 		C81940F1205B8F4000D4B2E9 /* ChatVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */; };
+		C821152A2066EC0D001EB8B9 /* DateAndTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82115292066EC0D001EB8B9 /* DateAndTime.swift */; };
 		C856DC732050451D007BF48D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856DC722050451D007BF48D /* LoginViewController.swift */; };
 		C88E6956204EFB54001B3AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E6955204EFB54001B3AE2 /* AppDelegate.swift */; };
 		C88E695B204EFB54001B3AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88E6959204EFB54001B3AE2 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReallyGoodViewController.swift; sourceTree = "<group>"; };
 		C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomTableViewCell.swift; sourceTree = "<group>"; };
 		C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCViewController.swift; sourceTree = "<group>"; };
+		C82115292066EC0D001EB8B9 /* DateAndTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTime.swift; sourceTree = "<group>"; };
 		C856DC722050451D007BF48D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C88E6952204EFB54001B3AE2 /* Geo_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geo_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88E6955204EFB54001B3AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				C88E6955204EFB54001B3AE2 /* AppDelegate.swift */,
+				C82115292066EC0D001EB8B9 /* DateAndTime.swift */,
 				C8EF082E204FE91D0038E7BE /* userInfo.swift */,
 				C81940F2205B8F4600D4B2E9 /* ChatVC */,
 				C88E6959204EFB54001B3AE2 /* Main.storyboard */,
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C821152A2066EC0D001EB8B9 /* DateAndTime.swift in Sources */,
 				C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */,
 				C88E695E204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld in Sources */,
 				C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */,
