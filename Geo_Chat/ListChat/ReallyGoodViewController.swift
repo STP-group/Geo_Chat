@@ -21,13 +21,52 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // Имя пользователя под которым мы зашли
     var nameUser = ""
+    var ref: DatabaseReference!
+    var task: [Contact] = []
     
     //
     // Ярослав
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference(withPath: "Geo_chat").child("Users")
+        
         tableView.separatorStyle = .none
         tableView.backgroundView?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 0.3 )
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //
+        // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
+        ref.observe(.value) { [weak self] (snapshot) in
+            var _list = Array<Contact>()
+            // создаем массив - который имеет туже стректуру что и messageTest
+            //
+            //
+            // Цикл считываем все из snapshot ( снимок ) и помещаем в item
+            for item in snapshot.children {
+                print(item)
+                let task = Contact(snapshot: item as! DataSnapshot)
+                // Создаем стректуру - которая будет иметь все ключи из snapshot
+                //
+                //
+                // Добавляем все содержимое в массив ( смотреть строку 104 )
+                _list.append(task)
+            }
+
+            // Переносим вне цикла все содержимое из _list в массив сообщений
+            self?.task = _list
+
+            let indexElement = self?.task[0]
+            Mirror(reflecting: indexElement).children.forEach {
+                print("key: \($0.label) value: \($0.value)")
+            }
+            
+
+            
+
+        }
     }
     
     
@@ -81,6 +120,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
                 dvc.nameVC = roomSend[indexPath.row]
                 dvc.titleNameRoom = room[indexPath.row]
                 dvc.userIdName = nameUser
+                dvc.contactName = task
             }
         }
     }

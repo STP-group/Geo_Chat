@@ -134,6 +134,7 @@ class LoginViewController: UIViewController {
                 sendData.nameUser = email
                 listViewController?.addChildViewController(sendData)
                 sendData.nameUser = email
+                //sendData.nameUser =
                 self?.present(listViewController!, animated: false, completion: nil)
                 
             } else {

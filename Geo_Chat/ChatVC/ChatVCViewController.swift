@@ -12,6 +12,9 @@ import Firebase
 
 class ChatVCViewController: JSQMessagesViewController {
     
+    var contactName: [Contact] = []
+    var senderName = ""
+    
     var userIdName = ""
     // Id пользователя ( сейчас используется email)
     //
@@ -36,12 +39,23 @@ class ChatVCViewController: JSQMessagesViewController {
     var messageTest = Array<Messages>()
     // структура сообщений для сохранения/чтения Firebase
     //
+    var nameUserSender = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for i in contactName {
+            if i.email == userIdName {
+                print("sender email \(i.email)")
+                nameUserSender = i.name
+                print(i.name)
+            } else {
+                print("public user \(i.email)")
+            }
+        }
+        
 
         title = titleNameRoom
-
         fireBaseDataChat()
         // Функция для адресса комнаты
         //
@@ -54,7 +68,7 @@ class ChatVCViewController: JSQMessagesViewController {
         self.senderId = userIdName
         // Id отправителя сообщений ( обязательно для JSQMessage )
         //
-        self.senderDisplayName = userIdName
+        self.senderDisplayName = nameUserSender
         // имя отправителя сообщений ( обязательно для JSQMessage )
         //
     }
@@ -117,7 +131,7 @@ class ChatVCViewController: JSQMessagesViewController {
             //
             // Цикл считываем все из snapshot ( снимок ) и помещаем в item
             for item in snapshot.children {
-                print(item)
+                
                 let task = Messages(snapshot: item as! DataSnapshot)
                 // Создаем стректуру - которая будет иметь все ключи из snapshot
                 //
@@ -132,7 +146,7 @@ class ChatVCViewController: JSQMessagesViewController {
             // Схожая процедура ( смотреть выше ) только помещаем все в массив ( JSQMessage )
             var _ListItem = Array<JSQMessage>()
             for i in 0..<Int(snapshot.childrenCount) {
-                print(i)
+               
                 let task = self?.messageTest[i].email
                 let taskMessage = self?.messageTest[i].message
                 let time = self?.messageTest[i].date
@@ -205,9 +219,19 @@ class ChatVCViewController: JSQMessagesViewController {
 
     // Текст над полем сообщения
     override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
-        let message = messages[indexPath.item]
+        var nameToSender = ""
+       
+        for i in contactName {
+            if i.email == userIdName {
+                print("sender email \(i.email)")
+                nameToSender = i.name
+            } else {
+                print("public user error")
+                nameToSender = "321"
+            }
+        }
         
-        return NSAttributedString(string: message.senderDisplayName)
+        return NSAttributedString(string: nameToSender)
     }
     
     //Размер текста над полем сообщения
@@ -266,14 +290,14 @@ class ChatVCViewController: JSQMessagesViewController {
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 
         // Помещаем все в массив
-        let text = Messages(message: text, email: userIdName, date: dateMessage(), indexMessage: senderId)
+        let text = Messages(message: text, email: userIdName, date: dateMessage(), nameUser: senderDisplayName)
 
         // сохраняем в Firebase
         let refMessage = self.ref.child(String(messageTest.count))
-        refMessage.setValue(["message": text.message, "email": userIdName, "date": date.description, "indexMessage": userIdName])
+        refMessage.setValue(["message": text.message, "email": userIdName, "date": date.description, "nameUser": senderDisplayName])
 
         // Добавляем в массив
-        messages.append(JSQMessage(senderId: text.email, senderDisplayName: text.email, date: date, text: text.message))
+        messages.append(JSQMessage(senderId: text.nameUser, senderDisplayName: text.nameUser, date: date, text: text.message))
         
         // Обновление экрана
         collectionView.reloadData()
