@@ -40,9 +40,12 @@ class ChatVCViewController: JSQMessagesViewController {
     // структура сообщений для сохранения/чтения Firebase
     //
     var nameUserSender = ""
+    //var automaticallyScrollsToMostRecentMessage: Bool = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var automaticallyScrollsToMostRecentMessage: Bool = true
         print(contactName)
         print(userIdNameJSQ)
         for i in contactName {
@@ -165,6 +168,8 @@ class ChatVCViewController: JSQMessagesViewController {
             
             //
             // обновляем collectionView
+            self?.finishReceivingMessage()
+            self?.scrollToBottom(animated: true)
             self?.collectionView.reloadData()
             
         }
@@ -234,6 +239,7 @@ class ChatVCViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         return 10.0
     }
+    
     
     
 
