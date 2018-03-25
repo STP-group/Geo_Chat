@@ -157,12 +157,13 @@ class ChatVCViewController: JSQMessagesViewController {
             for i in 0..<Int(snapshot.childrenCount) {
                
                 let task = self?.messageFirebaseStruct[i].email
+                let userName = self?.messageFirebaseStruct[i].nameUser
                 let taskMessage = self?.messageFirebaseStruct[i].message
                 let time = self?.messageFirebaseStruct[i].date
                //let dateTime = DateAndTimes().getDateFrom(string: time)
                  let dateTime = self?.getDateFrom(string: time!)
                 
-                _ListItem.append(JSQMessage(senderId: task, senderDisplayName: task, date: dateTime, text: taskMessage))
+                _ListItem.append(JSQMessage(senderId: task, senderDisplayName: userName, date: dateTime, text: taskMessage))
             }
             self?.messages = _ListItem
             
@@ -232,7 +233,7 @@ class ChatVCViewController: JSQMessagesViewController {
     // Текст над полем сообщения
     override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
         
-        return NSAttributedString(string: messageFirebaseStruct[indexPath.row].nameUser)
+        return NSAttributedString(string: messages[indexPath.row].senderDisplayName)
     }
     
     //Размер текста над полем сообщения
@@ -293,7 +294,7 @@ class ChatVCViewController: JSQMessagesViewController {
 
         
         // Помещаем все в массив
-        let text = Messages(message: text, email: userIdNameJSQ, date: dateMessage(), nameUser: senderDisplayName)
+        let text = Messages(message: text, email: senderId /*userIdNameJSQ*/, date: dateMessage(), nameUser: senderDisplayName)
         
         // сохраняем в Firebase
         let refMessage = self.ref.child(String(messageFirebaseStruct.count))
