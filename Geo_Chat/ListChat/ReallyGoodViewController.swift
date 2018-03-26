@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 var nameUser = ""
-
+var lastRoomMessageSend = [String]()
+var lastRoomMessageEmail = [String]()
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +25,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     //
     // Название для комнат
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
+    var lastRoomMessage = [String]()
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
@@ -48,11 +50,10 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewWillAppear(animated)
         //
         // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
-        contact()
-        print("5")
-        fireBaseDataChat2()
-        dowloadsListRoom()
-        observeMessageStruct()
+        
+//        fireBaseDataChat2()
+//        dowloadsListRoom()
+//        observeMessageStruct()
     }
 
    
@@ -85,13 +86,16 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
                 self?.messageCount = _listMessages
                 
                 if (self?.messageCount.count)! <= 0 {
-                    print("no message")
+
+                    self?.lastRoomMessage.append("no message")
                 } else {
-                let deleteMessage = self?.messageCount.removeLast()
+                    let deleteMessage = self?.messageCount.removeLast()
                     print(deleteMessage?.message)
+                    self?.lastRoomMessage.append((deleteMessage?.message)!)
                 }
                 
-                
+                print(self?.lastRoomMessage.count)
+                print(self?.lastRoomMessage)
             })
            // print("number element \(int)")
         }
@@ -144,8 +148,12 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
             return bgColors[indexPath.row - bgColors.count * cur]
         }()
         
+      //  if lastRoomMessage.count == chatRoomName.count
+        
         cell.chatRoomName.text = room[indexPath.row]
         cell.lastSender.text = "\(nameUser)"
+        cell.lastText.text = lastRoomMessageSend[indexPath.row]
+        cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
         return cell
     }
     

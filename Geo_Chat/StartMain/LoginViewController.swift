@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseAuthUI
 import FirebaseFacebookAuthUI
 import CoreData
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -31,6 +32,9 @@ class LoginViewController: UIViewController {
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        fireBaseDataChat2()
+        dowloadsListRoom()
+        observeMessageStruct()
         print(loginText)
         emailTextField.text = loginText
         // Появление и скрытие клавы
@@ -136,6 +140,7 @@ class LoginViewController: UIViewController {
                 listViewController?.addChildViewController(sendData)
                 //sendData.nameUser = email
                 //sendData.nameUser =
+                
                 self?.present(listViewController!, animated: false, completion: nil)
                 
             } else {
@@ -157,6 +162,96 @@ class LoginViewController: UIViewController {
             }, completion: nil)
         }
     }
+    
+    
+    
+    
+    
+    var refMessages: DatabaseReference!
+    var messageToVC: [Messages] = []
+    var arrayListRoom: [Messages] = []
+    var refMessagesCount: DatabaseReference!
+    var messageCount: [Messages] = []
+    // для Firebase
+    //
+    // Название для комнат
+    let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
+    var lastRoomMessage = [String]()
+    var lastRoomEmail = [String]()
+    //
+    // Имена комнат в базе ( временно )
+    let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
+    
+    // Имя пользователя под которым мы зашли
+    
+    var ref: DatabaseReference!
+    var task: [Contact] = []
+    
+    //
+    // Ярослав
+
+    
+    
+    func fireBaseDataChat3(text: String) {
+        
+        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
+    }
+    func fireBaseDataChat2() {
+        
+        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
+    }
+    func dowloadsListRoom() {
+        refMessages.observe(.value) { [weak self] (snapshot) in
+            let index = Int(snapshot.childrenCount)
+            print("index = \(index)")
+            
+            
+            for int in 0..<5 {
+                
+                print("первый цикл - выполняется \(int + 1)ый раз")
+                self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
+                self?.refMessagesCount.observe(.value, with: { (snapshot) in
+                    var _listMessages = Array<Messages>()
+                    
+                    for i in snapshot.children {
+                        let task = Messages(snapshot: i as! DataSnapshot)
+                        
+                        _listMessages.append(task)
+                    }
+                    self?.messageCount = _listMessages
+                    
+                    if (self?.messageCount.count)! <= 0 {
+                        self?.lastRoomEmail.append("no user")
+                        self?.lastRoomMessage.append("no message")
+                    } else {
+                        let deleteMessage = self?.messageCount.removeLast()
+                        print(deleteMessage?.message)
+                        self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
+                        self?.lastRoomMessage.append((deleteMessage?.message)!)
+                    }
+                    lastRoomMessageSend = (self?.lastRoomMessage)!
+                    lastRoomMessageEmail = (self?.lastRoomEmail)!
+                })
+                // print("number element \(int)")
+            }
+            
+            
+            
+        }
+        
+        
+        
+        observeMessageStruct()
+    }
+    
+    func observeMessageStruct() {
+        print("4")
+        for i in 0..<messageCount.count {
+            
+            print(">>>>>message \(messageCount[i].message)")
+        }
+    }
+    
     
     
 }
