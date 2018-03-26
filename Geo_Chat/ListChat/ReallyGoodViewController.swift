@@ -11,6 +11,7 @@ import Firebase
 var nameUser = ""
 var lastRoomMessageSend = [String]()
 var lastRoomMessageEmail = [String]()
+var messageCountCell = [String]()
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -90,12 +91,12 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
                     self?.lastRoomMessage.append("no message")
                 } else {
                     let deleteMessage = self?.messageCount.removeLast()
-                    print(deleteMessage?.message)
+                    print((deleteMessage?.message)!)
                     self?.lastRoomMessage.append((deleteMessage?.message)!)
                 }
                 
-                print(self?.lastRoomMessage.count)
-                print(self?.lastRoomMessage)
+                print((self?.lastRoomMessage.count)!)
+                print((self?.lastRoomMessage)!)
             })
            // print("number element \(int)")
         }
@@ -154,6 +155,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.lastSender.text = "\(nameUser)"
         cell.lastText.text = lastRoomMessageSend[indexPath.row]
         cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
+        cell.numberOfPeopleInRoom.text = messageCountCell[indexPath.row]
         return cell
     }
     

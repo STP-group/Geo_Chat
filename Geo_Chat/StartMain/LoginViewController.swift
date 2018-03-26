@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         
     }
     
-
+    
     
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
@@ -64,23 +64,23 @@ class LoginViewController: UIViewController {
         }, completion: nil)
     }
     
-   
+    
     // Появление клавы - делает смещение элементов на 50 поитов
     @objc func keyboardWillShow(notification: NSNotification) {
-            print("HELLO")
-            if self.view.frame.origin.y == 0{
-                self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
-                self.view.frame.origin.y -= 50
-
+        print("HELLO")
+        if self.view.frame.origin.y == 0{
+            self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
+            self.view.frame.origin.y -= 50
+            
         }
         
     }
     // Скрытие элементов возвращает все в исходное положение
     @objc func keyboardWillHide(notification: NSNotification) {
-            if self.view.frame.origin.y != 0{
-                self.helloLabel.frame.size = CGSize(width: 30, height: 300)
-                self.view.frame.origin.y += 50
-
+        if self.view.frame.origin.y != 0{
+            self.helloLabel.frame.size = CGSize(width: 30, height: 300)
+            self.view.frame.origin.y += 50
+            
         }
     }
     // Когда клава активна: нажатие на любом участке экрана - скрывает клаву
@@ -97,14 +97,14 @@ class LoginViewController: UIViewController {
         }
         return true
     }
-
+    
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
     // viewWillAppear - срабатывает перед тем как отобразить экран
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         passwordTextField.text = ""
     }
-
+    
     
     
     // Кнопка входа
@@ -113,15 +113,15 @@ class LoginViewController: UIViewController {
         // Проверяем - логин и пароль не должны быть пустыми
         // Используем guard для проверки, если пусто - то просто выходим из метода ( return )
         guard let email = emailTextField.text,
-              let password = passwordTextField.text,
-                  emailTextField.text != "",
-                  passwordTextField.text != ""  else {
-                    let alertController = UIAlertController(title: "Ошибка", message: "Не все поля заполнены", preferredStyle: .alert)
-                    let cancelButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(cancelButton)
-                    present(alertController, animated: true, completion: nil)
-                    return
-                    }
+            let password = passwordTextField.text,
+            emailTextField.text != "",
+            passwordTextField.text != ""  else {
+                let alertController = UIAlertController(title: "Ошибка", message: "Не все поля заполнены", preferredStyle: .alert)
+                let cancelButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(cancelButton)
+                present(alertController, animated: true, completion: nil)
+                return
+        }
         
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
@@ -131,12 +131,12 @@ class LoginViewController: UIViewController {
             }
             
             if user != nil {
-                 nameUser = email
+                nameUser = email
                 print(nameUser)
                 // переход в окно чата ( переход без segue! )
                 let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
                 let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVC") as! ReallyGoodViewController
-               // sendData.nameUser = email
+                // sendData.nameUser = email
                 listViewController?.addChildViewController(sendData)
                 //sendData.nameUser = email
                 //sendData.nameUser =
@@ -178,6 +178,7 @@ class LoginViewController: UIViewController {
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
     var lastRoomMessage = [String]()
     var lastRoomEmail = [String]()
+    var lastRoomMessageCount = [String]()
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
@@ -189,7 +190,7 @@ class LoginViewController: UIViewController {
     
     //
     // Ярослав
-
+    
     
     
     func fireBaseDataChat3(text: String) {
@@ -223,16 +224,22 @@ class LoginViewController: UIViewController {
                     if (self?.messageCount.count)! <= 0 {
                         self?.lastRoomEmail.append("no user")
                         self?.lastRoomMessage.append("no message")
+                        self?.lastRoomMessageCount.append("0")
                     } else {
                         let deleteMessage = self?.messageCount.removeLast()
-                        print(deleteMessage?.message)
+                        print((deleteMessage?.message)!)
                         self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
                         self?.lastRoomMessage.append((deleteMessage?.message)!)
+                        self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
+                        print((deleteMessage?.date)!)
+                        
+                        
                     }
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
+                    messageCountCell = (self?.lastRoomMessageCount)!
                 })
-                // print("number element \(int)")
+                
             }
             
             
