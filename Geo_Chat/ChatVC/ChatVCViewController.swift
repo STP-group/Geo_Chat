@@ -75,6 +75,13 @@ class ChatVCViewController: JSQMessagesViewController {
         // Id отправителя сообщений ( обязательно для JSQMessage )
         //
         self.senderDisplayName = nameUserSender
+        if senderDisplayName == nil {
+            senderDisplayName = "no name"
+            print("1")
+        } else {
+            print("2")
+            senderDisplayName = nameUserSender
+        }
         // имя отправителя сообщений ( обязательно для JSQMessage )
         //
     }
@@ -292,6 +299,7 @@ class ChatVCViewController: JSQMessagesViewController {
     // Кнопка отправки сообщений
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 
+        
         
         // Помещаем все в массив
         let text = Messages(message: text, email: senderId /*userIdNameJSQ*/, date: dateMessage(), nameUser: senderDisplayName)

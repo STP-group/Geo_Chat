@@ -13,6 +13,14 @@ var nameUser = ""
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    var refMessages: DatabaseReference!
+    var messageToVC: [Messages] = []
+    var arrayListRoom: [Messages] = []
+    var refMessagesCount: DatabaseReference!
+    var messageCount: [Messages] = []
+    // для Firebase
     //
     // Название для комнат
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
@@ -40,27 +48,75 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewWillAppear(animated)
         //
         // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
-        ref.observe(.value) { [weak self] (snapshot) in
-            var _list = Array<Contact>()
-            // создаем массив - который имеет туже стректуру что и messageTest
-            //
-            //
-            // Цикл считываем все из snapshot ( снимок ) и помещаем в item
-            for item in snapshot.children {
-                print(item)
-                let task = Contact(snapshot: item as! DataSnapshot)
-                // Создаем стректуру - которая будет иметь все ключи из snapshot
-                //
-                //
-                // Добавляем все содержимое в массив ( смотреть строку 104 )
-                _list.append(task)
-            }
+        contact()
+        print("5")
+        fireBaseDataChat2()
+        dowloadsListRoom()
+        observeMessageStruct()
+    }
 
-            // Переносим вне цикла все содержимое из _list в массив сообщений
-            self?.task = _list
-
+   
+    func fireBaseDataChat3(text: String) {
+      
+        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
+    }
+    func fireBaseDataChat2() {
+        
+        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
+    }
+    func dowloadsListRoom() {
+        refMessages.observe(.value) { [weak self] (snapshot) in
+            let index = Int(snapshot.childrenCount)
+            print("index = \(index)")
+            
+            
+            for int in 0..<5 {
+            
+        print("первый цикл - выполняется \(int + 1)ый раз")
+            self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
+            self?.refMessagesCount.observe(.value, with: { (snapshot) in
+                var _listMessages = Array<Messages>()
+            
+                for i in snapshot.children {
+                    let task = Messages(snapshot: i as! DataSnapshot)
+                    
+                    _listMessages.append(task)
+                }
+                self?.messageCount = _listMessages
+                
+                if (self?.messageCount.count)! <= 0 {
+                    print("no message")
+                } else {
+                let deleteMessage = self?.messageCount.removeLast()
+                    print(deleteMessage?.message)
+                }
+                
+                
+            })
+           // print("number element \(int)")
+        }
+            
+           
+        
+        }
+        
+    
+    
+    observeMessageStruct()
+    }
+    
+    func observeMessageStruct() {
+        print("4")
+        for i in 0..<messageCount.count {
+            
+            print(">>>>>message \(messageCount[i].message)")
         }
     }
+    
+    
+    
+    
+    
     
     
     // MARK: - Table view data source
@@ -121,6 +177,29 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    func contact() {
+        ref.observe(.value) { [weak self] (snapshot) in
+            var _list = Array<Contact>()
+            // создаем массив - который имеет туже стректуру что и messageTest
+            //
+            //
+            // Цикл считываем все из snapshot ( снимок ) и помещаем в item
+            for item in snapshot.children {
+                //print(item)
+                let task = Contact(snapshot: item as! DataSnapshot)
+                // Создаем стректуру - которая будет иметь все ключи из snapshot
+                //
+                //
+                // Добавляем все содержимое в массив ( смотреть строку 104 )
+                _list.append(task)
+            }
+            
+            // Переносим вне цикла все содержимое из _list в массив сообщений
+            self?.task = _list
+            
+        }
+    }
+    
     //
     // Выход из учетной записи
     @IBAction func exitPersonal(_ sender: UIBarButtonItem) {
@@ -134,3 +213,9 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
 }
+
+
+
+
+
+
