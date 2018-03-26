@@ -182,6 +182,7 @@ class LoginViewController: UIViewController {
     var lastRoomMessage = [String]()
     var lastRoomEmail = [String]()
     var lastRoomMessageCount = [String]()
+    var lastRoomDate = [String]()
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
@@ -228,12 +229,14 @@ class LoginViewController: UIViewController {
                         self?.lastRoomEmail.append("no user")
                         self?.lastRoomMessage.append("no message")
                         self?.lastRoomMessageCount.append("0")
+                        self?.lastRoomDate.append(":(")
                     } else {
                         let deleteMessage = self?.messageCount.removeLast()
                         print((deleteMessage?.message)!)
                         self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
                         self?.lastRoomMessage.append((deleteMessage?.message)!)
                         self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
+                        self?.lastRoomDate.append((deleteMessage?.date)!)
                         print((deleteMessage?.date)!)
                         
                         
@@ -243,6 +246,7 @@ class LoginViewController: UIViewController {
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
                     messageCountCell = (self?.lastRoomMessageCount)!
+                    lastRoomMessageDate = (self?.lastRoomDate)!
                     
                 })
                 

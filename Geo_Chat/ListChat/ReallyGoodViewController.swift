@@ -12,6 +12,7 @@ var nameUser = ""
 var lastRoomMessageSend = [String]()
 var lastRoomMessageEmail = [String]()
 var messageCountCell = [String]()
+var lastRoomMessageDate = [String]()
 
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,6 +20,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     var lastRoomMessage = [String]()
     var lastRoomEmail = [String]()
     var lastRoomMessageCount = [String]()
+    var lastRoomDate = [String]()
     
     var refMessages: DatabaseReference!
     var messageToVC: [Messages] = []
@@ -159,6 +161,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.lastText.text = lastRoomMessageSend[indexPath.row]
         cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
         cell.numberOfPeopleInRoom.text = messageCountCell[indexPath.row]
+        cell.lastTime.text = DateAndTimes().getTextInMidLabel2(date: DateAndTimes().getDateFrom2(string: lastRoomMessageDate[indexPath.row]))
         return cell
     }
     
@@ -265,12 +268,14 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
                         self?.lastRoomEmail.append("no user")
                         self?.lastRoomMessage.append("no message")
                         self?.lastRoomMessageCount.append("0")
+                        self?.lastRoomDate.append(":(")
                     } else {
                         let deleteMessage = self?.messageCount.removeLast()
                         print((deleteMessage?.message)!)
                         self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
                         self?.lastRoomMessage.append((deleteMessage?.message)!)
                         self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
+                        self?.lastRoomDate.append((deleteMessage?.date)!)
                         print((deleteMessage?.date)!)
                         
                         
@@ -280,6 +285,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
                     messageCountCell = (self?.lastRoomMessageCount)!
+                    lastRoomMessageDate = (self?.lastRoomDate)!
                     self?.tableView.reloadData()
                 })
                 
