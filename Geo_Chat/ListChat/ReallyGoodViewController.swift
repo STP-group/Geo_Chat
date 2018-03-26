@@ -174,7 +174,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     //
     // Передача данных через сигвей
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         userIdNameJSQ = nameUser
+        // userIdNameJSQ = nameUser
         print("-roomVC ---\(userIdNameJSQ)")
         if segue.identifier == "sendDataSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {

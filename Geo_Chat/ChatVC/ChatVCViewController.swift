@@ -71,10 +71,13 @@ class ChatVCViewController: JSQMessagesViewController {
         print(userIdNameJSQ)
         // Получаем в консоли информацию о имени пользователя
         //
-        self.senderId = "\(userIdNameJSQ)"
+        self.senderId = userIdNameJSQ
+        print(userIdNameJSQ)
         // Id отправителя сообщений ( обязательно для JSQMessage )
         //
         self.senderDisplayName = nameUserSender
+        print(senderId)
+        print(senderDisplayName)
         if senderDisplayName == nil {
             senderDisplayName = "no name"
             print("1")
