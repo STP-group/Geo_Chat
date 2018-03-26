@@ -9,19 +9,21 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
+var nameVC = ""
+var userDataContact: [Contact] = []
+// название комнаты для базы данных
+//
+var titleNameRoom = ""
 
 var userIdNameJSQ = ""
 class ChatVCViewController: JSQMessagesViewController {
     
-    var contactName: [Contact] = []
-    
+    //var contactName: [Contact] = []
+   // let funcRoomVC = ReallyGoodViewController()
     
     // Id пользователя ( сейчас используется email)
     //
-    var nameVC = ""
-    // название комнаты для базы данных
-    //
-    var titleNameRoom = ""
+   
     
     
     var user: UsersInfo!
@@ -42,35 +44,28 @@ class ChatVCViewController: JSQMessagesViewController {
     var nameUserSender = ""
     //var automaticallyScrollsToMostRecentMessage: Bool = true
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         var automaticallyScrollsToMostRecentMessage: Bool = true
-        print(contactName)
+      //  print(contactName)
         print(userIdNameJSQ)
-        for i in contactName {
-            if i.email == userIdNameJSQ {
-                print("sender email - \(i.email), sender name - \(i.name)")
+
+        
+        for name in userDataContact {
+            print(name)
+            if name.email == userIdNameJSQ {
+                nameUserSender = name.name
                 
-                nameUserSender = i.name
-                
-               
+                print("имя отправителя\(name.name)")
             } else {
-               
+                 print("имя получателя\(name.name)")
             }
         }
         
 
         title = titleNameRoom
         fireBaseDataChat()
-        // Функция для адресса комнаты
-        //
-        print(nameVC)
-        // Получаем в консоли информацию о имени комнаты
-        //
-        print(userIdNameJSQ)
-        // Получаем в консоли информацию о имени пользователя
-        //
+      
         self.senderId = userIdNameJSQ
         print(userIdNameJSQ)
         // Id отправителя сообщений ( обязательно для JSQMessage )
@@ -320,8 +315,16 @@ class ChatVCViewController: JSQMessagesViewController {
         // Остоновка отправки сообщений
         // После отправки возвращает текстовое поле в исходное состояние
         finishSendingMessage()
+        //funcRoomVC.reload()
        
     }
-   
+    @IBAction func cancelToRoomVC(_ sender: UIBarButtonItem) {
+        dismiss(animated: false) {
+            
+            //_ = self.funcRoomVC.tableView.reloadData()
+            
+        }
+    }
+    
 
 }

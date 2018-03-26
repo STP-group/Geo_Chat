@@ -12,10 +12,13 @@ var nameUser = ""
 var lastRoomMessageSend = [String]()
 var lastRoomMessageEmail = [String]()
 var messageCountCell = [String]()
+
 class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    var lastRoomMessage = [String]()
+    var lastRoomEmail = [String]()
+    var lastRoomMessageCount = [String]()
     
     var refMessages: DatabaseReference!
     var messageToVC: [Messages] = []
@@ -26,7 +29,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     //
     // Название для комнат
     let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
-    var lastRoomMessage = [String]()
+    //var lastRoomMessage = [String]()
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
@@ -40,9 +43,9 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     // Ярослав
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         ref = Database.database().reference(withPath: "Geo_chat").child("Users")
-        
+        contact()
         tableView.separatorStyle = .none
         tableView.backgroundView?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 0.3 )
     }
@@ -58,66 +61,66 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
    
-    func fireBaseDataChat3(text: String) {
-      
-        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
-    }
-    func fireBaseDataChat2() {
-        
-        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
-    }
-    func dowloadsListRoom() {
-        refMessages.observe(.value) { [weak self] (snapshot) in
-            let index = Int(snapshot.childrenCount)
-            print("index = \(index)")
-            
-            
-            for int in 0..<5 {
-            
-        print("первый цикл - выполняется \(int + 1)ый раз")
-            self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
-            self?.refMessagesCount.observe(.value, with: { (snapshot) in
-                var _listMessages = Array<Messages>()
-            
-                for i in snapshot.children {
-                    let task = Messages(snapshot: i as! DataSnapshot)
-                    
-                    _listMessages.append(task)
-                }
-                self?.messageCount = _listMessages
-                
-                if (self?.messageCount.count)! <= 0 {
-
-                    self?.lastRoomMessage.append("no message")
-                } else {
-                    let deleteMessage = self?.messageCount.removeLast()
-                    print((deleteMessage?.message)!)
-                    self?.lastRoomMessage.append((deleteMessage?.message)!)
-                }
-                
-                print((self?.lastRoomMessage.count)!)
-                print((self?.lastRoomMessage)!)
-            })
-           // print("number element \(int)")
-        }
-            
-           
-        
-        }
-        
-    
-    
-    observeMessageStruct()
-    }
-    
-    func observeMessageStruct() {
-        print("4")
-        for i in 0..<messageCount.count {
-            
-            print(">>>>>message \(messageCount[i].message)")
-        }
-    }
-    
+//    func fireBaseDataChat3(text: String) {
+//
+//        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
+//    }
+//    func fireBaseDataChat2() {
+//
+//        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
+//    }
+//    func dowloadsListRoom() {
+//        refMessages.observe(.value) { [weak self] (snapshot) in
+//            let index = Int(snapshot.childrenCount)
+//            print("index = \(index)")
+//
+//
+//            for int in 0..<5 {
+//
+//        print("первый цикл - выполняется \(int + 1)ый раз")
+//            self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
+//            self?.refMessagesCount.observe(.value, with: { (snapshot) in
+//                var _listMessages = Array<Messages>()
+//
+//                for i in snapshot.children {
+//                    let task = Messages(snapshot: i as! DataSnapshot)
+//
+//                    _listMessages.append(task)
+//                }
+//                self?.messageCount = _listMessages
+//
+//                if (self?.messageCount.count)! <= 0 {
+//
+//                    self?.lastRoomMessage.append("no message")
+//                } else {
+//                    let deleteMessage = self?.messageCount.removeLast()
+//                    print((deleteMessage?.message)!)
+//                    self?.lastRoomMessage.append((deleteMessage?.message)!)
+//                }
+//
+//                print((self?.lastRoomMessage.count)!)
+//                print((self?.lastRoomMessage)!)
+//            })
+//           // print("number element \(int)")
+//        }
+//
+//
+//
+//        }
+//
+//
+//
+//    observeMessageStruct()
+//    }
+//
+//    func observeMessageStruct() {
+//        print("4")
+//        for i in 0..<messageCount.count {
+//
+//            print(">>>>>message \(messageCount[i].message)")
+//        }
+//    }
+//
     
     
     
@@ -152,7 +155,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
       //  if lastRoomMessage.count == chatRoomName.count
         
         cell.chatRoomName.text = room[indexPath.row]
-        cell.lastSender.text = "\(nameUser)"
+        //cell.lastSender.text = "\(nameUser)"
         cell.lastText.text = lastRoomMessageSend[indexPath.row]
         cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
         cell.numberOfPeopleInRoom.text = messageCountCell[indexPath.row]
@@ -176,16 +179,19 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // userIdNameJSQ = nameUser
         print("-roomVC ---\(userIdNameJSQ)")
-        if segue.identifier == "sendDataSegue" {
+       
             if let indexPath = tableView.indexPathForSelectedRow {
-                let dvc =  segue.destination as! ChatVCViewController
-                dvc.nameVC = roomSend[indexPath.row]
-                dvc.titleNameRoom = room[indexPath.row]
+                //let dvc =  segue.destination as! ChatVCViewController
+               nameVC = roomSend[indexPath.row]
+               titleNameRoom = room[indexPath.row]
                 
-                dvc.contactName = task
-            }
+                
+                //contactName = task
+            
         }
     }
+    
+   
     
     func contact() {
         ref.observe(.value) { [weak self] (snapshot) in
@@ -195,7 +201,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
             //
             // Цикл считываем все из snapshot ( снимок ) и помещаем в item
             for item in snapshot.children {
-                //print(item)
+                print(item)
                 let task = Contact(snapshot: item as! DataSnapshot)
                 // Создаем стректуру - которая будет иметь все ключи из snapshot
                 //
@@ -206,7 +212,7 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
             
             // Переносим вне цикла все содержимое из _list в массив сообщений
             self?.task = _list
-            
+            userDataContact = (self?.task)!
         }
     }
     
@@ -220,6 +226,80 @@ class ReallyGoodViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         dismiss(animated: false, completion: nil
         )
+    }
+    @IBAction func reloadData(_ sender: UIBarButtonItem) {
+        fireBaseDataChat2()
+        dowloadsListRoom()
+        observeMessageStruct()
+        
+    }
+    func fireBaseDataChat3(text: String) {
+        
+        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
+    }
+    func fireBaseDataChat2() {
+        
+        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
+    }
+    func dowloadsListRoom() {
+        refMessages.observe(.value) { [weak self] (snapshot) in
+            let index = Int(snapshot.childrenCount)
+            print("index = \(index)")
+            
+            
+            for int in 0..<5 {
+                
+                print("первый цикл - выполняется \(int + 1)ый раз")
+                self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
+                self?.refMessagesCount.observe(.value, with: { (snapshot) in
+                    var _listMessages = Array<Messages>()
+                    
+                    for i in snapshot.children {
+                        let task = Messages(snapshot: i as! DataSnapshot)
+                        
+                        _listMessages.append(task)
+                    }
+                    self?.messageCount = _listMessages
+                    
+                    if (self?.messageCount.count)! <= 0 {
+                        self?.lastRoomEmail.append("no user")
+                        self?.lastRoomMessage.append("no message")
+                        self?.lastRoomMessageCount.append("0")
+                    } else {
+                        let deleteMessage = self?.messageCount.removeLast()
+                        print((deleteMessage?.message)!)
+                        self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
+                        self?.lastRoomMessage.append((deleteMessage?.message)!)
+                        self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
+                        print((deleteMessage?.date)!)
+                        
+                        
+                    }
+                    
+                    
+                    lastRoomMessageSend = (self?.lastRoomMessage)!
+                    lastRoomMessageEmail = (self?.lastRoomEmail)!
+                    messageCountCell = (self?.lastRoomMessageCount)!
+                    self?.tableView.reloadData()
+                })
+                
+            }
+            
+            
+            
+        }
+        
+        
+        
+        observeMessageStruct()
+    }
+    
+    func observeMessageStruct() {
+        print("4")
+        for i in 0..<messageCount.count {
+            
+            print(">>>>>message \(messageCount[i].message)")
+        }
     }
     
 }

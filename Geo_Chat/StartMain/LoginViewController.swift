@@ -16,6 +16,7 @@ import Firebase
 class LoginViewController: UIViewController {
     
     var loginText = ""
+    let funcRoomVC = ReallyGoodViewController()
     //let authViewController = authUI(LoginViewController).authViewController()
     
     
@@ -139,6 +140,7 @@ class LoginViewController: UIViewController {
                 let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVC") as! ReallyGoodViewController
                 // sendData.nameUser = email
                 listViewController?.addChildViewController(sendData)
+                
                 //sendData.nameUser = email
                 //sendData.nameUser =
                 
@@ -236,9 +238,12 @@ class LoginViewController: UIViewController {
                         
                         
                     }
+                    
+                    
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
                     messageCountCell = (self?.lastRoomMessageCount)!
+                    
                 })
                 
             }
