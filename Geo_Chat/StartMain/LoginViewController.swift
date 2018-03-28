@@ -16,7 +16,7 @@ import Firebase
 class LoginViewController: UIViewController {
     
     var loginText = ""
-    let funcRoomVC = ReallyGoodViewController()
+  //  let funcRoomVC = ReallyGoodViewController()
     //let authViewController = authUI(LoginViewController).authViewController()
     
     
@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
         fireBaseDataChat2()
         dowloadsListRoom()
         observeMessageStruct()
-        print(loginText)
+      //  print(loginText)
         emailTextField.text = loginText
         // Появление и скрытие клавы
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -133,19 +133,20 @@ class LoginViewController: UIViewController {
             
             if user != nil {
                 //nameUser = email
-                print(nameUser)
+               // print(nameUser)
                 userIdNameJSQ = (self?.emailTextField.text!)!
                 // переход в окно чата ( переход без segue! )
-                let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewController")
-                let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVC") as! ReallyGoodViewController
+               // let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewControllerNavigation")
+                //let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVCList") as! ReallyGoodViewControllerList
                 // sendData.nameUser = email
-                listViewController?.addChildViewController(sendData)
+               // listViewController?.addChildViewController(sendData)
                 
                 //sendData.nameUser = email
                 //sendData.nameUser =
                 
-                self?.present(listViewController!, animated: false, completion: nil)
-                
+               // self?.present(listViewController!, animated: false, completion: nil)
+                self?.performSegue(withIdentifier: "testSegue", sender: nil)
+                return
             } else {
                 self?.displayWarningLabel(withText: "Неверные данные")
                 return
@@ -186,45 +187,45 @@ class LoginViewController: UIViewController {
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
-    
+
     // Имя пользователя под которым мы зашли
-    
+
     var ref: DatabaseReference!
     var task: [Contact] = []
-    
+
     //
     // Ярослав
-    
-    
-    
+
+
+
     func fireBaseDataChat3(text: String) {
-        
+
         refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
     }
     func fireBaseDataChat2() {
-        
+
         refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
     }
     func dowloadsListRoom() {
         refMessages.observe(.value) { [weak self] (snapshot) in
             let index = Int(snapshot.childrenCount)
             print("index = \(index)")
-            
-            
+
+
             for int in 0..<5 {
-                
+
                 print("первый цикл - выполняется \(int + 1)ый раз")
                 self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
                 self?.refMessagesCount.observe(.value, with: { (snapshot) in
                     var _listMessages = Array<Messages>()
-                    
+
                     for i in snapshot.children {
                         let task = Messages(snapshot: i as! DataSnapshot)
-                        
+
                         _listMessages.append(task)
                     }
                     self?.messageCount = _listMessages
-                    
+
                     if (self?.messageCount.count)! <= 0 {
                         self?.lastRoomEmail.append("no user")
                         self?.lastRoomMessage.append("no message")
@@ -238,37 +239,37 @@ class LoginViewController: UIViewController {
                         self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
                         self?.lastRoomDate.append((deleteMessage?.date)!)
                         print((deleteMessage?.date)!)
-                        
-                        
+
+
                     }
-                    
-                    
+
+
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
                     messageCountCell = (self?.lastRoomMessageCount)!
                     lastRoomMessageDate = (self?.lastRoomDate)!
-                    
+
                 })
-                
+
             }
-            
-            
-            
+
+
+
         }
-        
-        
-        
+
+
+
         observeMessageStruct()
     }
-    
+
     func observeMessageStruct() {
         print("4")
         for i in 0..<messageCount.count {
-            
+
             print(">>>>>message \(messageCount[i].message)")
         }
     }
-    
+
     
     
 }

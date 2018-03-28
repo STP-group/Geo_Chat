@@ -43,6 +43,9 @@ class ChatVCViewController: JSQMessagesViewController {
     //
     var nameUserSender = ""
     //var automaticallyScrollsToMostRecentMessage: Bool = true
+    var funcS = ReallyGoodViewControllerList()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -312,6 +315,7 @@ class ChatVCViewController: JSQMessagesViewController {
         // Обновление экрана
         collectionView.reloadData()
         
+        
         // Остоновка отправки сообщений
         // После отправки возвращает текстовое поле в исходное состояние
         finishSendingMessage()
@@ -320,7 +324,7 @@ class ChatVCViewController: JSQMessagesViewController {
     }
     @IBAction func cancelToRoomVC(_ sender: UIBarButtonItem) {
         dismiss(animated: false) {
-            
+            self.funcS.start()
             //_ = self.funcRoomVC.tableView.reloadData()
             
         }
