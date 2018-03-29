@@ -12,17 +12,24 @@ import FirebaseAuthUI
 import FirebaseFacebookAuthUI
 import CoreData
 import Firebase
+import CoreLocation
+import MapKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     var loginText = ""
-  //  let funcRoomVC = ReallyGoodViewController()
-    //let authViewController = authUI(LoginViewController).authViewController()
+    
+    // Location
+    let locationManager = CLLocationManager()
+    var geocoder = CLGeocoder()
     
     
+    
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var steckViewLogin: UIStackView!
     // MARK: - Outlets
+    
     // Два текстовых поля на экране "Входа"
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -33,16 +40,104 @@ class LoginViewController: UIViewController {
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        fireBaseDataChat2()
-        dowloadsListRoom()
-        observeMessageStruct()
-      //  print(loginText)
+        // Location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        updateCurrentLocation()
+        
+        // выполнение функций для загрузки последних сообщений
+        dowloadsListRoomPartTwo()
+        dowloadsListRoomPartOne()
+        
+        
+        
         emailTextField.text = loginText
         // Появление и скрытие клавы
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        displayHelloLabel()
         
+        displayHelloLabel()
+    }
+    
+    // Кординаты комнаты
+    var roomCordinates = CLLocationCoordinate2D(latitude: 55.978827, longitude: 37.158806)
+    // Кординаты пользователя - который хачет зайти в комнату 55.985439, 37.179774
+    var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.985439, longitude: 37.179774)
+    func pointMarkToMaps() {
+        
+        // Присвоение кординат комнаты для расчета растояния
+        let locationRoom = CLLocation(latitude: roomCordinates.latitude, longitude: roomCordinates.longitude)
+        // Присвоение кординат пользователя для расчета растояния
+        let locationGuest = CLLocation(latitude: guestUserCortinate.latitude, longitude: guestUserCortinate.longitude)
+        // Вычисляем расстояние между комнатой и пользователем
+        let distanceInMeters = locationRoom.distance(from: locationGuest)
+        
+        // переводим в целое число ( пример: из 513.212405045983 в 513 )
+        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
+        
+        // Тип расстояния - если расстояние больше 1000метров - то отображается в км, если меньше то в м
+        // Нужно доработать  - если расстояние в километрах - то показывает Пример: 3.26км !
+        var typyDistantion = ""
+        if distanceInMeters >= 1000 {
+            typyDistantion = "км"
+        } else {
+            typyDistantion = "м"
+        }
+        
+        // Ставим точку на карте ( для тестирования )
+        let placeMarkPointAnotation = MKPointAnnotation()
+        // Имя точки
+        placeMarkPointAnotation.title = "name rook"
+        // Растояние отображается на точке ( смотреть чуть выше )
+        placeMarkPointAnotation.subtitle = "\(subTitleText[0])\(typyDistantion)"
+        
+        // Точка на карте - используется кординаты комнаты
+        placeMarkPointAnotation.coordinate = roomCordinates
+        // принт расстояния
+        print("растояние \(distanceInMeters)")
+        if distanceInMeters >= 500.0 {
+            print(">500")
+        } else {
+            print("<500")
+        }
+        
+        // отображение на карте
+        self.mapView.showAnnotations([placeMarkPointAnotation], animated: true)
+        self.mapView.selectAnnotation(placeMarkPointAnotation, animated: true)
+    }
+    
+    // Обновление кординат
+    private func updateCurrentLocation() {
+        locationManager.startUpdatingLocation()
+    }
+    
+    // Получаем наши кординаты
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        
+        UserDefaults.standard.set(userLocation.coordinate.latitude, forKey: "LAT")
+        UserDefaults.standard.set(userLocation.coordinate.longitude, forKey: "LON")
+        UserDefaults().synchronize()
+        createPin()
+        
+        print(userLocation.coordinate.latitude)
+        print(userLocation.coordinate.longitude)
+        
+        pointMarkToMaps()
+    }
+    
+    func createPin(){
+        
+        //Access user Location LAT & LON from User Defaults
+        let coordinate =  CLLocationCoordinate2D(latitude: UserDefaults.standard.value(forKey: "LAT") as! CLLocationDegrees, longitude: UserDefaults.standard.value(forKey: "LON") as! CLLocationDegrees)
+        var region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        region.center = coordinate
+        
+        self.mapView.setRegion(region, animated: true)
         
     }
     
@@ -54,7 +149,7 @@ class LoginViewController: UIViewController {
         if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
             return true
         }
-        // other URL handling goes here.
+        
         return false
     }
     
@@ -68,7 +163,7 @@ class LoginViewController: UIViewController {
     
     // Появление клавы - делает смещение элементов на 50 поитов
     @objc func keyboardWillShow(notification: NSNotification) {
-        print("HELLO")
+        // print("HELLO")
         if self.view.frame.origin.y == 0{
             self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
             self.view.frame.origin.y -= 50
@@ -106,8 +201,6 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
     
-    
-    
     // Кнопка входа
     @IBAction func loginAuthentication(_ sender: UIButton) {
         // Две константы для авторизации
@@ -132,19 +225,7 @@ class LoginViewController: UIViewController {
             }
             
             if user != nil {
-                //nameUser = email
-               // print(nameUser)
                 userIdNameJSQ = (self?.emailTextField.text!)!
-                // переход в окно чата ( переход без segue! )
-               // let listViewController = self?.storyboard?.instantiateViewController(withIdentifier: "chatListViewControllerNavigation")
-                //let sendData = self?.storyboard?.instantiateViewController(withIdentifier: "roomVCList") as! ReallyGoodViewControllerList
-                // sendData.nameUser = email
-               // listViewController?.addChildViewController(sendData)
-                
-                //sendData.nameUser = email
-                //sendData.nameUser =
-                
-               // self?.present(listViewController!, animated: false, completion: nil)
                 self?.performSegue(withIdentifier: "testSegue", sender: nil)
                 return
             } else {
@@ -168,9 +249,6 @@ class LoginViewController: UIViewController {
     }
     
     
-    
-    
-    
     var refMessages: DatabaseReference!
     var messageToVC: [Messages] = []
     var arrayListRoom: [Messages] = []
@@ -187,45 +265,33 @@ class LoginViewController: UIViewController {
     //
     // Имена комнат в базе ( временно )
     let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
-
-    // Имя пользователя под которым мы зашли
-
+    
+    //
+    
     var ref: DatabaseReference!
     var task: [Contact] = []
-
-    //
-    // Ярослав
-
-
-
-    func fireBaseDataChat3(text: String) {
-
+    
+    
+    
+    func dowloadsListRoomPartThree(text: String) {
         refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
     }
-    func fireBaseDataChat2() {
-
+    func dowloadsListRoomPartTwo() {
         refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
     }
-    func dowloadsListRoom() {
+    func dowloadsListRoomPartOne() {
         refMessages.observe(.value) { [weak self] (snapshot) in
-            let index = Int(snapshot.childrenCount)
-            print("index = \(index)")
-
-
             for int in 0..<5 {
-
-                print("первый цикл - выполняется \(int + 1)ый раз")
-                self?.fireBaseDataChat3(text: (self?.roomSend[int])!)
+                self?.dowloadsListRoomPartThree(text: (self?.roomSend[int])!)
                 self?.refMessagesCount.observe(.value, with: { (snapshot) in
                     var _listMessages = Array<Messages>()
-
+                    
                     for i in snapshot.children {
                         let task = Messages(snapshot: i as! DataSnapshot)
-
                         _listMessages.append(task)
                     }
                     self?.messageCount = _listMessages
-
+                    
                     if (self?.messageCount.count)! <= 0 {
                         self?.lastRoomEmail.append("no user")
                         self?.lastRoomMessage.append("no message")
@@ -233,43 +299,20 @@ class LoginViewController: UIViewController {
                         self?.lastRoomDate.append(":(")
                     } else {
                         let deleteMessage = self?.messageCount.removeLast()
-                        print((deleteMessage?.message)!)
                         self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
                         self?.lastRoomMessage.append((deleteMessage?.message)!)
                         self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
                         self?.lastRoomDate.append((deleteMessage?.date)!)
-                        print((deleteMessage?.date)!)
-
-
+                        
                     }
-
-
+                    
                     lastRoomMessageSend = (self?.lastRoomMessage)!
                     lastRoomMessageEmail = (self?.lastRoomEmail)!
                     messageCountCell = (self?.lastRoomMessageCount)!
                     lastRoomMessageDate = (self?.lastRoomDate)!
-
                 })
-
             }
-
-
-
-        }
-
-
-
-        observeMessageStruct()
-    }
-
-    func observeMessageStruct() {
-        print("4")
-        for i in 0..<messageCount.count {
-
-            print(">>>>>message \(messageCount[i].message)")
         }
     }
-
-    
     
 }

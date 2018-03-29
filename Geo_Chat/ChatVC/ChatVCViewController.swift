@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
+
 var nameVC = ""
 var userDataContact: [Contact] = []
 // название комнаты для базы данных

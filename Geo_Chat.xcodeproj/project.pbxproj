@@ -22,6 +22,7 @@
 		C88E696D204F0AE6001B3AE2 /* RegisteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */; };
 		C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */; };
 		C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBFEC12053D70200E6BC57 /* Contacts.swift */; };
+		C8D1E21C206CCF7A00A97163 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D1E21B206CCF7900A97163 /* CoreLocation.framework */; };
 		C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D20B522059AE1B00B32DD6 /* Messages.swift */; };
 		C8EF082F204FE91D0038E7BE /* userInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF082E204FE91D0038E7BE /* userInfo.swift */; };
 		F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */; };
@@ -48,6 +49,7 @@
 		C88E696C204F0AE6001B3AE2 /* RegisteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteryViewController.swift; sourceTree = "<group>"; };
 		C8BBFEBF2053D5BF00E6BC57 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C8BBFEC12053D70200E6BC57 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		C8D1E21B206CCF7900A97163 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C8D20B522059AE1B00B32DD6 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		C8EF082E204FE91D0038E7BE /* userInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D1E21C206CCF7A00A97163 /* CoreLocation.framework in Frameworks */,
 				F3A38779061385FE773198CD /* Pods_Geo_Chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +146,7 @@
 		CFDA4530B0AA5639F8594B25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8D1E21B206CCF7900A97163 /* CoreLocation.framework */,
 				2CF934F196B2032C622AEC7C /* Pods_Geo_Chat.framework */,
 			);
 			name = Frameworks;

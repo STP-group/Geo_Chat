@@ -8,6 +8,10 @@
 
 import UIKit
 import Firebase
+
+
+
+// Global varibele
 var nameUser = ""
 var lastRoomMessageSend = [String]()
 var lastRoomMessageEmail = [String]()
@@ -16,6 +20,8 @@ var lastRoomMessageDate = [String]()
 
 class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+   
+    
     var ref: DatabaseReference!
     var task: [Contact] = []
     var refMessages: DatabaseReference!
@@ -33,6 +39,8 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         
     }
+    
+
     @IBAction func reload(_ sender: UIBarButtonItem) {
         start()
         print("reload")
@@ -49,10 +57,9 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     func start() {
         print("start timer")
         guard timer == nil else { return }
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(handleMyFunction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(handleMyFunction), userInfo: nil, repeats: true)
     }
-       // timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(handleMyFunction), userInfo: nil, repeats: true)
-   // }
+    
     
    public func stop() {
     print("stop timer")
@@ -66,12 +73,18 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         //let message = lastRoomMessageSend.removeLast()
          ref = Database.database().reference(withPath: "Geo_chat").child("Users")
         start()
         tableView.separatorStyle = .none
         tableView.backgroundView?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 0.3 )
     }
+    
+
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
