@@ -64,10 +64,28 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     var roomCordinates = CLLocationCoordinate2D(latitude: 55.978827, longitude: 37.158806)
     // Кординаты пользователя - который хачет зайти в комнату 55.985439, 37.179774
     var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.985439, longitude: 37.179774)
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        
+        UserDefaults.standard.set(userLocation.coordinate.latitude, forKey: "LAT")
+        UserDefaults.standard.set(userLocation.coordinate.longitude, forKey: "LON")
+        UserDefaults().synchronize()
+        createPin()
+        
+        print(userLocation.coordinate.latitude)
+        print(userLocation.coordinate.longitude)
+        userLocationLatitude = userLocation.coordinate.latitude
+        userLocationLongitude = userLocation.coordinate.longitude
+        
+        pointMarkToMaps()
+    }
     func pointMarkToMaps() {
         
         // Присвоение кординат комнаты для расчета растояния
-        let locationRoom = CLLocation(latitude: roomCordinates.latitude, longitude: roomCordinates.longitude)
+        let locationRoom = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
         // Присвоение кординат пользователя для расчета растояния
         let locationGuest = CLLocation(latitude: guestUserCortinate.latitude, longitude: guestUserCortinate.longitude)
         // Вычисляем расстояние между комнатой и пользователем
@@ -88,12 +106,14 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         // Ставим точку на карте ( для тестирования )
         let placeMarkPointAnotation = MKPointAnnotation()
         // Имя точки
-        placeMarkPointAnotation.title = "name rook"
+        placeMarkPointAnotation.title = "Я тут"
         // Растояние отображается на точке ( смотреть чуть выше )
-        placeMarkPointAnotation.subtitle = "\(subTitleText[0])\(typyDistantion)"
+        placeMarkPointAnotation.subtitle = "\(subTitleText[0])m"
         
         // Точка на карте - используется кординаты комнаты
-        placeMarkPointAnotation.coordinate = roomCordinates
+        placeMarkPointAnotation.coordinate.latitude = userLocationLatitude
+        placeMarkPointAnotation.coordinate.longitude = userLocationLongitude
+        //roomCordinates
         // принт расстояния
         print("растояние \(distanceInMeters)")
         if distanceInMeters >= 500.0 {
@@ -113,22 +133,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // Получаем наши кординаты
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        
-        let userLocation:CLLocation = locations[0] as CLLocation
-        
-        
-        UserDefaults.standard.set(userLocation.coordinate.latitude, forKey: "LAT")
-        UserDefaults.standard.set(userLocation.coordinate.longitude, forKey: "LON")
-        UserDefaults().synchronize()
-        createPin()
-        
-        print(userLocation.coordinate.latitude)
-        print(userLocation.coordinate.longitude)
-        
-        pointMarkToMaps()
-    }
+    
     
     func createPin(){
         
@@ -215,6 +220,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
                 alertController.addAction(cancelButton)
                 present(alertController, animated: true, completion: nil)
                 return
+               
         }
         
         // Авторизация на сервере Firebase
@@ -226,6 +232,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
             
             if user != nil {
                 userIdNameJSQ = (self?.emailTextField.text!)!
+                
                 self?.performSegue(withIdentifier: "testSegue", sender: nil)
                 return
             } else {

@@ -120,7 +120,7 @@ class ChatVCViewController: JSQMessagesViewController {
         // user получаем имя пользователя ( в разработке )
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
-        ref = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(nameVC)
+        ref = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(nameVC).child("messages")
     }
     
    
@@ -144,21 +144,20 @@ class ChatVCViewController: JSQMessagesViewController {
         // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
         ref.observe(.value) { [weak self] (snapshot) in
             var _list = Array<Messages>()
-            // создаем массив - который имеет туже стректуру что и messageTest
-            //
-            //
-            // Цикл считываем все из snapshot ( снимок ) и помещаем в item
+           
+            let countMessage = snapshot.childrenCount
+           
+            if countMessage <= 0 {
+                print("error")
+            } else {
             for item in snapshot.children {
                 
                 let task = Messages(snapshot: item as! DataSnapshot)
-                // Создаем стректуру - которая будет иметь все ключи из snapshot
-                //
-                //
-                // Добавляем все содержимое в массив ( смотреть строку 104 )
+               
                 _list.append(task)
             }
             
-             // Переносим вне цикла все содержимое из _list в массив сообщений
+            
             self?.messageFirebaseStruct = _list
             
             // Схожая процедура ( смотреть выше ) только помещаем все в массив ( JSQMessage )
@@ -181,7 +180,7 @@ class ChatVCViewController: JSQMessagesViewController {
             self?.finishReceivingMessage()
             self?.scrollToBottom(animated: true)
             self?.collectionView.reloadData()
-            
+            }
         }
     }
     
@@ -304,7 +303,7 @@ class ChatVCViewController: JSQMessagesViewController {
         
         
         // Помещаем все в массив
-        let text = Messages(message: text, email: senderId /*userIdNameJSQ*/, date: dateMessage(), nameUser: senderDisplayName)
+        let text = Messages(message: text, email: senderId , date: dateMessage(), nameUser: senderDisplayName)
         
         // сохраняем в Firebase
         let refMessage = self.ref.child(String(messageFirebaseStruct.count))
@@ -322,6 +321,9 @@ class ChatVCViewController: JSQMessagesViewController {
         finishSendingMessage()
         //funcRoomVC.reload()
        
+    }
+    @IBAction func cancelPenGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        dismiss(animated: false, completion: nil)
     }
     @IBAction func cancelToRoomVC(_ sender: UIBarButtonItem) {
         dismiss(animated: false) {
