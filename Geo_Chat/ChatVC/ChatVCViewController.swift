@@ -19,14 +19,6 @@ var titleNameRoom = ""
 var userIdNameJSQ = ""
 class ChatVCViewController: JSQMessagesViewController {
     
-    //var contactName: [Contact] = []
-   // let funcRoomVC = ReallyGoodViewController()
-    
-    // Id пользователя ( сейчас используется email)
-    //
-   
-    
-    
     var user: UsersInfo!
     // структура пользователей для списка пользователе в данном чате ( в разработке )
     //
@@ -50,38 +42,31 @@ class ChatVCViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var automaticallyScrollsToMostRecentMessage: Bool = true
-      //  print(contactName)
-        print(userIdNameJSQ)
-
+        //_: Bool = true
         
         for name in userDataContact {
             print(name)
             if name.email == userIdNameJSQ {
                 nameUserSender = name.name
-                
                 print("имя отправителя\(name.name)")
             } else {
-                 print("имя получателя\(name.name)")
+                print("имя получателя\(name.name)")
             }
         }
         
-
+        
         title = titleNameRoom
         fireBaseDataChat()
-      
+        
         self.senderId = userIdNameJSQ
-        print(userIdNameJSQ)
+
         // Id отправителя сообщений ( обязательно для JSQMessage )
         //
         self.senderDisplayName = nameUserSender
-        print(senderId)
-        print(senderDisplayName)
+
         if senderDisplayName == nil {
             senderDisplayName = "no name"
-            print("1")
         } else {
-            print("2")
             senderDisplayName = nameUserSender
         }
         // имя отправителя сообщений ( обязательно для JSQMessage )
@@ -123,7 +108,7 @@ class ChatVCViewController: JSQMessagesViewController {
         ref = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(nameVC).child("messages")
     }
     
-   
+    
     //
     // Функция для сообщений
     func addMessage(withId id: String, name: String, text: String) {
@@ -131,59 +116,49 @@ class ChatVCViewController: JSQMessagesViewController {
             messages.append(message)
         }
     }
-
+    
     //
     // Метод сробатывает перед показа экрана
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
-        
-        
         //
         // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
         ref.observe(.value) { [weak self] (snapshot) in
             var _list = Array<Messages>()
-           
             let countMessage = snapshot.childrenCount
-           
             if countMessage <= 0 {
                 print("error")
             } else {
-            for item in snapshot.children {
+                for item in snapshot.children {
+                    let task = Messages(snapshot: item as! DataSnapshot)
+                    _list.append(task)
+                }
+                self?.messageFirebaseStruct = _list
                 
-                let task = Messages(snapshot: item as! DataSnapshot)
-               
-                _list.append(task)
-            }
-            
-            
-            self?.messageFirebaseStruct = _list
-            
-            // Схожая процедура ( смотреть выше ) только помещаем все в массив ( JSQMessage )
-            var _ListItem = Array<JSQMessage>()
-            for i in 0..<Int(snapshot.childrenCount) {
-               
-                let task = self?.messageFirebaseStruct[i].email
-                let userName = self?.messageFirebaseStruct[i].nameUser
-                let taskMessage = self?.messageFirebaseStruct[i].message
-                let time = self?.messageFirebaseStruct[i].date
-               //let dateTime = DateAndTimes().getDateFrom(string: time)
-                 let dateTime = self?.getDateFrom(string: time!)
+                // Схожая процедура ( смотреть выше ) только помещаем все в массив ( JSQMessage )
+                var _ListItem = Array<JSQMessage>()
+                for i in 0..<Int(snapshot.childrenCount) {
+                    let task = self?.messageFirebaseStruct[i].email
+                    let userName = self?.messageFirebaseStruct[i].nameUser
+                    let taskMessage = self?.messageFirebaseStruct[i].message
+                    let time = self?.messageFirebaseStruct[i].date
+                    //let dateTime = DateAndTimes().getDateFrom(string: time)
+                    let dateTime = self?.getDateFrom(string: time!)
+                    
+                    _ListItem.append(JSQMessage(senderId: task, senderDisplayName: userName, date: dateTime, text: taskMessage))
+                }
+                self?.messages = _ListItem
                 
-                _ListItem.append(JSQMessage(senderId: task, senderDisplayName: userName, date: dateTime, text: taskMessage))
-            }
-            self?.messages = _ListItem
-            
-            //
-            // обновляем collectionView
-            self?.finishReceivingMessage()
-            self?.scrollToBottom(animated: true)
-            self?.collectionView.reloadData()
+                //
+                // обновляем collectionView
+                self?.finishReceivingMessage()
+                self?.scrollToBottom(animated: true)
+                self?.collectionView.reloadData()
             }
         }
     }
     
+    // Ярослав
     // Функция нужна, чтобы переводить свойство date в Message из String в Date, которая используется в JSQMessage
     func getDateFrom (string: String) -> Date {
         let formatter = DateFormatter()
@@ -192,13 +167,16 @@ class ChatVCViewController: JSQMessagesViewController {
         guard let itIsADate = formatter.date(from: string) else { return Date() }
         return itIsADate
     }
-
+    // Ярослав
+    //
     let dateFormatterWeekDay: DateFormatter = {
         let weekDay = DateFormatter()
         weekDay.shortWeekdaySymbols = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
         return weekDay
     }()
-
+    
+    // Ярослав
+    //
     // Возвращает нужный формат времени для лэйбла посередине окна чата
     func getTextInMidLabel (date: Date) -> String {
         let calendar = Calendar.current
@@ -208,9 +186,9 @@ class ChatVCViewController: JSQMessagesViewController {
         guard !calendar.isDateInYesterday(date) else {
             dateFormatterWeekDay.dateFormat = "Вчера, HH:mm"
             return dateFormatterWeekDay.string(from: date) }
-
+        
         let components = calendar.dateComponents([.day, .weekOfYear], from: Date(), to: date)
-
+        
         switch (components.day!,components.weekOfYear!) {
         case (...(-1),0):
             dateFormatterWeekDay.dateFormat = "E, HH:mm"
@@ -237,7 +215,7 @@ class ChatVCViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
         return 13
     }
-
+    
     // Текст над полем сообщения
     override func collectionView(_ collectionView: JSQMessagesCollectionView?, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString? {
         
@@ -251,7 +229,7 @@ class ChatVCViewController: JSQMessagesViewController {
     
     
     
-
+    
     //
     // Цвет входящих и исходящих сообщений
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -262,9 +240,9 @@ class ChatVCViewController: JSQMessagesViewController {
             return bubbleFactory?.outgoingMessagesBubbleImage(with: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))
         } else {
             // Цвет входящих сообщений
-        return bubbleFactory?.incomingMessagesBubbleImage(with: #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1))
+            return bubbleFactory?.incomingMessagesBubbleImage(with: #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1))
             
-    }
+        }
     }
     //
     // Аватарка пользователя возле сообщений
@@ -272,15 +250,13 @@ class ChatVCViewController: JSQMessagesViewController {
         return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "user"), diameter: 30) // Закругляем углы
     }
     
-    
-
     //
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-
+        
         return messages[indexPath.item]
     }
-
-
+    
+    
     // Количество сообщений == количеству элементов в массиве
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
@@ -300,15 +276,13 @@ class ChatVCViewController: JSQMessagesViewController {
     // Кнопка отправки сообщений
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 
-        
-        
         // Помещаем все в массив
         let text = Messages(message: text, email: senderId , date: dateMessage(), nameUser: senderDisplayName)
         
         // сохраняем в Firebase
         let refMessage = self.ref.child(String(messageFirebaseStruct.count))
         refMessage.setValue(["message": text.message, "email": text.email, "date": date.description, "nameUser": text.nameUser])
-
+        
         // Добавляем в массив
         messages.append(JSQMessage(senderId: text.email, senderDisplayName: text.nameUser, date: date, text: text.message))
         
@@ -320,18 +294,18 @@ class ChatVCViewController: JSQMessagesViewController {
         // После отправки возвращает текстовое поле в исходное состояние
         finishSendingMessage()
         //funcRoomVC.reload()
-       
+        
     }
     @IBAction func cancelPenGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
         dismiss(animated: false, completion: nil)
     }
     @IBAction func cancelToRoomVC(_ sender: UIBarButtonItem) {
         dismiss(animated: false) {
-            self.funcS.start()
+            //self.funcS.start()
             //_ = self.funcRoomVC.tableView.reloadData()
             
         }
     }
     
-
+    
 }

@@ -19,6 +19,7 @@ class RegisteryViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var twoPasswordTextField: UITextField!
     
+    @IBOutlet weak var labelRegisterNewUser: UILabel!
     
     var user: UsersInfo!
     var ref: DatabaseReference!
@@ -31,9 +32,47 @@ class RegisteryViewController: UIViewController {
         user = UsersInfo(user: currentUser)
         // Адрес пути в Database
         ref = Database.database().reference(withPath: "Geo_chat")
-       
-
-       
+        
+        // Появление и скрытие клавы
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        
+    }
+    func displayNewUserIn() {
+        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
+            self.labelRegisterNewUser.alpha = 0
+        }, completion: nil)
+    }
+    func displayNewUserOut() {
+        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
+            self.labelRegisterNewUser.alpha = 1
+        }, completion: nil)
+    }
+    
+    // Появление клавы - делает смещение элементов на 50 поитов
+    @objc func keyboardWillShow(notification: NSNotification) {
+        // print("HELLO")
+        
+        if self.view.frame.origin.y == 0{
+           // self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
+            self.view.frame.origin.y -= 110
+            displayNewUserOut()
+        }
+        
+    }
+    // Скрытие элементов возвращает все в исходное положение
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if self.view.frame.origin.y != 0{
+            //self.helloLabel.frame.size = CGSize(width: 30, height: 300)
+            self.view.frame.origin.y += 110
+            displayNewUserIn()
+        }
+    }
+    // Когда клава активна: нажатие на любом участке экрана - скрывает клаву
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     // Функция для создания на сервере листа списка контактов
     func newContactList(name: String, email: String) {

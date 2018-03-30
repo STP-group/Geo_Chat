@@ -11,6 +11,7 @@
 		C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */; };
 		C81940F1205B8F4000D4B2E9 /* ChatVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */; };
 		C821152A2066EC0D001EB8B9 /* DateAndTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82115292066EC0D001EB8B9 /* DateAndTime.swift */; };
+		C8266257206E5B3F00C8D601 /* Other code.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8266256206E5B3F00C8D601 /* Other code.swift */; };
 		C856DC732050451D007BF48D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856DC722050451D007BF48D /* LoginViewController.swift */; };
 		C861EACC206D251C00DD78DB /* NewRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C861EACB206D251C00DD78DB /* NewRoom.swift */; };
 		C871FA0A206BDF8500FCC657 /* ReallyGoodViewControllerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C871FA09206BDF8500FCC657 /* ReallyGoodViewControllerList.swift */; };
@@ -37,6 +38,7 @@
 		C41083602056B4DF00C47473 /* ChatRoomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomTableViewCell.swift; sourceTree = "<group>"; };
 		C81940F0205B8F4000D4B2E9 /* ChatVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCViewController.swift; sourceTree = "<group>"; };
 		C82115292066EC0D001EB8B9 /* DateAndTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTime.swift; sourceTree = "<group>"; };
+		C8266256206E5B3F00C8D601 /* Other code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Other code.swift"; sourceTree = "<group>"; };
 		C856DC722050451D007BF48D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C861EACB206D251C00DD78DB /* NewRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoom.swift; sourceTree = "<group>"; };
 		C871FA09206BDF8500FCC657 /* ReallyGoodViewControllerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReallyGoodViewControllerList.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				C88E6961204EFB54001B3AE2 /* LaunchScreen.storyboard */,
 				C88E6964204EFB54001B3AE2 /* Info.plist */,
 				C88E696A204F03A8001B3AE2 /* GoogleService-Info.plist */,
+				C8266256206E5B3F00C8D601 /* Other code.swift */,
 				C410835F2056B4DF00C47473 /* ReallyGoodViewController.swift */,
 				C88E695C204EFB54001B3AE2 /* Geo_Chat.xcdatamodeld */,
 			);
@@ -185,7 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Артем Валерьевич";
 				TargetAttributes = {
 					C88E6951204EFB54001B3AE2 = {
@@ -312,6 +315,7 @@
 				C8BBFEC22053D70200E6BC57 /* Contacts.swift in Sources */,
 				C856DC732050451D007BF48D /* LoginViewController.swift in Sources */,
 				C861EACC206D251C00DD78DB /* NewRoom.swift in Sources */,
+				C8266257206E5B3F00C8D601 /* Other code.swift in Sources */,
 				C41083622056B4DF00C47473 /* ChatRoomTableViewCell.swift in Sources */,
 				C8BBFEC02053D5BF00E6BC57 /* UserInfo.swift in Sources */,
 				C8D20B532059AE1B00B32DD6 /* Messages.swift in Sources */,
@@ -359,6 +363,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -366,6 +371,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -416,6 +422,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -423,6 +430,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -465,7 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.anna.Geo-Chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -482,7 +490,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.anna.Geo-Chat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

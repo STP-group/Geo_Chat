@@ -22,96 +22,57 @@ var userLocationLongitude = Double()
 
 class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
-    
     // Артем
-    //
-    // Создание комнат
     //
     var refCreateRoom: DatabaseReference!
     var rooms: [CreateRoomCell] = []
-    
-    
-    
-    var ref: DatabaseReference!
+    var timer: Timer?
+    var refUserInfoDetail: DatabaseReference!
     var task: [Contact] = []
-    var refMessages: DatabaseReference!
-    var messageToVC: [Messages] = []
-    var arrayListRoom: [Messages] = []
-    var refMessagesCount: DatabaseReference!
-    var messageCount: [Messages] = []
-    var lastRoomMessage = [String]()
-    var lastRoomEmail = [String]()
-    var lastRoomMessageCount = [String]()
-    var lastRoomDate = [String]()
-   // let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
-   // let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
+//    var refMessages: DatabaseReference!
+//    var messageToVC: [Messages] = []
+//    var arrayListRoom: [Messages] = []
+//    var refMessagesCount: DatabaseReference!
+//    var messageCount: [Messages] = []
+//    var lastRoomMessage = [String]()
+//    var lastRoomEmail = [String]()
+//    var lastRoomMessageCount = [String]()
+//    var lastRoomDate = [String]()
+    
+    
     @IBOutlet weak var tableView: UITableView!
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
-        
     }
     
-    
-    @IBAction func reload(_ sender: UIBarButtonItem) {
-       // var name = ""
-        let alertVC = UIAlertController(title: "Новая комната", message: nil, preferredStyle: .alert)
-        alertVC.addTextField { (textField: UITextField!) in
-            textField.placeholder = "имя комнаты"
-            //name = textField.text!
-        }
-        
-//        alertController.addTextField { (textField : UITextField!) -> Void in
-//            textField.placeholder = "Enter Second Name"
-//        }
-//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-//            let firstTextField = alertController.textFields![0] as UITextField
-//            let secondTextField = alertController.textFields![1] as UITextField
-//            print("firstName \(firstTextField.text), secondName \(secondTextField.text)")
-//        })
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in })
-//        alertController.addTextField { (textField : UITextField!) -> Void in
-//            textField.placeholder = "Enter First Name"
-//        }
-        
-        let save = UIAlertAction(title: "save", style: .default) { (action) in
-            let textFieldNameRoom = alertVC.textFields![0] as UITextField
-            self.newRoom(name: textFieldNameRoom.text!, locationX: userLocationLatitude, locationY: userLocationLongitude)
-            self.tableView.reloadData()
-        }
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alertVC.addAction(save)
-        alertVC.addAction(cancel)
-        present(alertVC, animated: true, completion: nil)
-        
-        
-    }
-    
+    // Артем
+    //
+    // Создание новой комнаты ( для создания нужно название комнаты, геоданные ( широта и долгота ))
     func newRoom(name: String, locationX: Double, locationY: Double) {
+        // Присвоение
         let newDateRooms = CreateRoomCell(name: name, locationX: locationX, locationY: locationY)
+        // Новая папка на серваке
         let listRooms = self.refCreateRoom.child(name)
+        // помещаем данные в папку
         listRooms.setValue(["name": newDateRooms.name, "locationX": newDateRooms.locationX, "locationY": newDateRooms.locationY])
         
     }
-    public func reloadDataCell() {
-//        fireBaseDataChat2()
-//        dowloadsListRoom()
-//        observeMessageStruct()
-        
-    }
     
-    var timer: Timer?
     
-    func start() {
+    // Артем
+    // в разработке
+    func startTimer() {
         print("start timer")
-//        guard timer == nil else { return }
-//        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(handleMyFunction), userInfo: nil, repeats: true)
+        //        guard timer == nil else { return }
+        //        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(handleMyFunction), userInfo: nil, repeats: true)
     }
     
-    
-    public func stop() {
+    // Артем
+    //
+    public func stopTimer() {
         print("stop timer")
-        guard timer != nil else { return }
-        timer?.invalidate()
-        timer = nil
+//        guard timer != nil else { return }
+//        timer?.invalidate()
+//        timer = nil
     }
     
     
@@ -119,132 +80,138 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(userLocationLatitude)
-        print(userLocationLongitude)
-        print("\(userLocationLatitude) : \(userLocationLongitude)")
-        
-        
-        // Location
-        //locationManager.delegate = self
-        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //locationManager.requestWhenInUseAuthorization()
-        //updateCurrentLocation()
-        
-        
+        // Артем
+        //
+        // Адрес комнат на сервере
         refCreateRoom = Database.database().reference(withPath: "Geo_chat").child("ROOM")
-        //let message = lastRoomMessageSend.removeLast()
-        ref = Database.database().reference(withPath: "Geo_chat").child("Users")
-        start()
+        // Адрес списка людей на сервере
+        refUserInfoDetail = Database.database().reference(withPath: "Geo_chat").child("Users")
+       // startTimer()
+        // Ярослав
+        //
+        // убераем разделитель между ячейками
         tableView.separatorStyle = .none
+        // Цвет фона
         tableView.backgroundView?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 0.3 )
     }
     
     
     
-    
-    
+    // Артем
+    //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //
+        // Считываем все комнаты с сервера
         refCreateRoom.observe(.value) { [weak self] (snapshot) in
+            // создаем массив - который имеет туже стректуру что и CreateRoomCell
             var _list = Array<CreateRoomCell>()
-            
+            // Цикл считываем все из snapshot ( снимок ) и помещаем в item
             for item in snapshot.children {
                 print(item)
-                
+                // Создаем стректуру - которая будет иметь все ключи из snapshot
                 let task = CreateRoomCell(snapshot: item as! DataSnapshot)
-               
+                // Добавляем все содержимое в массив ( смотреть строку 104 )
                 _list.append(task)
             }
-            
+            // Переносим вне цикла все содержимое из _list в массив сообщений
             self?.rooms = _list
             self?.tableView.reloadData()
         }
         // Считываем все содержимое по адресу ( смотреть fireBaseDataChat -> ref )
-        ref.observe(.value) { [weak self] (snapshot) in
-            var _list = Array<Contact>()
+        refUserInfoDetail.observe(.value) { [weak self] (snapshot) in
             // создаем массив - который имеет туже стректуру что и messageTest
-            //
+            var _list = Array<Contact>()
             //
             // Цикл считываем все из snapshot ( снимок ) и помещаем в item
             for item in snapshot.children {
-                print(item)
-                let task = Contact(snapshot: item as! DataSnapshot)
                 // Создаем стректуру - которая будет иметь все ключи из snapshot
+                let task = Contact(snapshot: item as! DataSnapshot)
                 //
-                //
-                // Добавляем все содержимое в массив ( смотреть строку 104 )
+                // Добавляем все содержимое в массив
                 _list.append(task)
             }
-            
             // Переносим вне цикла все содержимое из _list в массив сообщений
             self?.task = _list
-            
         }
-        
     }
     
+    // Ярослав
+    //
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    
+    // Ярослав
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms.count
     }
     
+    
+    
+    
+    // Ярослав
+    //
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "W2Cell", for: indexPath) as! ChatRoomTableViewCell
+        let cell2 = cell
+        // блок кода, отвечающий за фон чата. IndexPath не выйдет за пределы массива с цветом
+        colorCell(indexPath: indexPath, cell: cell2)
+//        let bgColors = cell.mainViewBackgroundColors
+//        cell.mainView.backgroundColor = { () -> UIColor in
+//            let cur = indexPath.row / (bgColors.count)
+//            return bgColors[indexPath.row - bgColors.count * cur]
+//        }()
         
-        let bgColors = cell.mainViewBackgroundColors // блок кода, отвечающий за фон чата. IndexPath не выйдет за пределы массива с цветом
+        // Присвоение кординат комнаты для расчета растояния
+        let locationUser = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
+        
+        // Присвоение кординат пользователя для расчета растояния
+        let locationRoom = CLLocation(latitude: rooms[indexPath.row].locationX, longitude: rooms[indexPath.row].locationY)
+        
+        // Вычисляем расстояние между комнатой и пользователем
+        let distanceInMeters = locationRoom.distance(from: locationUser)
+        
+        // переводим в целое число ( пример: из 513.212405045983 в 513 )
+        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
+        
+        cell.chatRoomName.text = rooms[indexPath.row].name
+        cell.distanceToRoom.text = subTitleText[0]
+        //
+        //    Временно в разработке
+        //
+        //        cell.chatRoomName.text = room[indexPath.row]
+        //        cell.lastSender.text = "\(nameUser)"
+        //        cell.lastText.text = lastRoomMessageSend[indexPath.row]
+        //        cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
+        //        cell.numberOfPeopleInRoom.text = messageCountCell[indexPath.row]
+        //        cell.lastTime.text = DateAndTimes().getTextInMidLabel2(date: DateAndTimes().getDateFrom2(string: lastRoomMessageDate[indexPath.row]))
+        //
+        
+        return cell
+    }
+    func colorCell(indexPath: IndexPath, cell: ChatRoomTableViewCell) {
+        let bgColors = cell.mainViewBackgroundColors
         cell.mainView.backgroundColor = { () -> UIColor in
             let cur = indexPath.row / (bgColors.count)
             return bgColors[indexPath.row - bgColors.count * cur]
         }()
-        
-        
-        // Присвоение кординат комнаты для расчета растояния
-        let locationUser = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
-        // Присвоение кординат пользователя для расчета растояния
-        let locationRoom = CLLocation(latitude: rooms[indexPath.row].locationX, longitude: rooms[indexPath.row].locationY)
-        // Вычисляем расстояние между комнатой и пользователем
-        let distanceInMeters = locationRoom.distance(from: locationUser)
-        print(distanceInMeters)
-        
-        // переводим в целое число ( пример: из 513.212405045983 в 513 )
-        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
-        print(subTitleText[0])
-        
-        
-        
-        
-        cell.chatRoomName.text = rooms[indexPath.row].name
-        cell.distanceToRoom.text = subTitleText[0]
-//        cell.chatRoomName.text = room[indexPath.row]
-//        cell.lastSender.text = "\(nameUser)"
-//        cell.lastText.text = lastRoomMessageSend[indexPath.row]
-//        cell.lastSender.text = lastRoomMessageEmail[indexPath.row]
-//        cell.numberOfPeopleInRoom.text = messageCountCell[indexPath.row]
-//        cell.lastTime.text = DateAndTimes().getTextInMidLabel2(date: DateAndTimes().getDateFrom2(string: lastRoomMessageDate[indexPath.row]))
-//
-        
-        return cell
     }
     
-
+    // Ярослав
+    //
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90.0
     }
+    
+    // Артем
+    //
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // userIdNameJSQ = nameUser
-        // print("-roomVC ---\(userIdNameJSQ)")
-        stop() 
         if let indexPath = tableView.indexPathForSelectedRow {
             //  let dvc =  segue.destination as! ChatVCViewController
             nameVC = rooms[indexPath.row].name
             titleNameRoom = rooms[indexPath.row].name
             userDataContact = task
-            
         }
     }
     
@@ -254,99 +221,32 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
+    // Артем
+    // Временная кнопка добавления комнаты
+    @IBAction func reload(_ sender: UIBarButtonItem) {
+        let alertVC = UIAlertController(title: "Новая комната", message: nil, preferredStyle: .alert)
+        alertVC.addTextField { (textField: UITextField!) in
+            textField.placeholder = "имя комнаты"
+        }
+        let save = UIAlertAction(title: "save", style: .default) { (action) in
+            let textFieldNameRoom = alertVC.textFields![0] as UITextField
+            self.newRoom(name: textFieldNameRoom.text!, locationX: userLocationLatitude, locationY: userLocationLongitude)
+            self.tableView.reloadData()
+        }
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alertVC.addAction(save)
+        alertVC.addAction(cancel)
+        present(alertVC, animated: true, completion: nil)
+
+    }
+    
     @IBAction func exitPersonal(_ sender: UIBarButtonItem) {
         do {
             try Auth.auth().signOut()
         } catch {
             print(error.localizedDescription)
         }
-        dismiss(animated: false, completion: nil
-        )
+        dismiss(animated: false, completion: nil)
     }
     
-    
-//    func fireBaseDataChat3(text: String) {
-//
-//        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
-//    }
-//    func fireBaseDataChat2() {
-//
-//        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
-//    }
-//    func dowloadsListRoom() {
-//        refMessages.observe(.value) { [weak self] (snapshot) in
-//            let index = Int(snapshot.childrenCount)
-//            print("index = \(index)")
-//
-//
-//            for int in 0..<5 {
-//
-//                print("первый цикл - выполняется \(int + 1)ый раз")
-//                self?.fireBaseDataChat3(text: (self?.rooms[int])!)
-//                self?.refMessagesCount.observe(.value, with: { (snapshot) in
-//                    var _listMessages = Array<Messages>()
-//
-//                    for i in snapshot.children {
-//                        let task = Messages(snapshot: i as! DataSnapshot)
-//
-//                        _listMessages.append(task)
-//                    }
-//                    self?.messageCount = _listMessages
-//
-//                    if (self?.messageCount.count)! <= 0 {
-//                        self?.lastRoomEmail.append("no user")
-//                        self?.lastRoomMessage.append("no message")
-//                        self?.lastRoomMessageCount.append("0")
-//                        self?.lastRoomDate.append(":(")
-//                    } else {
-//                        let deleteMessage = self?.messageCount.removeLast()
-//                        print((deleteMessage?.message)!)
-//                        self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
-//                        self?.lastRoomMessage.append((deleteMessage?.message)!)
-//                        self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
-//                        self?.lastRoomDate.append((deleteMessage?.date)!)
-//                        print((deleteMessage?.date)!)
-//
-//
-//                    }
-//
-//
-//                    lastRoomMessageSend = (self?.lastRoomMessage)!
-//                    lastRoomMessageEmail = (self?.lastRoomEmail)!
-//                    messageCountCell = (self?.lastRoomMessageCount)!
-//                    lastRoomMessageDate = (self?.lastRoomDate)!
-//
-//
-//                })
-//
-//            }
-//
-//
-//
-//        }
-//
-//
-//
-//        observeMessageStruct()
-//    }
-//
-//    func observeMessageStruct() {
-//        print("4")
-//        for i in 0..<messageCount.count {
-//
-//            print(">>>>>message \(messageCount[i].message)")
-//        }
-//    }
-//
-//    @objc func handleMyFunction() {
-//        print("1 timer")
-//        tableView.reloadData()
-//        fireBaseDataChat2()
-//        dowloadsListRoom()
-//        observeMessageStruct()
-//
-//    }
-    
 }
-
-

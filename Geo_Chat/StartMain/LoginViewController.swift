@@ -220,7 +220,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
                 alertController.addAction(cancelButton)
                 present(alertController, animated: true, completion: nil)
                 return
-               
+                
         }
         
         // Авторизация на сервере Firebase
