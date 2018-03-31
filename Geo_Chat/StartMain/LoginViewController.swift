@@ -8,8 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseAuthUI
-import FirebaseFacebookAuthUI
 import CoreData
 import Firebase
 import CoreLocation
@@ -96,12 +94,12 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         
         // Тип расстояния - если расстояние больше 1000метров - то отображается в км, если меньше то в м
         // Нужно доработать  - если расстояние в километрах - то показывает Пример: 3.26км !
-        var typyDistantion = ""
-        if distanceInMeters >= 1000 {
-            typyDistantion = "км"
-        } else {
-            typyDistantion = "м"
-        }
+//        var typyDistantion = ""
+//        if distanceInMeters >= 1000 {
+//            typyDistantion = "км"
+//        } else {
+//            typyDistantion = "м"
+//        }
         
         // Ставим точку на карте ( для тестирования )
         let placeMarkPointAnotation = MKPointAnnotation()
@@ -148,15 +146,16 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     
     
-    func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
-        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
-        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-            return true
-        }
-        
-        return false
-    }
+//    func application(_ app: UIApplication, open url: URL,
+//                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+//        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
+//
+//         if Auth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+//            return true
+//        }
+//
+//        return false
+//    }
     
     // Скрывает label с приветсвием
     func displayHelloLabel() {

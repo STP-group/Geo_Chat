@@ -7,7 +7,6 @@ target 'Geo_Chat' do
 
 
        pod 'Firebase/Auth'
-       pod 'FirebaseUI/Facebook'
        pod 'Firebase/Database'
        pod 'JSQMessagesViewController'
 

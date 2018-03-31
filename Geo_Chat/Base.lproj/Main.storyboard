@@ -288,7 +288,8 @@
                         <viewLayoutGuide key="safeArea" id="u1a-4D-1mT"/>
                     </view>
                     <navigationItem key="navigationItem" id="9d0-vM-SaX">
-                        <barButtonItem key="rightBarButtonItem" title="reload" id="kIl-Ce-Wrm">
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="v2x-1x-RA7"/>
+                        <barButtonItem key="rightBarButtonItem" title="add room" id="kIl-Ce-Wrm">
                             <connections>
                                 <action selector="reload:" destination="YIY-9o-ysk" id="xPK-Hu-z8J"/>
                             </connections>
