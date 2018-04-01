@@ -215,16 +215,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         self.view.endEditing(true)
     }
     
-    
-   /* func textFieldEdit(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
-            textField.resignFirstResponder()
-        }
-        return true
-    } */
-    
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
     // viewWillAppear - срабатывает перед тем как отобразить экран
     override func viewWillAppear(_ animated: Bool) {
@@ -252,7 +242,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         // Авторизация на сервере Firebase
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Неверные данные2")
+                self?.displayWarningLabel(withText: "Неверный логин или пароль")
                 return
             }
             
@@ -262,7 +252,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
                 self?.performSegue(withIdentifier: "testSegue", sender: nil)
                 return
             } else {
-                self?.displayWarningLabel(withText: "Неверные данные")
+                self?.displayWarningLabel(withText: "Ошибка на сервере")
                 return
             }
         }

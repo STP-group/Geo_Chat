@@ -44,8 +44,8 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         twoPasswordTextField.delegate = self
         twoPasswordTextField.returnKeyType = .next
         emailTextField.delegate = self
-        labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
-        displayNewUserOut()
+//        labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
+//        displayNewUserOut()
         }
     
     
@@ -68,10 +68,9 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     
     func displayNewUserIn() {
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
-           // self.labelRegisterNewUser.alpha = 0
+
             self.labelRegisterNewUser.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
             self.labelRegisterNewUser.frame.origin.y += 35
-           // self.displayAnimationIn()
         }, completion: nil)
     }
  
@@ -80,7 +79,6 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
             self.labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
           self.labelRegisterNewUser.frame.origin.y -= 35
-           // self.labelRegisterNewUser.alpha = 1
         }, completion: nil)
     }
     
