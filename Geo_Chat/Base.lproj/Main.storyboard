@@ -187,14 +187,14 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Alm-fY-mC4">
                                                             <rect key="frame" x="331" y="18" width="30.666666666666686" height="40"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="8m9-nd-C6z">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="8m9-nd-C6z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30.666666666666668" height="23.666666666666668"/>
                                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="22"/>
                                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Rwh-cU-5Tl">
-                                                                    <rect key="frame" x="5.3333333333333144" y="23.666666666666664" width="20.333333333333332" height="16.333333333333336"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="м" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Rwh-cU-5Tl">
+                                                                    <rect key="frame" x="10.333333333333314" y="23.666666666666664" width="10.333333333333336" height="16.333333333333336"/>
                                                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -223,7 +223,7 @@
                                                         <constraint firstItem="aQD-Td-Vud" firstAttribute="leading" secondItem="VbI-ZT-ekB" secondAttribute="trailing" constant="20.666666666666629" id="TnA-pi-WZY"/>
                                                         <constraint firstItem="xNO-SG-uKK" firstAttribute="centerY" secondItem="Alm-fY-mC4" secondAttribute="centerY" constant="1.5" id="WMA-ak-4Bl"/>
                                                         <constraint firstItem="xNO-SG-uKK" firstAttribute="top" secondItem="20T-Tz-UH7" secondAttribute="top" id="Zrd-5L-i1i"/>
-                                                        <constraint firstItem="aQD-Td-Vud" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ySa-34-lhq" secondAttribute="leading" constant="334" id="dZV-LQ-CVQ"/>
+                                                        <constraint firstItem="aQD-Td-Vud" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ySa-34-lhq" secondAttribute="leading" constant="800" id="dZV-LQ-CVQ"/>
                                                         <constraint firstAttribute="height" constant="78" id="jqc-Af-HU7"/>
                                                         <constraint firstItem="sby-3K-U7F" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="20T-Tz-UH7" secondAttribute="trailing" constant="8" symbolic="YES" id="o2y-am-3th"/>
                                                         <constraint firstItem="sby-3K-U7F" firstAttribute="top" secondItem="ySa-34-lhq" secondAttribute="top" constant="10" id="qY5-AZ-xeo"/>
@@ -264,12 +264,15 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HbW-S8-aEa">
                                 <rect key="frame" x="20" y="68" width="374" height="29"/>
                                 <segments>
+                                    <segment title="500v"/>
                                     <segment title="1км"/>
                                     <segment title="5км"/>
-                                    <segment title="10км"/>
                                     <segment title="25км"/>
-                                    <segment title="+50км"/>
+                                    <segment title="+25км"/>
                                 </segments>
+                                <connections>
+                                    <action selector="distanceSegment:" destination="YIY-9o-ysk" eventType="valueChanged" id="flD-iM-OtI"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -288,7 +291,11 @@
                         <viewLayoutGuide key="safeArea" id="u1a-4D-1mT"/>
                     </view>
                     <navigationItem key="navigationItem" id="9d0-vM-SaX">
-                        <barButtonItem key="leftBarButtonItem" title="Exit" id="v2x-1x-RA7"/>
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="v2x-1x-RA7">
+                            <connections>
+                                <action selector="exitPersonal:" destination="YIY-9o-ysk" id="QzH-Ez-nC8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="add room" id="kIl-Ce-Wrm">
                             <connections>
                                 <action selector="reload:" destination="YIY-9o-ysk" id="xPK-Hu-z8J"/>

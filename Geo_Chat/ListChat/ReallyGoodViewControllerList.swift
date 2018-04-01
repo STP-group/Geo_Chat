@@ -43,6 +43,24 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var tableView: UITableView!
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
     }
+    var distance = 500
+    @IBAction func distanceSegment(_ sender: UISegmentedControl) {
+    
+        let caseDistance = sender.numberOfSegments
+        print(sender.numberOfSegments)
+        switch sender.selectedSegmentIndex {
+        case 0:
+            distance = 500
+        case 1: distance = 1000
+            case 2: distance = 5000
+            case 3: distance = 25000
+            case 4: distance = 10000000000
+        default: break
+            
+        }
+        tableView.reloadData()
+    
+    }
     
     // Артем
     //
@@ -174,6 +192,14 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
         
         // переводим в целое число ( пример: из 513.212405045983 в 513 )
         let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
+        
+        if distanceInMeters >= Double(distance) {
+            cell.isHidden = true
+            print(distanceInMeters)
+            print(distance)
+        } else {
+            cell.isHidden = false
+        }
         
         cell.chatRoomName.text = rooms[indexPath.row].name
         cell.distanceToRoom.text = subTitleText[0]

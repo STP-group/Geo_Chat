@@ -60,8 +60,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     // Кординаты комнаты
     var roomCordinates = CLLocationCoordinate2D(latitude: 55.978827, longitude: 37.158806)
-    // Кординаты пользователя - который хачет зайти в комнату 55.985439, 37.179774
-    var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.985439, longitude: 37.179774)
+    // Кординаты пользователя - который хачет зайти в комнату 55.985439, 37.179774 ( 55.978497, 37.158463 )
+    var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.978497, longitude: 37.158463)
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         
@@ -77,8 +77,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         print(userLocation.coordinate.longitude)
         userLocationLatitude = userLocation.coordinate.latitude
         userLocationLongitude = userLocation.coordinate.longitude
-        
+        print(userLocation.coordinate)
         pointMarkToMaps()
+        locationManager.stopUpdatingLocation()
     }
     func pointMarkToMaps() {
         
