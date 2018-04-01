@@ -44,10 +44,13 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         twoPasswordTextField.delegate = self
         twoPasswordTextField.returnKeyType = .next
         emailTextField.delegate = self
-       // emailTextField.keyboardType = .emailAddress
-       // emailTextField.returnKeyType = .done
-       
+        labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
+        displayNewUserOut()
         }
+    
+    
+    // Ярослав
+    //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nickNameTextField {
             passwordTextField.becomeFirstResponder()
@@ -64,24 +67,29 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayNewUserIn() {
-        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
-            self.labelRegisterNewUser.alpha = 0
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
+           // self.labelRegisterNewUser.alpha = 0
+            self.labelRegisterNewUser.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+            self.labelRegisterNewUser.frame.origin.y += 35
+           // self.displayAnimationIn()
         }, completion: nil)
     }
+ 
+    
     func displayNewUserOut() {
-        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
-            self.labelRegisterNewUser.alpha = 1
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
+            self.labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
+          self.labelRegisterNewUser.frame.origin.y -= 35
+           // self.labelRegisterNewUser.alpha = 1
         }, completion: nil)
     }
     
     // Появление клавы - делает смещение элементов на 50 поитов
     @objc func keyboardWillShow(notification: NSNotification) {
-        // print("HELLO")
-        
         if self.view.frame.origin.y == 0{
            // self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
             self.view.frame.origin.y -= 110
-            displayNewUserOut()
+            displayNewUserIn()
         }
         
     }
@@ -91,7 +99,7 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         if self.view.frame.origin.y != 0{
             //self.helloLabel.frame.size = CGSize(width: 30, height: 300)
             self.view.frame.origin.y += 110
-            displayNewUserIn()
+            displayNewUserOut()
         }
     }
     // Когда клава активна: нажатие на любом участке экрана - скрывает клаву
