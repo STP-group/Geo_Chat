@@ -46,7 +46,7 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     var distance = 500
     @IBAction func distanceSegment(_ sender: UISegmentedControl) {
     
-        let caseDistance = sender.numberOfSegments
+       
         print(sender.numberOfSegments)
         switch sender.selectedSegmentIndex {
         case 0:

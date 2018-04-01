@@ -39,14 +39,29 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         
         nickNameTextField.delegate = self
         nickNameTextField.returnKeyType = .next
-        emailTextField.delegate = self
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.returnKeyType = .done
         passwordTextField.delegate = self
         passwordTextField.returnKeyType = .next
         twoPasswordTextField.delegate = self
         twoPasswordTextField.returnKeyType = .next
+        emailTextField.delegate = self
+       // emailTextField.keyboardType = .emailAddress
+       // emailTextField.returnKeyType = .done
+       
         }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nickNameTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            twoPasswordTextField.becomeFirstResponder()
+        } else if textField == twoPasswordTextField {
+            emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
+            textField.resignFirstResponder()
+            self.view.endEditing(true)
+            registeryButton()
+        }
+        return false
+    }
     
     func displayNewUserIn() {
         UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
@@ -86,22 +101,8 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     // Функция для создания на сервере листа списка контактов
     func newContactList(name: String, email: String) {
         let list = Contact(name: name, email: email)
-        let listRef = self.ref.child("Users").child(list.name)
+        let listRef = (self.ref.child("Users").child(list.name))
         listRef.setValue(["name": list.name, "email": list.email])
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == nickNameTextField {
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
-            twoPasswordTextField.becomeFirstResponder()
-        } else if textField == twoPasswordTextField {
-            emailTextField.becomeFirstResponder()
-        } else if textField == emailTextField {
-            textField.resignFirstResponder()
-            registeryButton()
-        }
-        return false
     }
     
     // Кнопка регистрации
