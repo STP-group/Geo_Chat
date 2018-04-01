@@ -52,6 +52,13 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     // Ярослав
     //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text?.index(of: " ") != nil {
+            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return false
+        }
+        
         if textField == nickNameTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
