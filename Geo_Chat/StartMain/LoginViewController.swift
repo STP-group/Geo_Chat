@@ -162,6 +162,13 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     }
     // Переключает поле ввода при нажатии на Return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text?.index(of: " ") != nil {
+            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return false
+        }
+        
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else {
