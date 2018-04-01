@@ -13,7 +13,7 @@ import Firebase
 import CoreLocation
 import MapKit
 
-class LoginViewController: UIViewController, CLLocationManagerDelegate {
+class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     
     var loginText = ""
     
@@ -56,6 +56,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         displayHelloLabel()
+        
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
     }
     
     // Кординаты комнаты
@@ -145,6 +148,29 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // Ярослав
+    // Конфигурирует тип кнопки Return
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            textField.keyboardType = .emailAddress
+            textField.returnKeyType = .next
+        } else {
+            textField.keyboardType = .default
+            textField.returnKeyType = .done
+        }
+        return true
+    }
+    // Переключает поле ввода при нажатии на Return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            loginAuthentication()
+        }
+        return false
+    }
+    
     
     
 //    func application(_ app: UIApplication, open url: URL,
@@ -190,14 +216,14 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func textFieldEdit(_ textField: UITextField) -> Bool {
+   /* func textFieldEdit(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
             textField.resignFirstResponder()
         }
         return true
-    }
+    } */
     
     // Очищает строку пароля - когда нажимаешь выход ( из списка комнат )
     // viewWillAppear - срабатывает перед тем как отобразить экран
@@ -207,7 +233,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // Кнопка входа
-    @IBAction func loginAuthentication(_ sender: UIButton) {
+    @IBAction func loginAuthentication(/*_ sender: UIButton*/) {
         // Две константы для авторизации
         // Проверяем - логин и пароль не должны быть пустыми
         // Используем guard для проверки, если пусто - то просто выходим из метода ( return )

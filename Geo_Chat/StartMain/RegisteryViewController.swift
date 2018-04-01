@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class RegisteryViewController: UIViewController {
+class RegisteryViewController: UIViewController, UITextFieldDelegate {
     
     
     // Теvarстовые поля для регистрации
@@ -37,8 +37,17 @@ class RegisteryViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
-    }
+        nickNameTextField.delegate = self
+        nickNameTextField.returnKeyType = .next
+        emailTextField.delegate = self
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.returnKeyType = .done
+        passwordTextField.delegate = self
+        passwordTextField.returnKeyType = .next
+        twoPasswordTextField.delegate = self
+        twoPasswordTextField.returnKeyType = .next
+        }
+    
     func displayNewUserIn() {
         UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
             self.labelRegisterNewUser.alpha = 0
@@ -81,8 +90,22 @@ class RegisteryViewController: UIViewController {
         listRef.setValue(["name": list.name, "email": list.email])
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nickNameTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            twoPasswordTextField.becomeFirstResponder()
+        } else if textField == twoPasswordTextField {
+            emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
+            textField.resignFirstResponder()
+            registeryButton()
+        }
+        return false
+    }
+    
     // Кнопка регистрации
-    @IBAction func registeryButton(_ sender: UIButton) {
+    @IBAction func registeryButton(/*_ sender: UIButton*/) {
         // Проверяем текстовые поля на наличие текста и совпадения пароля
         // Если все правила не соблюдены - то выходим из данного метода
         // { return }
@@ -120,5 +143,4 @@ class RegisteryViewController: UIViewController {
     @IBAction func cancelButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
 }
