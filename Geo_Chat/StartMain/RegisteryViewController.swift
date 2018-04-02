@@ -18,7 +18,7 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var twoPasswordTextField: UITextField!
-    
+    //
     @IBOutlet weak var labelRegisterNewUser: UILabel!
     
     var user: UsersInfo!
@@ -34,8 +34,8 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         ref = Database.database().reference(withPath: "Geo_chat")
         
         // Появление и скрытие клавы
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowRegistery), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideRegistery), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         nickNameTextField.delegate = self
         nickNameTextField.returnKeyType = .next
@@ -44,13 +44,87 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         twoPasswordTextField.delegate = self
         twoPasswordTextField.returnKeyType = .next
         emailTextField.delegate = self
-//        labelRegisterNewUser.transform = CGAffineTransform(scaleX: 1, y: 1)
-//        displayNewUserOut()
         }
     
     
     // Ярослав
     //
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        if textField.text?.index(of: " ") != nil {
+//            print("errore")
+//        } else {
+//            print("nil")
+//        }
+//        return true
+//    }
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if textField.text?.index(of: " ") != nil {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
+    
+    //  Следит в реальном времени за текстом
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField.text?.index(of: " ") != nil {
+//            textField.text?.append("_")
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            print("2")
+//        } else {
+//            print("1")
+//        }
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if textField.text?.index(of: " ") != nil {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            print("3")
+//        } else {
+//            print("4")
+//        }
+//    }
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        if textField.text?.index(of: " ") != nil {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+//        if textField.text?.index(of: " ") != nil {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            print("5")
+//        } else {
+//            print("6")
+//        }
+//    }
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        if textField.text?.index(of: " ") != nil {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            return false
+//        } else {
+//            return true
+//        }
+//    }
+//
+//
+//
+//
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.index(of: " ") != nil {
             let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
@@ -58,7 +132,7 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
             present(alert, animated: true, completion: nil)
             return false
         }
-        
+    
         if textField == nickNameTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
@@ -90,27 +164,27 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Появление клавы - делает смещение элементов на 50 поитов
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShowRegistery(notification: NSNotification) {
         if self.view.frame.origin.y == 0{
-           // self.helloLabel.frame.size = CGSize(width: self.view.bounds.size.width - 30, height: self.view.bounds.size.height - 300)
             self.view.frame.origin.y -= 110
             displayNewUserIn()
         }
         
     }
+    
     // Скрытие элементов возвращает все в исходное положение
-    @objc func keyboardWillHide(notification: NSNotification) {
-        
+    @objc func keyboardWillHideRegistery(notification: NSNotification) {
         if self.view.frame.origin.y != 0{
-            //self.helloLabel.frame.size = CGSize(width: 30, height: 300)
             self.view.frame.origin.y += 110
             displayNewUserOut()
         }
     }
+    
     // Когда клава активна: нажатие на любом участке экрана - скрывает клаву
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
     // Функция для создания на сервере листа списка контактов
     func newContactList(name: String, email: String) {
         let list = Contact(name: name, email: email)
@@ -153,6 +227,7 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         })
         
     }
+    
     // Вернутся назад
     @IBAction func cancelButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
