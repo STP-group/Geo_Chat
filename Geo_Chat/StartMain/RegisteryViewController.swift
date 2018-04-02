@@ -111,22 +111,17 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
 //            print("6")
 //        }
 //    }
-//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-//        if textField.text?.index(of: " ") != nil {
-//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-//            present(alert, animated: true, completion: nil)
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if range.length + range.location > passwordTextField.text?.characters.count
+//        if length < 6 {
 //            return false
-//        } else {
-//            return true
 //        }
+//
+//        return true
 //    }
-//
-//
-//
-//
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text?.index(of: " ") != nil {
+        if textField.text?.index(of: " ") != nil, (passwordTextField.text?.count)! <= 5 {
             let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
