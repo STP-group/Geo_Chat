@@ -22,22 +22,81 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     var geocoder = CLGeocoder()
     
     
+    @IBOutlet weak var mapView: MKMapView! {
+        didSet {
+            mapView.layer.cornerRadius = 25
+            mapView.layer.borderWidth = 3
+            mapView.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        }
+    }
     
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var helloLabel: UILabel!
     @IBOutlet weak var steckViewLogin: UIStackView!
     // MARK: - Outlets
     
     // Два текстовых поля на экране "Входа"
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField! {
+        didSet {
+            emailTextField.layer.borderWidth = 1
+            emailTextField.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            emailTextField.layer.cornerRadius = 10
+            emailTextField.layer.masksToBounds = true
+        }
+    }
+    @IBOutlet weak var passwordTextField: UITextField! {
+        didSet {
+            passwordTextField.layer.borderWidth = 1
+            passwordTextField.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            passwordTextField.layer.cornerRadius = 10
+            passwordTextField.layer.masksToBounds = true
+        }
+    }
     
     // Отображение сообщения об ошибки
     @IBOutlet weak var warningLabel: UILabel!
     
+    @IBOutlet weak var nickNameTextFieldRegistery: UITextField!
+    @IBOutlet weak var emailTextFieldRegistery: UITextField!
+    @IBOutlet weak var passwordTextFieldRegistery: UITextField!
+    @IBOutlet weak var twoPasswordTextFieldRegistery: UITextField!
+    @IBOutlet weak var labelRegisterNewUserRegistery: UILabel!
+    @IBOutlet var registeryView: UIView! {
+        didSet {
+            registeryView.layer.cornerRadius = 15
+            registeryView.layer.shadowOffset = CGSize.init(width: 4, height: 4)
+            registeryView.layer.borderWidth = 2
+            registeryView.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            registeryView.layer.masksToBounds = true
+        }
+    }
+    
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    
+    var effect:UIVisualEffect!
+    
+    
+    
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        effect = visualEffectView.effect
+        visualEffectView.effect = nil
+        visualEffectView.isHidden = true
+        mapView.alpha = 0
+        
+        
+        nickNameTextFieldRegistery.delegate = self
+        nickNameTextFieldRegistery.returnKeyType = .next
+        passwordTextFieldRegistery.delegate = self
+        passwordTextFieldRegistery.returnKeyType = .next
+        twoPasswordTextFieldRegistery.delegate = self
+        twoPasswordTextFieldRegistery.returnKeyType = .next
+        emailTextFieldRegistery.delegate = self
+        
+        
+        
+        
         // Location
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -60,6 +119,61 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         passwordTextField.delegate = self
         emailTextField.delegate = self
     }
+    func animationViewIn() {
+        self.view.addSubview(registeryView)
+        registeryView.center = self.view.center
+        
+        registeryView.transform = CGAffineTransform.init(translationX: 0, y: -800) //(scaleX: 1.3, y: 1.3)
+        //self.registeryView.alpha = 1
+        
+        UIView.animate(withDuration: 1.4) {
+            self.visualEffectView.isHidden = false
+            self.visualEffectView.effect = self.effect
+            self.registeryView.alpha = 1
+            self.registeryView.transform = CGAffineTransform.identity
+        }
+    }
+    func animationViewOut() {
+        UIView.animate(withDuration: 1.4, animations: {
+            self.registeryView.transform = CGAffineTransform.init(translationX: 0, y: -800)
+            self.registeryView.alpha = 0
+            //self.visualEffectView.isHidden = true
+            self.visualEffectView.effect = nil
+        }) { (succes: Bool) in
+            self.registeryView.removeFromSuperview()
+            self.visualEffectView.isHidden = true
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text?.index(of: " ") != nil, (passwordTextFieldRegistery.text?.count)! <= 5 {
+            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return false
+        }
+        
+        if textField == nickNameTextFieldRegistery {
+            passwordTextFieldRegistery.becomeFirstResponder()
+        } else if textField == passwordTextFieldRegistery {
+            twoPasswordTextFieldRegistery.becomeFirstResponder()
+        } else if textField == twoPasswordTextFieldRegistery {
+            emailTextFieldRegistery.becomeFirstResponder()
+        } else if textField == emailTextFieldRegistery {
+            textField.resignFirstResponder()
+            self.view.endEditing(true)
+            registeryButton()
+        }
+        return false
+    }
+    
+    
+    
+    
+    
+    
+    
     
     // Кординаты комнаты
     var roomCordinates = CLLocationCoordinate2D(latitude: 55.978827, longitude: 37.158806)
@@ -98,19 +212,19 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         
         // Тип расстояния - если расстояние больше 1000метров - то отображается в км, если меньше то в м
         // Нужно доработать  - если расстояние в километрах - то показывает Пример: 3.26км !
-//        var typyDistantion = ""
-//        if distanceInMeters >= 1000 {
-//            typyDistantion = "км"
-//        } else {
-//            typyDistantion = "м"
-//        }
+        //        var typyDistantion = ""
+        //        if distanceInMeters >= 1000 {
+        //            typyDistantion = "км"
+        //        } else {
+        //            typyDistantion = "м"
+        //        }
         
         // Ставим точку на карте ( для тестирования )
         let placeMarkPointAnotation = MKPointAnnotation()
         // Имя точки
         placeMarkPointAnotation.title = "Я тут"
         // Растояние отображается на точке ( смотреть чуть выше )
-        placeMarkPointAnotation.subtitle = "\(subTitleText[0])m"
+        //7           placeMarkPointAnotation.subtitle = "\(subTitleText[0])m"
         
         // Точка на карте - используется кординаты комнаты
         placeMarkPointAnotation.coordinate.latitude = userLocationLatitude
@@ -161,43 +275,48 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         return true
     }
     // Переключает поле ввода при нажатии на Return
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text?.index(of: " ") != nil {
-            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return false
-        }
-        
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-            loginAuthentication()
-        }
-        return false
-    }
+    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //        if textField.text?.index(of: " ") != nil {
+    //            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+    //            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+    //            present(alert, animated: true, completion: nil)
+    //            return false
+    //        }
+    //
+    //        if textField == emailTextField {
+    //            passwordTextField.becomeFirstResponder()
+    //        } else {
+    //            textField.resignFirstResponder()
+    //            loginAuthentication()
+    //        }
+    //        return false
+    //    }
     
     
     
-//    func application(_ app: UIApplication, open url: URL,
-//                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
-//        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
-//
-//         if Auth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-//            return true
-//        }
-//
-//        return false
-//    }
+    //    func application(_ app: UIApplication, open url: URL,
+    //                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    //        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
+    //
+    //         if Auth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+    //            return true
+    //        }
+    //
+    //        return false
+    //    }
     
     // Скрывает label с приветсвием
     func displayHelloLabel() {
         UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
             self.helloLabel.alpha = 0
+            self.displayMapView()
         }, completion: nil)
     }
-    
+    func displayMapView() {
+        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
+            self.mapView.alpha = 1
+        }, completion: nil)
+    }
     
     // Появление клавы - делает смещение элементов на 50 поитов
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -344,5 +463,48 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
             }
         }
     }
+    @IBAction func registeryView(_ sender: UIButton) {
+        animationViewIn()
+    }
+    
+    
+    @IBAction func cancelRegistery(_ sender: UIButton) {
+        animationViewOut()
+    }
+    @IBAction func registeryButton(/*_ sender: UIButton*/) {
+        // Проверяем текстовые поля на наличие текста и совпадения пароля
+        // Если все правила не соблюдены - то выходим из данного метода
+        // { return }
+        guard let email = emailTextFieldRegistery.text, let password = passwordTextFieldRegistery.text, emailTextFieldRegistery.text != "", passwordTextFieldRegistery.text != "", passwordTextFieldRegistery.text == twoPasswordTextFieldRegistery.text else { return }
+        // Регистрация на сервере
+        
+        // Присвоение email и password
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error == nil {
+                if user != nil {
+                    // AlertController c успешной регистрацией
+                    let alertController = UIAlertController(title: "Поздравляем", message: "Регистрация прошла успешно", preferredStyle: .alert)
+                    let cancelButton = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                        loginViewController.loginText = email
+                        print(email)
+                        self.present(loginViewController, animated: true, completion: nil)
+                    })
+                    alertController.addAction(cancelButton)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    
+                    //                    self.newContactList(name: self.nickNameTextFieldRegistery.text!, email: self.emailTextFieldRegistery.text!)
+                    print("ok")
+                } else {
+                    print("not create")
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
+        
+    }
     
 }
+

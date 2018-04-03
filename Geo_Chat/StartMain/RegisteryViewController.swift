@@ -26,6 +26,8 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowRegistery), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideRegistery), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         //
         guard let currentUser = Auth.auth().currentUser else { return }
         // user
@@ -34,8 +36,7 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
         ref = Database.database().reference(withPath: "Geo_chat")
         
         // Появление и скрытие клавы
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowRegistery), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideRegistery), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         
         nickNameTextField.delegate = self
         nickNameTextField.returnKeyType = .next
@@ -120,27 +121,27 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
 //        return true
 //    }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text?.index(of: " ") != nil, (passwordTextField.text?.count)! <= 5 {
-            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return false
-        }
-    
-        if textField == nickNameTextField {
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
-            twoPasswordTextField.becomeFirstResponder()
-        } else if textField == twoPasswordTextField {
-            emailTextField.becomeFirstResponder()
-        } else if textField == emailTextField {
-            textField.resignFirstResponder()
-            self.view.endEditing(true)
-            registeryButton()
-        }
-        return false
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        if textField.text?.index(of: " ") != nil, (passwordTextField.text?.count)! <= 5 {
+//            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//            return false
+//        }
+//    
+//        if textField == nickNameTextField {
+//            passwordTextField.becomeFirstResponder()
+//        } else if textField == passwordTextField {
+//            twoPasswordTextField.becomeFirstResponder()
+//        } else if textField == twoPasswordTextField {
+//            emailTextField.becomeFirstResponder()
+//        } else if textField == emailTextField {
+//            textField.resignFirstResponder()
+//            self.view.endEditing(true)
+//            registeryButton()
+//        }
+//        return false
+//    }
     
     func displayNewUserIn() {
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
@@ -188,40 +189,40 @@ class RegisteryViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Кнопка регистрации
-    @IBAction func registeryButton(/*_ sender: UIButton*/) {
-        // Проверяем текстовые поля на наличие текста и совпадения пароля
-        // Если все правила не соблюдены - то выходим из данного метода
-        // { return }
-        guard let email = emailTextField.text, let password = passwordTextField.text, emailTextField.text != "", passwordTextField.text != "", passwordTextField.text == twoPasswordTextField.text else { return }
-        // Регистрация на сервере
-        
-        // Присвоение email и password
-        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error == nil {
-                if user != nil {
-                    // AlertController c успешной регистрацией
-                    let alertController = UIAlertController(title: "Поздравляем", message: "Регистрация прошла успешно", preferredStyle: .alert)
-                    let cancelButton = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                        loginViewController.loginText = email
-                        print(email)
-                        self.present(loginViewController, animated: true, completion: nil)
-                    })
-                    alertController.addAction(cancelButton)
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                    
-                    self.newContactList(name: self.nickNameTextField.text!, email: self.emailTextField.text!)
-                    print("ok")
-                } else {
-                    print("not create")
-                }
-            } else {
-                print(error!.localizedDescription)
-            }
-        })
-        
-    }
+//    @IBAction func registeryButton(/*_ sender: UIButton*/) {
+//        // Проверяем текстовые поля на наличие текста и совпадения пароля
+//        // Если все правила не соблюдены - то выходим из данного метода
+//        // { return }
+//        guard let email = emailTextField.text, let password = passwordTextField.text, emailTextField.text != "", passwordTextField.text != "", passwordTextField.text == twoPasswordTextField.text else { return }
+//        // Регистрация на сервере
+//        
+//        // Присвоение email и password
+//        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+//            if error == nil {
+//                if user != nil {
+//                    // AlertController c успешной регистрацией
+//                    let alertController = UIAlertController(title: "Поздравляем", message: "Регистрация прошла успешно", preferredStyle: .alert)
+//                    let cancelButton = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+//                        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//                        loginViewController.loginText = email
+//                        print(email)
+//                        self.present(loginViewController, animated: true, completion: nil)
+//                    })
+//                    alertController.addAction(cancelButton)
+//                    self.present(alertController, animated: true, completion: nil)
+//                    
+//                    
+//                    self.newContactList(name: self.nickNameTextField.text!, email: self.emailTextField.text!)
+//                    print("ok")
+//                } else {
+//                    print("not create")
+//                }
+//            } else {
+//                print(error!.localizedDescription)
+//            }
+//        })
+//        
+//    }
     
     // Вернутся назад
     @IBAction func cancelButton(_ sender: UIButton) {

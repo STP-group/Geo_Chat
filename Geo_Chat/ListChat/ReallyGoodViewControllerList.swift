@@ -54,7 +54,7 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
         case 1: distance = 1000
             case 2: distance = 5000
             case 3: distance = 25000
-            case 4: distance = 10000000000
+            case 4: distance = 10000000
         default: break
             
         }
