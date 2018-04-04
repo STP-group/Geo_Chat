@@ -13,15 +13,16 @@ import Firebase
 import CoreLocation
 import MapKit
 
+var loginText = ""
+
 class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
-    
-    var loginText = ""
     
     // Location
     let locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
     
     
+    @IBOutlet var viewLogin: UIView!
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
             mapView.layer.cornerRadius = 25
@@ -54,7 +55,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     
     // Отображение сообщения об ошибки
     @IBOutlet weak var warningLabel: UILabel!
-    
+
+    // Рагистрация
     @IBOutlet weak var nickNameTextFieldRegistery: UITextField!
     @IBOutlet weak var emailTextFieldRegistery: UITextField!
     @IBOutlet weak var passwordTextFieldRegistery: UITextField!
@@ -69,29 +71,35 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
             registeryView.layer.masksToBounds = true
         }
     }
-    
+    // Блюр эффект
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    
     var effect:UIVisualEffect!
     
-    
+    // Переменные для вызова функций из других классов
+    var animationView = AnimationViewRegistery()
+    var mapPointView = MapLogo()
+    var registeryUser = RegisterFirebase()
+    var ref: DatabaseReference!
     
     // MARK: - Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference(withPath: "Geo_chat")
         
         effect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.isHidden = true
         mapView.alpha = 0
         
-        
+        // Текстовые поля регистрации
         nickNameTextFieldRegistery.delegate = self
-        nickNameTextFieldRegistery.returnKeyType = .next
+        self.nickNameTextFieldRegistery.keyboardType = UIKeyboardType.emailAddress
+        //nickNameTextFieldRegistery.returnKeyType = .next
         passwordTextFieldRegistery.delegate = self
-        passwordTextFieldRegistery.returnKeyType = .next
+       // passwordTextFieldRegistery.returnKeyType = .next
         twoPasswordTextFieldRegistery.delegate = self
-        twoPasswordTextFieldRegistery.returnKeyType = .next
+       // twoPasswordTextFieldRegistery.returnKeyType = .next
         emailTextFieldRegistery.delegate = self
         
         
@@ -103,49 +111,23 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         locationManager.requestWhenInUseAuthorization()
         updateCurrentLocation()
         
-        // выполнение функций для загрузки последних сообщений
-        dowloadsListRoomPartTwo()
-        dowloadsListRoomPartOne()
-        
         
         
         emailTextField.text = loginText
+        
+        
         // Появление и скрытие клавы
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+        // Приветствие -> исчезает через 2,5 сек.
         displayHelloLabel()
         
         passwordTextField.delegate = self
         emailTextField.delegate = self
     }
-    func animationViewIn() {
-        self.view.addSubview(registeryView)
-        registeryView.center = self.view.center
-        
-        registeryView.transform = CGAffineTransform.init(translationX: 0, y: -800) //(scaleX: 1.3, y: 1.3)
-        //self.registeryView.alpha = 1
-        
-        UIView.animate(withDuration: 1.4) {
-            self.visualEffectView.isHidden = false
-            self.visualEffectView.effect = self.effect
-            self.registeryView.alpha = 1
-            self.registeryView.transform = CGAffineTransform.identity
-        }
-    }
-    func animationViewOut() {
-        UIView.animate(withDuration: 1.4, animations: {
-            self.registeryView.transform = CGAffineTransform.init(translationX: 0, y: -800)
-            self.registeryView.alpha = 0
-            //self.visualEffectView.isHidden = true
-            self.visualEffectView.effect = nil
-        }) { (succes: Bool) in
-            self.registeryView.removeFromSuperview()
-            self.visualEffectView.isHidden = true
-        }
-        
-    }
-    
+
+    // 
+    //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.index(of: " ") != nil, (passwordTextFieldRegistery.text?.count)! <= 5 {
             let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
@@ -180,86 +162,23 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     // Кординаты пользователя - который хачет зайти в комнату 55.985439, 37.179774 ( 55.978497, 37.158463 )
     var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.978497, longitude: 37.158463)
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        
         let userLocation:CLLocation = locations[0] as CLLocation
-        
-        
+
         UserDefaults.standard.set(userLocation.coordinate.latitude, forKey: "LAT")
         UserDefaults.standard.set(userLocation.coordinate.longitude, forKey: "LON")
         UserDefaults().synchronize()
-        createPin()
         
-        print(userLocation.coordinate.latitude)
-        print(userLocation.coordinate.longitude)
+        //createPin()
         userLocationLatitude = userLocation.coordinate.latitude
         userLocationLongitude = userLocation.coordinate.longitude
-        print(userLocation.coordinate)
-        pointMarkToMaps()
+        mapPointView.pointMarkToMaps(mapView: mapView, guestUserCortinate: guestUserCortinate, userLocationLatitude: userLocationLatitude)
+        mapPointView.createPin(mapView: mapView)
         locationManager.stopUpdatingLocation()
     }
-    func pointMarkToMaps() {
-        
-        // Присвоение кординат комнаты для расчета растояния
-        let locationRoom = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
-        // Присвоение кординат пользователя для расчета растояния
-        let locationGuest = CLLocation(latitude: guestUserCortinate.latitude, longitude: guestUserCortinate.longitude)
-        // Вычисляем расстояние между комнатой и пользователем
-        let distanceInMeters = locationRoom.distance(from: locationGuest)
-        
-        // переводим в целое число ( пример: из 513.212405045983 в 513 )
-        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
-        
-        // Тип расстояния - если расстояние больше 1000метров - то отображается в км, если меньше то в м
-        // Нужно доработать  - если расстояние в километрах - то показывает Пример: 3.26км !
-        //        var typyDistantion = ""
-        //        if distanceInMeters >= 1000 {
-        //            typyDistantion = "км"
-        //        } else {
-        //            typyDistantion = "м"
-        //        }
-        
-        // Ставим точку на карте ( для тестирования )
-        let placeMarkPointAnotation = MKPointAnnotation()
-        // Имя точки
-        placeMarkPointAnotation.title = "Я тут"
-        // Растояние отображается на точке ( смотреть чуть выше )
-        //7           placeMarkPointAnotation.subtitle = "\(subTitleText[0])m"
-        
-        // Точка на карте - используется кординаты комнаты
-        placeMarkPointAnotation.coordinate.latitude = userLocationLatitude
-        placeMarkPointAnotation.coordinate.longitude = userLocationLongitude
-        //roomCordinates
-        // принт расстояния
-        print("растояние \(distanceInMeters)")
-        if distanceInMeters >= 500.0 {
-            print(">500")
-        } else {
-            print("<500")
-        }
-        
-        // отображение на карте
-        self.mapView.showAnnotations([placeMarkPointAnotation], animated: true)
-        self.mapView.selectAnnotation(placeMarkPointAnotation, animated: true)
-    }
-    
+
     // Обновление кординат
     private func updateCurrentLocation() {
         locationManager.startUpdatingLocation()
-    }
-    
-    // Получаем наши кординаты
-    
-    
-    func createPin(){
-        
-        //Access user Location LAT & LON from User Defaults
-        let coordinate =  CLLocationCoordinate2D(latitude: UserDefaults.standard.value(forKey: "LAT") as! CLLocationDegrees, longitude: UserDefaults.standard.value(forKey: "LON") as! CLLocationDegrees)
-        var region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        region.center = coordinate
-        
-        self.mapView.setRegion(region, animated: true)
-        
     }
     
     // Ярослав
@@ -307,7 +226,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     
     // Скрывает label с приветсвием
     func displayHelloLabel() {
-        UIView.animate(withDuration: 0.5, delay: 3.0, options: [], animations: {
+        UIView.animate(withDuration: 0.5, delay: 2.5, options: [], animations: {
             self.helloLabel.alpha = 0
             self.displayMapView()
         }, completion: nil)
@@ -398,78 +317,16 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     }
     
     
-    var refMessages: DatabaseReference!
-    var messageToVC: [Messages] = []
-    var arrayListRoom: [Messages] = []
-    var refMessagesCount: DatabaseReference!
-    var messageCount: [Messages] = []
-    // для Firebase
-    //
-    // Название для комнат
-    let room = ["Курилка", "18+", "Все рядом", "no name", "desk"]
-    var lastRoomMessage = [String]()
-    var lastRoomEmail = [String]()
-    var lastRoomMessageCount = [String]()
-    var lastRoomDate = [String]()
-    //
-    // Имена комнат в базе ( временно )
-    let roomSend = ["numberOne", "numberTwo", "numberThree", "numberFour", "numberFive"]
-    
-    //
-    
-    var ref: DatabaseReference!
-    var task: [Contact] = []
-    
-    
-    
-    func dowloadsListRoomPartThree(text: String) {
-        refMessagesCount = Database.database().reference(withPath: "Geo_chat").child("ROOM").child(text)
-    }
-    func dowloadsListRoomPartTwo() {
-        refMessages = Database.database().reference(withPath: "Geo_chat").child("ROOM")
-    }
-    func dowloadsListRoomPartOne() {
-        refMessages.observe(.value) { [weak self] (snapshot) in
-            for int in 0..<5 {
-                self?.dowloadsListRoomPartThree(text: (self?.roomSend[int])!)
-                self?.refMessagesCount.observe(.value, with: { (snapshot) in
-                    var _listMessages = Array<Messages>()
-                    
-                    for i in snapshot.children {
-                        let task = Messages(snapshot: i as! DataSnapshot)
-                        _listMessages.append(task)
-                    }
-                    self?.messageCount = _listMessages
-                    
-                    if (self?.messageCount.count)! <= 0 {
-                        self?.lastRoomEmail.append("no user")
-                        self?.lastRoomMessage.append("no message")
-                        self?.lastRoomMessageCount.append("0")
-                        self?.lastRoomDate.append(":(")
-                    } else {
-                        let deleteMessage = self?.messageCount.removeLast()
-                        self?.lastRoomEmail.append((deleteMessage?.nameUser)!)
-                        self?.lastRoomMessage.append((deleteMessage?.message)!)
-                        self?.lastRoomMessageCount.append("\((self?.messageCount.count)! + 1)")
-                        self?.lastRoomDate.append((deleteMessage?.date)!)
-                        
-                    }
-                    
-                    lastRoomMessageSend = (self?.lastRoomMessage)!
-                    lastRoomMessageEmail = (self?.lastRoomEmail)!
-                    messageCountCell = (self?.lastRoomMessageCount)!
-                    lastRoomMessageDate = (self?.lastRoomDate)!
-                })
-            }
-        }
-    }
+ 
     @IBAction func registeryView(_ sender: UIButton) {
-        animationViewIn()
+        //animationViewIn()
+        animationView.animationViewIn(globalView: viewLogin, showView: registeryView, visualEffect: visualEffectView, effecView: effect)
     }
     
     
     @IBAction func cancelRegistery(_ sender: UIButton) {
-        animationViewOut()
+        //animationViewOut()
+        animationView.animationViewOut(globalView: viewLogin, showView: registeryView, visualEffect: visualEffectView, effecView: effect)
     }
     @IBAction func registeryButton(/*_ sender: UIButton*/) {
         // Проверяем текстовые поля на наличие текста и совпадения пароля
@@ -477,7 +334,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         // { return }
         guard let email = emailTextFieldRegistery.text, let password = passwordTextFieldRegistery.text, emailTextFieldRegistery.text != "", passwordTextFieldRegistery.text != "", passwordTextFieldRegistery.text == twoPasswordTextFieldRegistery.text else { return }
         // Регистрация на сервере
-        
+
         // Присвоение email и password
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error == nil {
@@ -486,24 +343,21 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
                     let alertController = UIAlertController(title: "Поздравляем", message: "Регистрация прошла успешно", preferredStyle: .alert)
                     let cancelButton = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
                         let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                        loginViewController.loginText = email
+                        loginText = email
                         print(email)
                         self.present(loginViewController, animated: true, completion: nil)
                     })
                     alertController.addAction(cancelButton)
                     self.present(alertController, animated: true, completion: nil)
-                    
-                    
-                    //                    self.newContactList(name: self.nickNameTextFieldRegistery.text!, email: self.emailTextFieldRegistery.text!)
-                    print("ok")
+                    self.registeryUser.newContactList(name: self.nickNameTextFieldRegistery.text!, email: self.emailTextFieldRegistery.text!, ref: self.ref)
                 } else {
-                    print("not create")
+                    return
                 }
             } else {
                 print(error!.localizedDescription)
             }
         })
-        
+
     }
     
 }

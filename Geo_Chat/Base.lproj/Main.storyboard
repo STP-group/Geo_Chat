@@ -134,6 +134,7 @@
                         <outlet property="registeryView" destination="M1t-2m-ijd" id="HZK-d9-7Xk"/>
                         <outlet property="steckViewLogin" destination="9d5-Qv-iwi" id="Ubf-Jm-oro"/>
                         <outlet property="twoPasswordTextFieldRegistery" destination="pN9-zH-64S" id="gAk-4a-9An"/>
+                        <outlet property="viewLogin" destination="8bC-Xf-vdC" id="jph-cR-SEc"/>
                         <outlet property="visualEffectView" destination="cZf-hY-yuu" id="AyX-bd-9dq"/>
                         <outlet property="warningLabel" destination="wny-rf-XBs" id="ZeC-Z5-vvH"/>
                         <segue destination="l4m-dH-tBy" kind="show" identifier="testSegue" id="PiW-WB-sn2"/>
@@ -223,7 +224,7 @@
                                             <rect key="frame" x="0.0" y="12" width="230.33333333333334" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
