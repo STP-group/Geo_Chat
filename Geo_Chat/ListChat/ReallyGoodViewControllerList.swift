@@ -30,8 +30,6 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     var refUserInfoDetail: DatabaseReference!
     var task: [Contact] = []
     
-    var testArray: [CreateRoomCell] = []
-    
     
 //    var refMessages: DatabaseReference!
 //    var messageToVC: [Messages] = []
@@ -80,7 +78,7 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
         
         
         
-        print(sender.numberOfSegments)
+       
         switch sender.selectedSegmentIndex {
         case 0: distance = 500
         case 1: distance = 1000
@@ -199,34 +197,7 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
 //            // переводим в целое число ( пример: из 513.212405045983 в 513 )
 //            let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
 //        }
-        var _dist = Array<CreateRoomCell>()
-        for dis in rooms {
-            let locationUser = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
-            
-            // Присвоение кординат пользователя для расчета растояния
-            let locationRoom = CLLocation(latitude: dis.locationX, longitude: dis.locationY)
-            
-            // Вычисляем расстояние между комнатой и пользователем
-            let distanceInMeters = locationRoom.distance(from: locationUser)
-            
-            // переводим в целое число ( пример: из 513.212405045983 в 513 )
-            let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
-
-            let task = CreateRoomCell(snapshot: dis as! DataSnapshot)
-            
-            if distanceInMeters >= Double(distance) {
-                _dist.append(task)
-                print(task)
-                print(distance)
-            } else {
-                print("No")
-                //cell.isHidden = false
-               // cell.clearsContextBeforeDrawing = false
-            }
-            
-        }
-        self.testArray = _dist
-        self.tableView.reloadData()
+        
     }
     
     // Ярослав
@@ -238,7 +209,7 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
     // Ярослав
     //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray.count
+        return rooms.count
     }
     
     
@@ -251,33 +222,42 @@ class ReallyGoodViewControllerList: UIViewController, UITableViewDelegate, UITab
         let cell2 = cell
         // блок кода, отвечающий за фон чата. IndexPath не выйдет за пределы массива с цветом
         colorCell(indexPath: indexPath, cell: cell2)
-//
-//        // Присвоение кординат комнаты для расчета растояния
-//        let locationUser = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
-//
-//        // Присвоение кординат пользователя для расчета растояния
-//        let locationRoom = CLLocation(latitude: rooms[indexPath.row].locationX, longitude: rooms[indexPath.row].locationY)
-//
-//        // Вычисляем расстояние между комнатой и пользователем
-//        let distanceInMeters = locationRoom.distance(from: locationUser)
-//
-//        // переводим в целое число ( пример: из 513.212405045983 в 513 )
-//        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
-        
-//        var distanceArray:[CreateRoomCell] = []
-//        if distanceInMeters >= Double(distance) {
-//            //cell.isHidden = true
-//            cell.clearsContextBeforeDrawing = true
-//            distanceArray.append(rooms[indexPath.row])
-//            //distanceArray.append(rooms[indexPath.row])
-//            print(distance)
-//        } else {
-//            //cell.isHidden = false
-//            cell.clearsContextBeforeDrawing = false
-//        }
+
+        // Присвоение кординат комнаты для расчета растояния
+        let locationUser = CLLocation(latitude: userLocationLatitude, longitude: userLocationLongitude)
+
+        // Присвоение кординат пользователя для расчета растояния
+        let locationRoom = CLLocation(latitude: rooms[indexPath.row].locationX, longitude: rooms[indexPath.row].locationY)
+
+        // Вычисляем расстояние между комнатой и пользователем
+        let distanceInMeters = locationRoom.distance(from: locationUser)
+
+        var meters = ""
+        var oneKilo = ""
+        var twoKilo = ""
+        var threeKilo = ""
+        if distanceInMeters >= 0.0, distanceInMeters <= 100000000.0 {
+            let one = "\(distanceInMeters)".components(separatedBy: ".")
+            let stringArray = Array(one)
+            oneKilo = "\(stringArray[0]).\(stringArray[1])"
+            print(oneKilo)
+        }
+        // переводим в целое число ( пример: из 513.212405045983 в 513 )
+        let subTitleText = "\(distanceInMeters)".components(separatedBy: ".")
         
         
-        cell.chatRoomName.text = testArray[indexPath.row].name
+        if distanceInMeters >= Double(distance) {
+            cell.clearsContextBeforeDrawing = true
+            
+            
+            print(distance)
+        } else {
+            
+            cell.clearsContextBeforeDrawing = false
+        }
+        
+        
+        cell.chatRoomName.text = rooms[indexPath.row].name
             //rooms[indexPath.row].name
        // cell.distanceToRoom.text = subTitleText[0]
         //

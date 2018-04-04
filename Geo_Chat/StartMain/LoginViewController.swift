@@ -55,7 +55,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     
     // Отображение сообщения об ошибки
     @IBOutlet weak var warningLabel: UILabel!
-
+    
     // Рагистрация
     @IBOutlet weak var nickNameTextFieldRegistery: UITextField!
     @IBOutlet weak var emailTextFieldRegistery: UITextField!
@@ -130,14 +130,10 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         emailTextField.keyboardType = .emailAddress
         emailTextField.returnKeyType = .next
     }
-
-<<<<<<< HEAD
+    
     //
     //
-=======
-    // 
     // Переключает поле ввода при нажатии на Return
->>>>>>> 0f1b22847e62913387e4f228dc1153fdb8b5f25d
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.index(of: " ") != nil, (passwordTextFieldRegistery.text?.count)! <= 5 {
             let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
@@ -148,7 +144,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
-            } else if textField == passwordTextField {
+        } else if textField == passwordTextField {
             textField.resignFirstResponder()
             loginAuthentication()
         }
@@ -180,7 +176,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     var guestUserCortinate = CLLocationCoordinate2D(latitude: 55.978497, longitude: 37.158463)
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-
+        
         UserDefaults.standard.set(userLocation.coordinate.latitude, forKey: "LAT")
         UserDefaults.standard.set(userLocation.coordinate.longitude, forKey: "LON")
         UserDefaults().synchronize()
@@ -192,7 +188,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         mapPointView.createPin(mapView: mapView)
         locationManager.stopUpdatingLocation()
     }
-
+    
     // Обновление кординат
     private func updateCurrentLocation() {
         locationManager.startUpdatingLocation()
@@ -301,7 +297,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     }
     
     
- 
+    
     @IBAction func registeryView(_ sender: UIButton) {
         //animationViewIn()
         animationView.animationViewIn(globalView: viewLogin, showView: registeryView, visualEffect: visualEffectView, effecView: effect)
@@ -318,7 +314,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         // { return }
         guard let email = emailTextFieldRegistery.text, let password = passwordTextFieldRegistery.text, emailTextFieldRegistery.text != "", passwordTextFieldRegistery.text != "", passwordTextFieldRegistery.text == twoPasswordTextFieldRegistery.text else { return }
         // Регистрация на сервере
-
+        
         // Присвоение email и password
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error == nil {
@@ -342,23 +338,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
             }
         })
     }
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 
