@@ -95,12 +95,14 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         // Текстовые поля регистрации
         nickNameTextFieldRegistery.delegate = self
         self.nickNameTextFieldRegistery.keyboardType = UIKeyboardType.emailAddress
-        //nickNameTextFieldRegistery.returnKeyType = .next
+        nickNameTextFieldRegistery.returnKeyType = .next
         passwordTextFieldRegistery.delegate = self
-       // passwordTextFieldRegistery.returnKeyType = .next
+        passwordTextFieldRegistery.returnKeyType = .next
         twoPasswordTextFieldRegistery.delegate = self
-       // twoPasswordTextFieldRegistery.returnKeyType = .next
+        twoPasswordTextFieldRegistery.returnKeyType = .next
         emailTextFieldRegistery.delegate = self
+        emailTextFieldRegistery.keyboardType = .emailAddress
+        emailTextFieldRegistery.returnKeyType = .done
         
         
         
@@ -123,17 +125,32 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         displayHelloLabel()
         
         passwordTextField.delegate = self
+        passwordTextField.returnKeyType = .done
         emailTextField.delegate = self
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.returnKeyType = .next
     }
 
+<<<<<<< HEAD
     //
     //
+=======
+    // 
+    // Переключает поле ввода при нажатии на Return
+>>>>>>> 0f1b22847e62913387e4f228dc1153fdb8b5f25d
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.index(of: " ") != nil, (passwordTextFieldRegistery.text?.count)! <= 5 {
             let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
             return false
+        }
+        
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+            } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            loginAuthentication()
         }
         
         if textField == nickNameTextFieldRegistery {
@@ -180,39 +197,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
     private func updateCurrentLocation() {
         locationManager.startUpdatingLocation()
     }
-    
-    // Ярослав
-    // Конфигурирует тип кнопки Return
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            textField.keyboardType = .emailAddress
-            textField.returnKeyType = .next
-        } else {
-            textField.keyboardType = .default
-            textField.returnKeyType = .done
-        }
-        return true
-    }
-    // Переключает поле ввода при нажатии на Return
-    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    //        if textField.text?.index(of: " ") != nil {
-    //            let alert = UIAlertController(title: "Ошибка", message: "Текст не должен содержать пробелы", preferredStyle: .alert)
-    //            alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-    //            present(alert, animated: true, completion: nil)
-    //            return false
-    //        }
-    //
-    //        if textField == emailTextField {
-    //            passwordTextField.becomeFirstResponder()
-    //        } else {
-    //            textField.resignFirstResponder()
-    //            loginAuthentication()
-    //        }
-    //        return false
-    //    }
-    
-    
-    
     //    func application(_ app: UIApplication, open url: URL,
     //                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
     //        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
