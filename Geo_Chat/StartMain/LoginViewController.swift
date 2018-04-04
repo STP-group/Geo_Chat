@@ -126,7 +126,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
         emailTextField.delegate = self
     }
 
-    // 
+    //
     //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.index(of: " ") != nil, (passwordTextFieldRegistery.text?.count)! <= 5 {
@@ -357,8 +357,24 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, UITextFi
                 print(error!.localizedDescription)
             }
         })
-
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
